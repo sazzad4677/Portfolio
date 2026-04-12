@@ -81,7 +81,7 @@ export function HeroInteractiveBackground() {
             >
                 <div
                     ref={setInnerRef(0)}
-                    className="h-32 w-32 rounded-full border border-primary/20 shadow-[0_0_40px_hsl(var(--primary-hsl)/0.08)] md:h-36 md:w-36"
+                    className="h-32 w-32 rounded-full border border-primary/20 md:h-36 md:w-36"
                 />
             </div>
 

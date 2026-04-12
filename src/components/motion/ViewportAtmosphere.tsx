@@ -27,8 +27,8 @@ export function ViewportAtmosphere() {
             const yTo = gsap.quickTo(el, "--atmosphere-y", { duration: 1, ease: "power3.out" });
 
             const onMove = (e: MouseEvent) => {
-                xTo(`${e.clientX}px`);
-                yTo(`${e.clientY}px`);
+                (xTo as any)(`${e.clientX}px`);
+                (yTo as any)(`${e.clientY}px`);
                 // No need to kill() because quickTo handles updates efficiently
             };
 
@@ -52,8 +52,6 @@ export function ViewportAtmosphere() {
             aria-hidden
         >
             {/* Same language as --bg-mesh: large soft radials, full viewport (no max-width column) */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_85vw_70vh_at_15%_35%,hsl(var(--primary-hsl)/0.09)_0%,transparent_58%)]" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_80vw_65vh_at_88%_32%,hsl(var(--primary-hsl)/0.07)_0%,transparent_55%)]" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_95vw_55vh_at_50%_8%,hsl(var(--primary-hsl)/0.05)_0%,transparent_50%)]" />
 
             <div

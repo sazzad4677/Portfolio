@@ -17,6 +17,7 @@ interface ArchiveProject {
 
 const Archive: React.FC = () => {
     const archive: ArchiveProject[] = [
+        // ... projects data ...
         {
             title: "Fency Slider",
             description: "An interactive image search and slider tool powered by Pixabay API. Allows users to dynamicly generate sliders with custom timing and image selections.",
@@ -79,27 +80,41 @@ const Archive: React.FC = () => {
             opacity: 1,
             transition: {
                 staggerChildren: 0.1,
+                delayChildren: 0.2
             },
         },
     };
 
     const itemVariants: Variants = {
-        hidden: { opacity: 0, scale: 0.95 },
+        hidden: { opacity: 0, y: 30, scale: 0.95 },
         visible: {
             opacity: 1,
+            y: 0,
             scale: 1,
-            transition: { duration: 0.5 },
+            transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
         },
     };
 
     return (
         <Element id="archive" name="archive" className="scroll-anchor">
-            <section className="py-16 md:py-20">
-                <div className="mb-12 text-center">
-                    <h2 className="text-2xl font-bold text-foreground md:text-3xl">
-                        Other Noteworthy Projects
-                    </h2>
-                    <p className="mt-4 font-mono text-sm text-primary">view the archive</p>
+            <section className="py-16 md:py-24">
+                <div className="mb-14 text-center">
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                    >
+                        <h2 className="text-2xl font-bold text-foreground md:text-3xl tracking-tight">
+                            Other Noteworthy Projects
+                        </h2>
+                        <a 
+                            href="/archive" 
+                            className="group mt-4 inline-flex items-center gap-2 font-mono text-sm text-primary transition-all hover:gap-3"
+                        >
+                            <span>view the archive</span>
+                            <span className="block h-px w-8 bg-primary/40 transition-all group-hover:w-12 group-hover:bg-primary" />
+                        </a>
+                    </motion.div>
                 </div>
 
                 <motion.ul
@@ -107,27 +122,33 @@ const Archive: React.FC = () => {
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.1 }}
-                    className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+                    className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
                 >
                     {archive.map((project, index) => (
                         <motion.li
                             key={index}
                             variants={itemVariants}
-                            whileHover={{ y: -10 }}
+                            whileHover={{ 
+                                y: -10,
+                                transition: { duration: 0.3, ease: "easeOut" }
+                            }}
                             className="h-full"
                         >
-                            <div className="flex h-full flex-col justify-between rounded-md glass p-8 shadow-xs transition-shadow hover:shadow-xl group">
+                            <div className="flex h-full flex-col justify-between rounded-xl border border-border/40 bg-surface/20 p-8 shadow-sm backdrop-blur-md transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 group">
                                 <header>
                                     <div className="mb-8 flex items-center justify-between">
-                                        <div className="text-primary group-hover:scale-110 transition-transform">
-                                            <Folder size={40} strokeWidth={1} />
+                                        <div className="relative">
+                                            <div className="absolute -inset-2 rounded-lg bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity blur-md" />
+                                            <div className="relative text-primary transition-transform duration-500 group-hover:-translate-y-1">
+                                                <Folder size={42} strokeWidth={1} />
+                                            </div>
                                         </div>
-                                        <div className="flex items-center gap-3 text-secondary-foreground/80">
+                                        <div className="flex items-center gap-4 text-secondary-foreground/60 transition-colors">
                                             <a
                                                 href={project.links.github}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="hover:text-primary transition-colors"
+                                                className="hover:text-primary transition-all duration-300 hover:-translate-y-1"
                                                 aria-label="GitHub Link"
                                             >
                                                 <Github size={20} />
@@ -136,7 +157,7 @@ const Archive: React.FC = () => {
                                                 href={project.links.liveLink}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="hover:text-primary transition-colors"
+                                                className="hover:text-primary transition-all duration-300 hover:-translate-y-1"
                                                 aria-label="External Link"
                                             >
                                                 <ExternalLink size={20} />
@@ -144,20 +165,26 @@ const Archive: React.FC = () => {
                                         </div>
                                     </div>
                                     
-                                    <h3 className="mb-2 text-lg font-bold text-foreground transition-colors group-hover:text-primary">
+                                    <h3 className="mb-2 text-xl font-bold text-foreground transition-colors duration-300 group-hover:text-primary">
                                         <a href={project.links.liveLink} target="_blank" rel="noopener noreferrer">
                                             {project.title}
                                         </a>
                                     </h3>
-                                    <p className="text-secondary-foreground leading-relaxed text-sm">
+                                    <p className="text-secondary-foreground/80 leading-relaxed text-sm line-clamp-4">
                                         {project.description}
                                     </p>
                                 </header>
                                 
-                                <footer className="mt-8">
-                                    <ul className="flex flex-wrap gap-x-3 gap-y-1 font-mono text-[10px] text-primary/70">
+                                <footer className="mt-8 pt-6 border-t border-border/10">
+                                    <ul className="flex flex-wrap gap-x-3 gap-y-2 font-mono text-[10px] text-primary/80">
                                         {project.technologies.map((tech, i) => (
-                                            <li key={i}>{tech}</li>
+                                            <li 
+                                                key={i} 
+                                                className="flex items-center gap-1.5 rounded-md border border-primary/10 bg-primary/5 px-2.5 py-1 transition-all duration-300 group-hover:border-primary/30 group-hover:bg-primary/10 group-hover:text-primary"
+                                            >
+                                                <span className="h-1 w-1 rounded-full bg-primary/40 animate-pulse" />
+                                                {tech}
+                                            </li>
                                         ))}
                                     </ul>
                                 </footer>

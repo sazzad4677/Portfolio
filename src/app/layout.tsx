@@ -1,18 +1,12 @@
 import { Metadata } from 'next';
-import { JetBrains_Mono, Plus_Jakarta_Sans } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import '../index.css';
 import { ThemeProvider } from "@/components/theme-provider";
 import JsonLd from './json-ld';
 
-const plusJakarta = Plus_Jakarta_Sans({
+const inter = Inter({
     subsets: ['latin'],
-    variable: '--font-plus-jakarta',
-    display: 'swap',
-});
-
-const jetbrainsMono = JetBrains_Mono({
-    subsets: ['latin'],
-    variable: '--font-jetbrains-mono',
+    variable: '--font-inter',
     display: 'swap',
 });
 
@@ -76,11 +70,11 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" className={`${plusJakarta.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
+        <html lang="en" className={`${inter.variable}`} suppressHydrationWarning>
             <head>
                 <JsonLd />
             </head>
-            <body className={`${plusJakarta.className} antialiased selection:bg-primary/30 selection:text-primary`}>
+            <body className={`${inter.className} antialiased selection:bg-primary/30 selection:text-primary`}>
                 <ThemeProvider
                     attribute="data-theme"
                     defaultTheme="navy"

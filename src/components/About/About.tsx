@@ -41,9 +41,7 @@ const About: React.FC = () => {
                 variants={revealVariants}
                 className="py-24 relative overflow-hidden"
             >
-                {/* Decorative background elements */}
-                <div className="absolute -right-20 top-40 z-0 h-64 w-64 rounded-full bg-primary/5 blur-[100px] pointer-events-none" />
-                <div className="absolute -left-20 bottom-20 z-0 h-80 w-80 rounded-full bg-secondary/5 blur-[120px] pointer-events-none" />
+
 
                 <div className="site-container relative z-10">
                     <div className="mb-14 flex items-center space-x-4">

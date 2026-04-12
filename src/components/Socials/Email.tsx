@@ -27,7 +27,7 @@ const Email: React.FC = () => {
                 initial={{ height: 0 }}
                 animate={{ height: "100px" }}
                 transition={{ duration: 0.8, delay: 2.2 }}
-                className="w-px bg-border"
+                className="w-px bg-gradient-to-t from-transparent via-primary/35 to-primary/15"
             />
         </div>
     );

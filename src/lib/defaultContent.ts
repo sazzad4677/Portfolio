@@ -101,7 +101,7 @@ export const defaultContent: PortfolioContent = {
             id: 1,
             company: "MMHI",
             name: "MyMedical Hub International",
-            position: "Software Enginner",
+            position: "Software Engineer",
             range: "March 2024 - Present",
             website: "https://mymedicalhub.com/",
             description: [
@@ -112,7 +112,8 @@ export const defaultContent: PortfolioContent = {
                 "Participated in code reviews and worked closely with the development team to maintain high code quality and adhere to best practices.",
                 "Troubleshot and resolved frontend bugs and issues promptly, contributing to enhanced user satisfaction.",
                 "Stayed updated with the latest frontend technologies to continuously improve the application's interface and user experience."
-            ]
+            ],
+            technologies: ["React", "JavaScript", "HTML/CSS", "Next.js", "Context API", "Responsive Design"]
         },
         {
             id: 2,
@@ -124,7 +125,8 @@ export const defaultContent: PortfolioContent = {
             description: [
                 "I have extensive experience working with a diverse range of platforms, frameworks, and content management systems. These include JavaScript, TypeScript, React, Next.js, Express, and MongoDB. I am adept at leveraging these technologies to deliver high-quality solutions and optimize business operations.",
                 "Demonstrated success in managing server infrastructure with AWS, leading and motivating teams, and fostering strong relationships with colleagues."
-            ]
+            ],
+            technologies: ["TypeScript", "Next.js", "Express.js", "MongoDB", "AWS", "UI/UX"]
         }
     ],
 

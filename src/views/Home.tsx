@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { scroller } from "react-scroll";
 import Loader from "../components/Loader/Loader";
 import About from "../components/About/About";
 import Experience from "../components/Experience/Experience";
@@ -13,6 +14,23 @@ import Works from "../components/Works/Works";
 import Footer from "../components/Footer/Footer";
 import Contact from "../components/Contact/Contact";
 import Archive from "../components/Archive/Archive";
+import { ScrollParallaxLayers } from "../components/motion/ScrollParallaxLayers";
+import { ViewportAtmosphere } from "../components/motion/ViewportAtmosphere";
+import { CustomCursor } from "../components/motion/CustomCursor";
+import { HeroParallax } from "../components/motion/HeroParallax";
+import { HeroInteractiveBackground } from "../components/motion/HeroInteractiveBackground";
+import ScrollToTop from "../components/Shared/ScrollToTop";
+
+const HASH_SCROLL_TARGETS = new Set([
+"home",
+"about",
+"jobs",
+"projects",
+"contact",
+"archive",
+]);
+
+const HASH_SCROLL_OFFSET = -108;
 
 const Home: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(true);
@@ -22,6 +40,20 @@ const Home: React.FC = () => {
     useEffect(() => {
         setMounted(true);
     }, []);
+
+    useEffect(() => {
+        if (loading) return;
+        const raw = window.location.hash.replace(/^#/, "");
+        if (!raw || !HASH_SCROLL_TARGETS.has(raw)) return;
+        const timer = window.setTimeout(() => {
+            scroller.scrollTo(raw, {
+                smooth: true,
+                duration: 500,
+                offset: HASH_SCROLL_OFFSET,
+            });
+        }, 200);
+        return () => clearTimeout(timer);
+    }, [loading]);
 
     if (!mounted) return null;
 
@@ -35,11 +67,18 @@ const Home: React.FC = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5 }}
+                    className="relative"
                 >
+                    <HeroInteractiveBackground />
+                    <ScrollParallaxLayers />
+                    <ViewportAtmosphere />
+                    <CustomCursor />
+                    <ScrollToTop />
                     <Header />
-                    <div className="flex flex-col gap-24 sm:gap-32 md:gap-40 lg:gap-48 pb-24">
+                    <div className="relative z-10 flex flex-col gap-12 sm:gap-16 md:gap-20 pb-10">
                         <Hero />
-                        <div className="container mx-auto px-6 md:px-12 lg:px-24 space-y-32 md:space-y-48">
+                        <HeroParallax />
+                        <div className="container mx-auto px-6 md:px-12 lg:px-24 space-y-16 md:space-y-20">
                             <About />
                             <Experience />
                             <Works />

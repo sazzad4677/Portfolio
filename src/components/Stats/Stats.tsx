@@ -48,7 +48,7 @@ const StatCard: React.FC<StatCardProps> = ({ value, label, suffix = "", duration
             transition={{ duration: 0.5 }}
             className="glass rounded-lg p-6 hover-lift hover-glow text-center"
         >
-            <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
+            <div className="mb-2 text-3xl font-bold text-primary md:text-4xl">
                 {count}{suffix}
             </div>
             <div className="text-secondary-foreground/60 font-mono text-sm tracking-wide">

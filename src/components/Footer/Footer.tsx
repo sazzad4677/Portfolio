@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
     ];
 
     return (
-        <footer className="py-12 px-6 text-center">
+        <footer className="mt-4 bg-background/40 px-6 py-10 text-center backdrop-blur-sm md:py-12">
             {/* Mobile Socials */}
             <ul className="flex items-center justify-center gap-6 mb-6 md:hidden">
                 {socialLinks.map((link) => (

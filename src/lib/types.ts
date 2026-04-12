@@ -42,6 +42,7 @@ export interface Experience {
     range: string;
     website: string;
     description: string[];
+    technologies?: string[];
 }
 
 export interface ContactContent {

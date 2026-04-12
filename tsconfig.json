@@ -9,6 +9,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
+    "ignoreDeprecations": "6.0",
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -19,7 +20,6 @@
     "jsx": "react-jsx",
     "incremental": true,
     "baseUrl": ".",
-    "ignoreDeprecations": "6.0",
     "plugins": [
       {
         "name": "next"

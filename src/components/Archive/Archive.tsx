@@ -93,10 +93,10 @@ const Archive: React.FC = () => {
     };
 
     return (
-        <Element id="archive" name="archive">
-            <section className="py-24">
+        <Element id="archive" name="archive" className="scroll-anchor">
+            <section className="py-16 md:py-20">
                 <div className="mb-12 text-center">
-                    <h2 className="text-3xl font-bold text-foreground md:text-4xl">
+                    <h2 className="text-2xl font-bold text-foreground md:text-3xl">
                         Other Noteworthy Projects
                     </h2>
                     <p className="mt-4 font-mono text-sm text-primary">view the archive</p>
@@ -122,7 +122,7 @@ const Archive: React.FC = () => {
                                         <div className="text-primary group-hover:scale-110 transition-transform">
                                             <Folder size={40} strokeWidth={1} />
                                         </div>
-                                        <div className="flex items-center gap-3 text-secondary-foreground/60">
+                                        <div className="flex items-center gap-3 text-secondary-foreground/80">
                                             <a
                                                 href={project.links.github}
                                                 target="_blank"
@@ -144,12 +144,12 @@ const Archive: React.FC = () => {
                                         </div>
                                     </div>
                                     
-                                    <h3 className="mb-2 text-xl font-bold text-foreground group-hover:text-primary transition-colors">
+                                    <h3 className="mb-2 text-lg font-bold text-foreground transition-colors group-hover:text-primary">
                                         <a href={project.links.liveLink} target="_blank" rel="noopener noreferrer">
                                             {project.title}
                                         </a>
                                     </h3>
-                                    <p className="text-secondary-foreground/80 leading-relaxed text-sm">
+                                    <p className="text-secondary-foreground leading-relaxed text-sm">
                                         {project.description}
                                     </p>
                                 </header>

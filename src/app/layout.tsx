@@ -1,12 +1,18 @@
 import { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { JetBrains_Mono, Plus_Jakarta_Sans } from 'next/font/google';
 import '../index.css';
 import { ThemeProvider } from "@/components/theme-provider";
 import JsonLd from './json-ld';
 
-const inter = Inter({
+const plusJakarta = Plus_Jakarta_Sans({
     subsets: ['latin'],
-    variable: '--font-inter',
+    variable: '--font-plus-jakarta',
+    display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+    subsets: ['latin'],
+    variable: '--font-jetbrains-mono',
     display: 'swap',
 });
 
@@ -62,25 +68,30 @@ export const metadata: Metadata = {
     manifest: '/manifest.json',
 };
 
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
+
 export default function RootLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" className={`${inter.variable}`} suppressHydrationWarning>
+        <html lang="en" className={`${plusJakarta.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
             <head>
                 <JsonLd />
             </head>
-            <body className={`${inter.className} antialiased selection:bg-primary/30 selection:text-primary`}>
+            <body className={`${plusJakarta.className} antialiased selection:bg-primary/30 selection:text-primary`}>
                 <ThemeProvider
                     attribute="data-theme"
                     defaultTheme="navy"
                     enableSystem
                     disableTransitionOnChange
                 >
-                    <main className="min-h-screen bg-background transition-colors duration-500">
-                        {children}
+                    <div className="bg-mesh-layer" aria-hidden="true" />
+                    <main className="min-h-screen bg-transparent transition-colors duration-500">
+                        <SmoothScroll>
+                            {children}
+                        </SmoothScroll>
                     </main>
                 </ThemeProvider>
             </body>

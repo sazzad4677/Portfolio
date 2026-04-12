@@ -1,6 +1,7 @@
 import { motion, Variants } from "framer-motion";
 import React, { useState, useEffect } from "react";
 import { Element } from "react-scroll/modules";
+import { HeroInteractiveBackground } from "@/components/motion/HeroInteractiveBackground";
 import contentManager from "@/lib/contentManager";
 import { HeroContent } from "@/lib/types";
 
@@ -40,19 +41,28 @@ const Hero: React.FC = () => {
     };
 
     return (
-        <Element name="home">
+        <Element name="home" className="scroll-anchor">
             <motion.section
+                id="home"
                 variants={container}
                 initial="initial"
                 animate="animate"
-                className="relative flex min-h-screen flex-col items-start justify-center overflow-hidden py-20"
+                className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-x-clip"
             >
-                {/* Background decorative element */}
-                <div className="absolute -left-10 top-20 -z-10 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
-                <div className="absolute right-0 bottom-20 -z-10 h-80 w-80 rounded-full bg-secondary/10 blur-3xl" />
 
+                {/* Scroll parallax orbs (HeroParallax) — sit above grid, below copy */}
+                <div
+                    data-parallax-orb="a"
+                    className="absolute -left-16 top-20 z-[1] h-72 w-72 rounded-full bg-primary/10 blur-[80px]"
+                />
+                <div
+                    data-parallax-orb="b"
+                    className="absolute -right-8 bottom-20 z-[1] h-96 w-96 rounded-full bg-secondary/10 blur-[90px]"
+                />
+
+                <div className="site-container relative z-10 flex flex-col items-start">
                 <motion.div variants={item}>
-                    <h1 className="mb-4 ml-1 font-mono text-base tracking-widest text-primary md:text-lg">
+                    <h1 className="mb-4 ml-1 font-mono text-sm tracking-widest text-primary md:text-base">
                         {content.greeting}
                     </h1>
                 </motion.div>
@@ -60,7 +70,7 @@ const Hero: React.FC = () => {
                 <motion.div variants={item}>
                     <h2
                         className="font-sans font-bold tracking-tight text-on-background"
-                        style={{ fontSize: "clamp(48px, 10vw, 92px)", lineHeight: 1.1 }}
+                        style={{ fontSize: "clamp(38px, 8vw, 76px)", lineHeight: 1.1 }}
                     >
                         <span className="text-gradient">{content.name}</span>
                     </h2>
@@ -69,14 +79,14 @@ const Hero: React.FC = () => {
                 <motion.div variants={item}>
                     <h3
                         className="mt-2 font-sans font-bold leading-tight text-on-surface-variant/80"
-                        style={{ fontSize: "clamp(36px, 8vw, 76px)" }}
+                        style={{ fontSize: "clamp(28px, 6.5vw, 60px)" }}
                     >
                         {content.tagline}
                     </h3>
                 </motion.div>
 
                 <motion.div variants={item}>
-                    <p className="mt-8 max-w-[650px] text-lg leading-relaxed text-on-surface-variant/90 md:text-xl">
+                    <p className="mt-8 max-w-[650px] text-base leading-relaxed text-on-surface-variant/90 md:text-lg">
                         {content.description}
                     </p>
                 </motion.div>
@@ -91,6 +101,7 @@ const Hero: React.FC = () => {
                         <span className="relative z-10">{content.ctaText}</span>
                     </motion.a>
                 </motion.div>
+                </div>
             </motion.section>
         </Element>
     );

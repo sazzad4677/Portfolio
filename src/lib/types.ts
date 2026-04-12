@@ -5,6 +5,8 @@ export interface HeroContent {
     description: string;
     ctaText: string;
     ctaLink: string;
+    cvLink?: string;
+    videoUrl?: string;
 }
 
 export interface AboutContent {

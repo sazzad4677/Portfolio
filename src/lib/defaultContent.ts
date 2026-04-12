@@ -4,32 +4,34 @@ export const defaultContent: PortfolioContent = {
     hero: {
         greeting: "Hi, my name is",
         name: "Sazzad Hossain.",
-        tagline: "I build things for the web.",
-        description: "A self-motivated and enthusiastic full stack developer with a deep interest in JavaScript.",
+        tagline: "Software Engineer with <span class=\"text-primary\">4 years of experience</span> architecting scalable systems.",
+        description: "I specialize in building high-performance, AI-driven applications. I bridge the gap between robust backend architectures <span class=\"text-primary\">(Node.js, Express, MongoDB)</span> and modern frontend ecosystems <span class=\"text-primary\">(Next.js, React)</span> to engineer real-time, full-stack solutions.",
         ctaText: "Get In Touch",
-        ctaLink: "mailto:sazzad4677@gmail.com"
+        ctaLink: "mailto:sazzad4677@gmail.com",
+        cvLink: "https://drive.google.com/file/d/1ffycRhonZegQk2VJjfsa_g_AZAOj_5Xw/view?usp=drive_link",
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ"
     },
 
     about: {
         paragraphs: [
-            "I'm a passionate <span class=\"text-primary\">Full-Stack Developer</span> focused on efficiency and continuous learning. I specialize in web applications, app development, and website creation.",
-            "My goal is to create <span class=\"text-primary\">scalable, efficient</span> programs and engaging, pixel-perfect user experiences.",
-            "I'm currently seeking a <span class=\"text-primary\">web development job</span> and am eager to contribute as a dedicated, positive team member."
+            "With nearly <span class=\"text-primary\">4 years of professional experience</span> as a Software Engineer, I focus on high-performance Full-Stack architecture, real-time systems, and AI-driven analytics. I move beyond standard feature implementation to engineer solutions that scale and drive business impact.",
+            "My expertise spans the entire stack. On the backend, I architect scalable APIs and microservices using <span class=\"text-primary\">Node.js, Express 5, and MongoDB</span>, optimizing for high concurrency with Redis. On the frontend, I manage complex server state with <span class=\"text-primary\">Tanstack Query</span> and translate those robust backends into seamless user experiences using Next.js 16 and React 19.",
+            "I thrive on solving complex engineering challenges—from orchestrating real-time data with <span class=\"text-primary\">WebRTC and Socket.io</span> to integrating LLMs into enterprise workflows. I am dedicated to clean architecture, CI/CD automation, and delivering highly testable, accessible applications."
         ],
-        skillsHeading: "Here are a few technologies I've been working with recently:",
+        skillsHeading: "Here is the core technical stack I leverage daily:",
         profileImage: "/images/me.jpg"
     },
 
     skills: [
-        { id: 1, name: "HTML & CSS" },
-        { id: 2, name: "JavaScript (ES6+)" },
-        { id: 3, name: "Bootstrap" },
-        { id: 4, name: "Tailwind CSS" },
-        { id: 5, name: "React & Redux" },
-        { id: 6, name: "Node.js" },
-        { id: 7, name: "MongoDB" },
-        { id: 8, name: "Express.js" },
-        { id: 9, name: "Mongoose" }
+        { id: 1, name: "Node.js & Express 5" },
+        { id: 2, name: "MongoDB & Redis" },
+        { id: 3, name: "Next.js 16 & React 19" },
+        { id: 4, name: "TypeScript" },
+        { id: 5, name: "Socket.io & WebRTC" },
+        { id: 6, name: "Docker & AWS" },
+        { id: 7, name: "Tailwind CSS 4" },
+        { id: 8, name: "Tanstack Query & Zustand" },
+        { id: 9, name: "LLM Integration" }
     ],
 
     projects: [

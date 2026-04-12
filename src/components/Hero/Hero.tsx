@@ -85,16 +85,20 @@ const Hero: React.FC = () => {
                         </h2>
                     </motion.div>
 
+
                     <motion.div variants={item}>
-                        <h3 className="mt-2 font-sans font-semibold leading-tight text-on-surface-variant/80" style={{ fontSize: "clamp(24px, 5.5vw, 60px)", lineHeight: 1.2 }}>
-                            {content.tagline}
-                        </h3>
+                        <h3
+                            className="mt-2 font-sans font-semibold leading-tight text-on-surface-variant/80"
+                            style={{ fontSize: "clamp(24px, 5.5vw, 60px)", lineHeight: 1.2 }}
+                            dangerouslySetInnerHTML={{ __html: content.tagline }}
+                        />
                     </motion.div>
 
                     <motion.div variants={item}>
-                        <p className="mt-8 max-w-[650px] text-base leading-relaxed text-on-surface-variant/80 md:text-lg text-balance">
-                            {content.description}
-                        </p>
+                        <p
+                            className="mt-8 mx-auto max-w-[650px] text-base leading-relaxed text-on-surface-variant/80 md:text-lg text-balance"
+                            dangerouslySetInnerHTML={{ __html: content.description }}
+                        />
                     </motion.div>
 
                     <motion.div variants={item} className="mt-12 flex flex-col sm:flex-row items-center gap-4">
@@ -157,7 +161,7 @@ const Hero: React.FC = () => {
                                         <h4 className="font-sans text-sm font-bold text-foreground">Video CV</h4>
                                     </div>
                                 </div>
-                                <button 
+                                <button
                                     onClick={() => setIsVideoOpen(false)}
                                     className="flex h-10 w-10 items-center justify-center rounded-xl hover:bg-white/5 text-secondary-foreground transition-colors"
                                 >

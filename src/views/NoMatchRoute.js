@@ -23,7 +23,7 @@ const NoMatchRoute = () => {
         </p>
         <Link
           href="/"
-          className="ease-ease-transition mt-[50px] block rounded-[4px] border-2 border-primary px-6 py-4 text-center font-mono leading-[1] text-primary transition-colors duration-300 hover:bg-primaryTint md:px-7 md:py-5"
+          className="ease-ease-transition mt-[50px] block rounded-[4px] border-2 border-primary px-6 py-4 text-center font-mono leading-none text-primary transition-colors duration-300 hover:bg-primary-tint md:px-7 md:py-5"
         >
           Go back Home
         </Link>

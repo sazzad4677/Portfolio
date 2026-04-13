@@ -28,7 +28,7 @@ export function ThemeSwitcher() {
     )
 
     return (
-        <DropdownMenu>
+        <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="icon" className="glass hover:bg-primary/10">
                     <Palette className="h-[1.2rem] w-[1.2rem] transition-all" />

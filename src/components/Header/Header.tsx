@@ -109,37 +109,62 @@ const Header: React.FC = () => {
                     </Link>
                 </motion.div>
 
-                {/* Mobile Menu Toggle */}
-                <button
-                    className="flex flex-col gap-1.5 lg:hidden z-50"
-                    onClick={() => setIsOpen(!isOpen)}
-                    aria-label="Toggle Menu"
-                >
-                    <span className={cn("h-0.5 w-6 bg-primary transition-all duration-300", isOpen && "rotate-45 translate-y-2")} />
-                    <span className={cn("h-0.5 w-6 bg-primary transition-all duration-300", isOpen && "opacity-0 scale-x-0")} />
-                    <span className={cn("h-0.5 w-6 bg-primary transition-all duration-300", isOpen && "-rotate-45 -translate-y-2")} />
-                </button>
+                {/* nav controls: Resume + Switcher + Hamburger */}
+                <div className="flex items-center gap-2 sm:gap-4 lg:hidden z-50">
+                    <a
+                        href="/resume.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center rounded-lg border border-primary/40 px-3.5 h-9 font-mono text-[10px] font-bold text-primary transition-all hover:bg-primary/10 active:scale-95 whitespace-nowrap bg-primary/5"
+                    >
+                        Resume
+                    </a>
+                    
+                    <div className="flex items-center">
+                        <ThemeSwitcher />
+                    </div>
+
+                    <button
+                        className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 rounded-lg border border-transparent transition-all active:scale-90"
+                        onClick={() => setIsOpen(!isOpen)}
+                        aria-label="Toggle Menu"
+                    >
+                        <span className={cn("h-0.5 w-5 bg-primary transition-all duration-300", isOpen && "rotate-45 translate-y-2")} />
+                        <span className={cn("h-0.5 w-5 bg-primary transition-all duration-300", isOpen && "opacity-0 scale-x-0")} />
+                        <span className={cn("h-0.5 w-5 bg-primary transition-all duration-300", isOpen && "-rotate-45 -translate-y-2")} />
+                    </button>
+                </div>
+
+                {/* Mobile Menu Backdrop */}
+                <AnimatePresence>
+                    {isOpen && !isDesktop && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            onClick={() => setIsOpen(false)}
+                            className="fixed inset-0 z-30 bg-background/60 backdrop-blur-sm lg:hidden h-screen w-screen -left-[calc((100vw-100%)/2)]"
+                        />
+                    )}
+                </AnimatePresence>
 
                 {/* Desktop and Mobile Navigation */}
-                <AnimatePresence>
+                <AnimatePresence mode="wait">
                     {(isOpen || isDesktop) && (
                         <motion.div
                             variants={navVariants}
                             initial="initial"
                             animate="animate"
-                            exit={{ opacity: 0, y: -20 }}
+                            exit={{ opacity: 0, y: -20, transition: { duration: 0.2 } }}
                             className={cn(
-                                // Mobile: full-width dropdown
-                                "absolute top-full left-0 right-0 w-full glass-dark rounded-b-2xl py-8 px-6 shadow-2xl flex flex-col items-start gap-8 z-40 overflow-hidden border-t-0",
+                                // Mobile: floating card
+                                "absolute top-[calc(100%+0.5rem)] right-0 w-[min(calc(100vw-2rem),20rem)] glass-dark rounded-2xl py-8 px-6 shadow-2xl flex flex-col items-start gap-8 z-40 overflow-hidden border border-primary/10",
                                 // Desktop: inline, compact
                                 "lg:overflow-visible lg:static lg:flex lg:flex-row lg:items-center lg:justify-end lg:bg-transparent lg:backdrop-blur-none lg:border-0 lg:p-0 lg:shadow-none lg:w-auto lg:gap-0",
-                                //                                                                                                                                                              ↑ gap-0 — spacing now handled per-item below
                                 !isDesktop && !isOpen && "hidden"
                             )}
                         >
-                            <ol className="flex flex-col items-start gap-8 lg:flex-row lg:items-center lg:gap-5 xl:gap-7 w-full lg:w-auto">
-                                {/*                                                                        ↑ lg:gap-5 (was gap-10) saves ~35px per gap = ~245px total for 7 items
-                                                                                                             xl:gap-7 gives a little more room on wider screens */}
+                            <ol className="flex flex-col items-start gap-4 lg:flex-row lg:items-center lg:gap-5 xl:gap-7 w-full lg:w-auto">
                                 {navLinks.map((link, index) => (
                                     <motion.li
                                         key={link.url}
@@ -152,36 +177,23 @@ const Header: React.FC = () => {
                                             duration={NAV_SCROLL_DURATION}
                                             offset={NAV_SCROLL_OFFSET}
                                             spy
-                                            activeClass="!text-primary"
-                                            className="group flex cursor-pointer flex-row items-baseline gap-1.5 text-foreground transition-colors hover:text-primary py-2 lg:py-0 border-b border-border/10 lg:border-none w-full lg:w-auto text-sm lg:text-[11px] xl:text-xs"
-                                            //                                                                                                                                                             ↑ text-[11px] on lg, text-xs on xl
-                                            //                                                                                                                                                               shaves ~2px per character across all links
+                                            activeClass="!text-primary !bg-primary/5 border-primary/20"
+                                            className="group flex cursor-pointer flex-row items-center gap-3 text-foreground transition-all hover:text-primary py-3 px-4 rounded-xl border border-transparent hover:border-primary/10 hover:bg-primary/5 lg:p-0 lg:border-none w-full lg:w-auto text-sm lg:text-[11px] xl:text-xs"
                                             onClick={() => !isDesktop && setIsOpen(false)}
                                         >
                                             <span className="text-[10px] lg:text-[9px] text-primary font-bold opacity-70">
-                                                {/*  ↑ number prefix smaller and de-emphasised on desktop */}
                                                 0{index + 1}.
                                             </span>
-                                            {link.name}
+                                            <span className="font-semibold lg:font-normal leading-none">{link.name}</span>
                                         </Link>
                                     </motion.li>
                                 ))}
 
-                                {/* Resume + ThemeSwitcher */}
+                                {/* ThemeSwitcher (Desktop only) */}
                                 <motion.li
                                     variants={linkVariants}
-                                    className="flex flex-row items-center justify-between gap-6 w-full lg:w-auto lg:justify-end lg:gap-3 xl:gap-4 lg:ml-4 xl:ml-6 pt-4 lg:pt-0"
-
+                                    className="hidden lg:flex flex-row items-center justify-end gap-3 xl:gap-4 lg:ml-4 xl:ml-6"
                                 >
-                                    <a
-                                        href="/resume.pdf"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="rounded-xl border border-primary px-4 lg:px-4 xl:px-5 py-2 font-mono text-xs text-primary transition-all hover:bg-primary/10 flex-1 text-center lg:flex-initial whitespace-nowrap"
-
-                                    >
-                                        Resume
-                                    </a>
                                     <ThemeSwitcher />
                                 </motion.li>
                             </ol>

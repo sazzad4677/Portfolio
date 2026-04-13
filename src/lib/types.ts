@@ -80,6 +80,14 @@ export interface Experience {
     technologies?: string[];
 }
 
+export interface Education {
+    id: number;
+    school: string;
+    degree: string;
+    range: string;
+    description: string[];
+}
+
 export interface ContactContent {
     preHeading: string;
     heading: string;
@@ -105,6 +113,7 @@ export interface PortfolioContent {
     projects: Project[];
     archiveProjects: ArchiveProject[];
     experience: Experience[];
+    education: Education[];
     certifications: Certification[];
     contact: ContactContent;
     seo?: SeoContent;

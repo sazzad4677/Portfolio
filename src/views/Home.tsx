@@ -16,6 +16,7 @@ import Contact from "../components/Contact/Contact";
 import Archive from "../components/Archive/Archive";
 import Skills from "../components/Skills/Skills";
 import Services from "../components/Services/Services";
+import Education from "../components/Education/Education";
 import Certifications from "../components/Certifications/Certifications";
 import { ScrollParallaxLayers } from "../components/motion/ScrollParallaxLayers";
 import { ViewportAtmosphere } from "../components/motion/ViewportAtmosphere";
@@ -32,6 +33,7 @@ const HASH_SCROLL_TARGETS = new Set([
 "jobs",
 "projects",
 "archive",
+"education",
 "certifications",
 "contact",
 ]);
@@ -91,6 +93,7 @@ const Home: React.FC = () => {
                             <Experience />
                             <Works />
                             <Archive />
+                            <Education />
                             <Certifications />
                             <Contact />
                         </div>

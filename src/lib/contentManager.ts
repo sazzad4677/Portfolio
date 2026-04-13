@@ -2,7 +2,7 @@
 // Backend functionality removed for modern pure-frontend architecture
 
 import { defaultContent } from './defaultContent';
-import { PortfolioContent, HeroContent, AboutContent, Skill, DetailedSkill, Service, Certification, Project, ArchiveProject, Experience, ContactContent, SeoContent } from './types';
+import { PortfolioContent, HeroContent, AboutContent, Skill, DetailedSkill, Service, Certification, Project, ArchiveProject, Experience, Education, ContactContent, SeoContent } from './types';
 
 type Listener = (content: PortfolioContent) => void;
 
@@ -94,6 +94,10 @@ class ContentManager {
     // Experience
     getExperience(): Experience[] {
         return this.getAllContent().experience || [];
+    }
+
+    getEducation(): Education[] {
+        return this.getAllContent().education || [];
     }
 
     getJob(jobId: number): Experience | undefined {

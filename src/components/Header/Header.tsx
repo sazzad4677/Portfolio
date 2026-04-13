@@ -31,6 +31,7 @@ const Header: React.FC = () => {
         { name: "Services", url: "services" },
         { name: "Experience", url: "jobs" },
         { name: "Work", url: "projects" },
+        { name: "Education", url: "education" },
         { name: "Certifications", url: "certifications" },
         { name: "Contact", url: "contact" },
     ];

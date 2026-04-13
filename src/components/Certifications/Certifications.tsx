@@ -28,7 +28,7 @@ const Certifications = () => {
                             viewport={{ once: true, amount: 0.8 }}
                             className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground relative z-10"
                         >
-                            <span className="text-primary font-mono text-xl mr-2 absolute -left-10 top-2 opacity-50 hidden sm:inline-block">06.</span>
+                            <span className="text-primary font-mono text-xl mr-2 absolute -left-10 top-2 opacity-50 hidden sm:inline-block">07.</span>
                             Certifications
                         </motion.h2>
                         <motion.div

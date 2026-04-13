@@ -102,12 +102,12 @@ export const defaultContent: PortfolioContent = {
             id: 0,
             title: "Smart Inventory & Business Intelligence System",
             description: "An AI-driven enterprise inventory platform featuring real-time state orchestration via Socket.io and Redis. Engineered high-performance analytics dashboards using complex MongoDB aggregations and integrated Google Gemini to transform static data into predictive business insights. Secured with a scalable RBAC governance layer and optimized client-side performance using Zustand and Next.js Server Actions.",
-            technologies: ["Next.js 16", "Node.js", "MongoDB", "Redis", "Socket.io", "Gemini AI"],
+            technologies: ["Next.js 16", "Node.js", "MongoDB", "Zustand", "Socket.io", "Redis", "Docker", "Gemini AI"],
             links: {
                 github: "https://github.com/sazzad4677/Smart-Inventory-System",
-                external: ""
+                external: "https://smart-inventory.sazzad.dev/"
             },
-            image: { url: "inventory.png" }, // Update this URL to your actual screenshot name
+            image: { url: "smart-inventory.png" },
             featured: true
         }
     ],
@@ -145,29 +145,51 @@ export const defaultContent: PortfolioContent = {
             technologies: ["TypeScript", "Next.js", "Express.js", "MongoDB", "AWS", "UI/UX"]
         }
     ],
+    education: [
+        {
+            id: 1,
+            school: "Jahangirnagar University",
+            degree: "MSc in Computer Science & Engineering",
+            range: "Jun 2023 - Dec 2024",
+            description: [
+                "Advanced studies in Computer Science, focusing on complex systems and research-driven methodologies.",
+            ]
+        },
+        {
+            id: 2,
+            school: "Daffodil International University",
+            degree: "BSc in Software Engineering",
+            range: "Jan 2017 - Jan 2022",
+            description: [
+                "Successfully completed a comprehensive degree program with a strong focus on Software Engineering principles, Data Structures, and Algorithmic logic.",
+            ]
+        }
+    ],
 
     certifications: [
         {
             id: 1,
-            title: "JavaScript (Intermediate) Certificate",
+            title: "Software Engineer Certificate",
             issuer: "HackerRank",
-            date: "2023",
-            description: "Demonstrated advanced problem-solving skills in JavaScript including prototypical inheritance, design patterns, event loop mechanisms, and ES6+ features.",
-            link: "https://www.hackerrank.com/certificates/c7186e5dfa0b"
+            date: "12 Apr, 2026",
+            description: "Covers key software engineering topics including Problem solving, SQL, and REST API.",
+            link: "https://www.hackerrank.com/certificates/d0867bcffa3b"
         },
         {
             id: 2,
-            title: "AWS Certified Developer – Associate",
-            issuer: "Amazon Web Services",
-            date: "2023",
-            description: "Proficiency in developing, deploying, and debugging cloud-based applications using AWS. Focused on Serverless architecture, S3, DynamoDB, and EC2.",
+            title: "JavaScript (Intermediate) Certificate",
+            issuer: "HackerRank",
+            date: "12 Apr, 2026",
+            description: "Covers advanced topics like Design Patterns, Memory management, concurrency model, and event loops.",
+            link: "https://www.hackerrank.com/certificates/c7186e5dfa0b"
         },
         {
             id: 3,
-            title: "Meta Front-End Developer Professional Certificate",
-            issuer: "Coursera",
-            date: "2022",
-            description: "Comprehensive certification covering React, UI/UX principles, advanced state management, and web accessibility best practices.",
+            title: "Frontend Developer (React) Certificate",
+            issuer: "HackerRank",
+            date: "12 Apr, 2026",
+            description: "Focused on modern frontend development topics including React, CSS, and JavaScript.",
+            link: "https://www.hackerrank.com/certificates/a38f62ec3d53"
         }
     ],
 

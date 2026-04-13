@@ -77,20 +77,38 @@ const Works: React.FC = () => {
                                                 ))}
                                             </ul>
 
-                                            <div className="flex items-center gap-4 sm:gap-6 pt-1 text-foreground/70">
+                                            <div className="flex flex-wrap items-center gap-2 sm:gap-4 pt-4 border-t border-border/20">
                                                 {project.links.github && (
-                                                    <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="group/icon rounded-lg p-2 transition-all hover:bg-primary/10 hover:text-primary" aria-label="View source on GitHub">
-                                                        <Github size={18} className="sm:w-5 sm:h-5 transition-transform group-hover/icon:-translate-y-1" />
+                                                    <a 
+                                                        href={project.links.github} 
+                                                        target="_blank" 
+                                                        rel="noopener noreferrer" 
+                                                        className="group flex items-center gap-2 rounded-lg bg-surface/60 px-4 py-2.5 text-xs font-mono text-foreground transition-all duration-300 hover:bg-primary/5 hover:text-primary hover:border-primary/30 border border-border/40 backdrop-blur-sm shadow-sm"
+                                                    >
+                                                        <Github size={16} className="transition-transform group-hover:-translate-y-0.5 text-primary/80 group-hover:text-primary" />
+                                                        <span className="font-semibold">Source Code</span>
                                                     </a>
                                                 )}
                                                 {project.links.external && (
-                                                    <a href={project.links.external} target="_blank" rel="noopener noreferrer" className="group/icon rounded-lg p-2 transition-all hover:bg-primary/10 hover:text-primary" aria-label="Open live site">
-                                                        <ExternalLink size={18} className="sm:w-5 sm:h-5 transition-transform group-hover/icon:-translate-y-1" />
+                                                    <a 
+                                                        href={project.links.external} 
+                                                        target="_blank" 
+                                                        rel="noopener noreferrer" 
+                                                        className="group flex items-center gap-2 rounded-lg bg-primary/10 px-3 py-2 text-xs font-mono text-primary transition-all duration-300 hover:bg-primary/20 hover:scale-[1.02] border border-primary/20 shadow-md shadow-primary/5"
+                                                    >
+                                                        <ExternalLink size={16} className="transition-transform group-hover:-translate-y-0.5" />
+                                                        <span className="font-bold">Live Demo</span>
                                                     </a>
                                                 )}
                                                 {project.links.admin && (
-                                                    <a href={project.links.admin} target="_blank" rel="noopener noreferrer" className="group/icon rounded-lg p-2 transition-all hover:bg-primary/10 hover:text-primary" aria-label="Admin">
-                                                        <ShieldCheck size={18} className="sm:w-5 sm:h-5 transition-transform group-hover/icon:-translate-y-1" />
+                                                    <a 
+                                                        href={project.links.admin} 
+                                                        target="_blank" 
+                                                        rel="noopener noreferrer" 
+                                                        className="group flex items-center gap-2 rounded-lg bg-surface/40 px-3 py-2 text-xs font-mono text-secondary-foreground transition-all duration-300 hover:bg-primary/10 hover:text-primary border border-transparent"
+                                                    >
+                                                        <ShieldCheck size={16} className="transition-transform group-hover:-translate-y-0.5" />
+                                                        <span className="font-semibold">Admin Panel</span>
                                                     </a>
                                                 )}
                                             </div>
@@ -102,15 +120,15 @@ const Works: React.FC = () => {
                                                 href={project.links.external || project.links.github}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="relative block aspect-video overflow-hidden rounded-xl border border-border/40 transition-all duration-700 group-hover/card:scale-[1.03] group-hover/card:shadow-2xl group-hover/card:shadow-primary/10"
+                                                className="relative block aspect-[16/10] sm:aspect-video overflow-hidden rounded-xl border border-border/40 bg-surface/10 transition-all duration-700 group-hover/card:scale-[1.02] group-hover/card:shadow-2xl group-hover/card:shadow-primary/10"
                                             >
                                                 <div className="absolute inset-0 z-10 bg-primary/20 mix-blend-multiply opacity-100 transition-all duration-700 group-hover/card:bg-transparent group-hover/card:opacity-0" />
-                                                <div className="absolute inset-0 z-0 bg-primary/5 opacity-0 group-hover/card:opacity-100 transition-opacity duration-700 blur-2xl" />
-                                                <div className="absolute inset-0 z-10 bg-gradient-to-tr from-background/40 via-transparent to-primary/5 opacity-80 transition-opacity duration-500 group-hover/card:opacity-0" />
+                                                <div className="absolute inset-0 z-20 bg-gradient-to-tr from-background/40 via-transparent to-primary/5 opacity-80 transition-opacity duration-500 group-hover/card:opacity-0" />
+                                                
                                                 <img
                                                     src={`/images/${project.image.url}`}
                                                     alt={project.title}
-                                                    className="h-full w-full object-cover transition-all duration-1000 group-hover/card:scale-110"
+                                                    className="w-full h-auto object-top transition-transform duration-[5000ms] ease-in-out group-hover/card:-translate-y-[calc(100%-240px)] md:group-hover/card:-translate-y-[calc(100%-320px)] lg:group-hover/card:-translate-y-[calc(100%-380px)]"
                                                 />
                                             </a>
                                         </div>

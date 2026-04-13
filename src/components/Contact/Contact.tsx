@@ -79,7 +79,7 @@ const Contact: React.FC = () => {
                         <motion.div variants={itemVariants} className="text-center mb-12 md:mb-16">
                             <span className="mb-4 flex items-center justify-center font-mono text-xs tracking-widest text-primary uppercase">
                                 <span className="mr-3 h-px w-6 bg-primary/30" />
-                                07. {content.preHeading}
+                                08. {content.preHeading}
                                 <span className="ml-3 h-px w-6 bg-primary/30" />
                             </span>
                             <h2 className="mb-4 text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground text-balance">

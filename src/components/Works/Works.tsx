@@ -31,7 +31,7 @@ const Works: React.FC = () => {
             <section id="projects" className="py-16 md:py-20 overflow-hidden">
                 <div className="site-container">
                     <div className="mb-10 flex items-center gap-4 md:mb-14">
-                        <h2 className="whitespace-nowrap font-sans text-2xl font-bold tracking-tight text-foreground before:mr-2 before:font-mono before:text-base before:text-primary before:content-['03.'] md:text-3xl">
+                        <h2 className="whitespace-nowrap font-sans text-2xl font-bold tracking-tight text-foreground before:mr-2 before:font-mono before:text-base before:text-primary before:content-['05.'] md:text-3xl">
                             Some Things I&apos;ve Built
                         </h2>
                         <div className="h-px min-w-[2rem] flex-1 bg-gradient-to-r from-border to-transparent" />

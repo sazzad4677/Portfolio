@@ -4,8 +4,8 @@ export const defaultContent: PortfolioContent = {
     hero: {
         greeting: "Hi, my name is",
         name: "Sazzad Hossain.",
-        tagline: "Software Engineer with <span class=\"text-primary\">4 years of experience</span> architecting scalable systems.",
-        description: "I specialize in building high-performance, AI-driven applications. I bridge the gap between robust backend architectures <span class=\"text-primary\">(Node.js, Express, MongoDB)</span> and modern frontend ecosystems <span class=\"text-primary\">(Next.js, React)</span> to engineer real-time, full-stack solutions.",
+        tagline: "Architecting the web, from server to screen.",
+        description: "Software Engineer with <span class=\"text-primary\">almost 4 years of experience</span> building high-performance, AI-driven applications. I bridge the gap between robust backend architectures <span class=\"text-primary\">(Node.js, Express, MongoDB)</span> and modern frontend ecosystems <span class=\"text-primary\">(Next.js, React)</span> to engineer real-time, full-stack solutions.",
         ctaText: "Get In Touch",
         ctaLink: "mailto:sazzad4677@gmail.com",
         cvLink: "https://drive.google.com/file/d/1ffycRhonZegQk2VJjfsa_g_AZAOj_5Xw/view?usp=drive_link",
@@ -14,9 +14,10 @@ export const defaultContent: PortfolioContent = {
 
     about: {
         paragraphs: [
-            "With nearly <span class=\"text-primary\">4 years of professional experience</span> as a Software Engineer, I focus on high-performance Full-Stack architecture, real-time systems, and AI-driven analytics. I move beyond standard feature implementation to engineer solutions that scale and drive business impact.",
-            "My expertise spans the entire stack. On the backend, I architect scalable APIs and microservices using <span class=\"text-primary\">Node.js, Express 5, and MongoDB</span>, optimizing for high concurrency with Redis. On the frontend, I manage complex server state with <span class=\"text-primary\">Tanstack Query</span> and translate those robust backends into seamless user experiences using Next.js 16 and React 19.",
-            "I thrive on solving complex engineering challenges—from orchestrating real-time data with <span class=\"text-primary\">WebRTC and Socket.io</span> to integrating LLMs into enterprise workflows. I am dedicated to clean architecture, CI/CD automation, and delivering highly testable, accessible applications."
+            "<em>“I spend 90% of my time architecting scalable backend logic, and the remaining 10% wondering why a `&lt;div&gt;` won't center.”</em>",
+            "Jokes aside, over the last <span class=\"text-primary\">four years</span>, my software engineering journey has evolved from building basic web components to engineering full-scale, AI-integrated enterprise systems. Anchored firmly in the modern JavaScript ecosystem, I focus on the bigger picture: designing solutions that are scalable, testable, and highly performant.",
+            "I am at my best when solving complex architectural puzzles—whether that involves orchestrating real-time data with <span class=\"text-primary\">Socket.io</span>, containerizing applications with <span class=\"text-primary\">Docker</span>, or managing complex server state with <span class=\"text-primary\">Tanstack Query</span>. I genuinely enjoy the craft of engineering, right down to perfecting my own Ubuntu Linux environment with a highly customized terminal setup.",
+            "When I step away from the IDE, my ultimate way to disconnect is by <span class=\"text-primary\">traveling</span>. I love exploring new destinations and planning getaways with my friends. When we aren't on the road, my pursuit of 'perfecting the recipe' shifts to the kitchen, where I enjoy experimenting with local dishes. Beyond that, my time is spent setting intensive learning goals and exploring ways to contribute to the open-source community."
         ],
         skillsHeading: "Here is the core technical stack I leverage daily:",
         profileImage: "/images/me.jpg"
@@ -32,6 +33,67 @@ export const defaultContent: PortfolioContent = {
         { id: 7, name: "Tailwind CSS 4" },
         { id: 8, name: "Tanstack Query & Zustand" },
         { id: 9, name: "LLM Integration" }
+    ],
+
+    detailedSkills: [
+        {
+            category: "Frontend Ecosystem",
+            items: ["React.js", "Next.js", "TypeScript", "Tailwind CSS", "Zustand", "Tanstack Query", "Framer Motion"]
+        },
+        {
+            category: "Backend & APIs",
+            items: ["Node.js", "Express.js", "RESTful APIs", "Socket.io", "WebRTC", "GraphQL"]
+        },
+        {
+            category: "Database & Cloud",
+            items: ["MongoDB", "Redis", "PostgreSQL", "AWS (EC2, S3)", "Docker", "Nginx"]
+        },
+        {
+            category: "Tools & Architecture",
+            items: ["Git/GitHub", "CI/CD", "Jest", "Microservices", "System Design", "Agile methodologies"]
+        }
+    ],
+
+    services: [
+        {
+            id: 1,
+            title: "Frontend Development",
+            description: "Building responsive, highly-interactive, and accessible user interfaces using modern ecosystem tools.",
+            icon: "LayoutTemplate",
+            modalDetails: [
+                "Pixel-perfect translation of Figma/UI designs to responsive code.",
+                "Optimized state management using Redux, Zustand, or Tanstack Query.",
+                "High-performance SEO and Server-Side Rendering with Next.js.",
+                "Rich interactive animations using Framer Motion and GSAP.",
+                "Strict accessibility (a11y) standard compliance."
+            ]
+        },
+        {
+            id: 2,
+            title: "Backend Development",
+            description: "Architecting secure, scalable, and high-performance server-side APIs and microservices.",
+            icon: "Server",
+            modalDetails: [
+                "Scalable RESTful and GraphQL API architectures.",
+                "Database design and optimization with MongoDB and PostgreSQL.",
+                "Real-time bidirectional communication using Socket.io and WebRTC.",
+                "High-concurrency caching mechanisms with Redis.",
+                "Secure authentication and authorization (JWT, OAuth)."
+            ]
+        },
+        {
+            id: 3,
+            title: "Full-Stack Development",
+            description: "End-to-end engineered web solutions from robust database architecture to interactive client applications.",
+            icon: "Layers",
+            modalDetails: [
+                "Complete architecture design outlining client-server data flow.",
+                "Seamless integration of complex backend business logic with frontend state.",
+                "Containerization and deployment pipelines using Docker and CI/CD.",
+                "Integration of third-party APIs and Cloud services (AWS, Stripe, LLMs).",
+                "Comprehensive end-to-end functional and unit testing."
+            ]
+        }
     ],
 
     projects: [
@@ -129,6 +191,31 @@ export const defaultContent: PortfolioContent = {
                 "Demonstrated success in managing server infrastructure with AWS, leading and motivating teams, and fostering strong relationships with colleagues."
             ],
             technologies: ["TypeScript", "Next.js", "Express.js", "MongoDB", "AWS", "UI/UX"]
+        }
+    ],
+
+    certifications: [
+        {
+            id: 1,
+            title: "JavaScript (Intermediate) Certificate",
+            issuer: "HackerRank",
+            date: "2023",
+            description: "Demonstrated advanced problem-solving skills in JavaScript including prototypical inheritance, design patterns, event loop mechanisms, and ES6+ features.",
+            link: "https://www.hackerrank.com/certificates/c7186e5dfa0b"
+        },
+        {
+            id: 2,
+            title: "AWS Certified Developer – Associate",
+            issuer: "Amazon Web Services",
+            date: "2023",
+            description: "Proficiency in developing, deploying, and debugging cloud-based applications using AWS. Focused on Serverless architecture, S3, DynamoDB, and EC2.",
+        },
+        {
+            id: 3,
+            title: "Meta Front-End Developer Professional Certificate",
+            issuer: "Coursera",
+            date: "2022",
+            description: "Comprehensive certification covering React, UI/UX principles, advanced state management, and web accessibility best practices.",
         }
     ],
 

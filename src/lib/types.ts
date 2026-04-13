@@ -20,6 +20,28 @@ export interface Skill {
     name: string;
 }
 
+export interface DetailedSkill {
+    category: string;
+    items: string[];
+}
+
+export interface Certification {
+    id: number;
+    title: string;
+    issuer: string;
+    date: string;
+    description: string;
+    link?: string;
+}
+
+export interface Service {
+    id: number;
+    title: string;
+    description: string;
+    icon: string;
+    modalDetails: string[];
+}
+
 export interface Project {
     id: number;
     title: string;
@@ -67,8 +89,11 @@ export interface PortfolioContent {
     hero: HeroContent;
     about: AboutContent;
     skills: Skill[];
+    detailedSkills: DetailedSkill[];
+    services: Service[];
     projects: Project[];
     experience: Experience[];
+    certifications: Certification[];
     contact: ContactContent;
     seo?: SeoContent;
 }

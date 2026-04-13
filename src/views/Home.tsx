@@ -14,6 +14,9 @@ import Works from "../components/Works/Works";
 import Footer from "../components/Footer/Footer";
 import Contact from "../components/Contact/Contact";
 import Archive from "../components/Archive/Archive";
+import Skills from "../components/Skills/Skills";
+import Services from "../components/Services/Services";
+import Certifications from "../components/Certifications/Certifications";
 import { ScrollParallaxLayers } from "../components/motion/ScrollParallaxLayers";
 import { ViewportAtmosphere } from "../components/motion/ViewportAtmosphere";
 import { CustomCursor } from "../components/motion/CustomCursor";
@@ -24,10 +27,13 @@ import ScrollToTop from "../components/Shared/ScrollToTop";
 const HASH_SCROLL_TARGETS = new Set([
 "home",
 "about",
+"skills",
+"services",
 "jobs",
 "projects",
-"contact",
 "archive",
+"certifications",
+"contact",
 ]);
 
 const HASH_SCROLL_OFFSET = -108;
@@ -80,9 +86,12 @@ const Home: React.FC = () => {
                         <HeroParallax />
                         <div className="w-full space-y-16 md:space-y-20">
                             <About />
+                            <Skills />
+                            <Services />
                             <Experience />
                             <Works />
                             <Archive />
+                            <Certifications />
                             <Contact />
                         </div>
                     </div>

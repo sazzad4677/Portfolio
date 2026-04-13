@@ -41,7 +41,7 @@ const Experience: React.FC = () => {
             >
                 <div className="site-container">
                     <div className="mb-12 flex items-center space-x-4">
-                        <h2 className="whitespace-nowrap font-sans text-2xl font-bold text-foreground before:mr-2 before:font-mono before:text-lg before:text-primary before:content-['02.'] md:text-3xl">
+                        <h2 className="whitespace-nowrap font-sans text-2xl font-bold text-foreground before:mr-2 before:font-mono before:text-lg before:text-primary before:content-['04.'] md:text-3xl">
                             Where I&apos;ve worked
                         </h2>
                         <div className="h-px flex-1 bg-gradient-to-r from-border/60 to-transparent" />

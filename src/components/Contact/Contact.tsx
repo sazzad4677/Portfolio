@@ -93,7 +93,7 @@ const Contact: React.FC = () => {
                         <motion.div variants={itemVariants} className="text-center mb-16">
                             <span className="mb-4 flex items-center justify-center font-mono text-sm tracking-widest text-primary uppercase">
                                 <span className="mr-3 h-px w-8 bg-primary/30" />
-                                04. {content.preHeading}
+                                07. {content.preHeading}
                                 <span className="ml-3 h-px w-8 bg-primary/30" />
                             </span>
                             <h2 className="mb-6 text-4xl font-bold tracking-tight text-foreground md:text-6xl text-balance">
@@ -211,7 +211,7 @@ const Contact: React.FC = () => {
 
                             {/* Direct Contact Info */}
                             <motion.div variants={itemVariants} className="lg:col-span-2 space-y-8">
-                                <div className="rounded-2xl border border-border/40 bg-surface/20 p-8 backdrop-blur-md">
+                                <div className="rounded-2xl border border-border/40 bg-surface/20 p-6 backdrop-blur-md">
                                     <h4 className="mb-6 font-sans text-xl font-bold text-foreground">
                                         Let&apos;s talk directly
                                     </h4>

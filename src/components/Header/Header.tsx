@@ -27,8 +27,11 @@ const Header: React.FC = () => {
 
     const navLinks: NavLink[] = [
         { name: "About", url: "about" },
+        { name: "Skills", url: "skills" },
+        { name: "Services", url: "services" },
         { name: "Experience", url: "jobs" },
         { name: "Work", url: "projects" },
+        { name: "Certifications", url: "certifications" },
         { name: "Contact", url: "contact" },
     ];
 

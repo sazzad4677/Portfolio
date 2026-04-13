@@ -9,7 +9,7 @@ const Email: React.FC = () => {
             <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 1.8 }}
+                transition={{ duration: 0.5 }}
                 whileHover={{ y: -3 }}
                 className="mb-6"
             >
@@ -26,7 +26,7 @@ const Email: React.FC = () => {
             <motion.div
                 initial={{ height: 0 }}
                 animate={{ height: "100px" }}
-                transition={{ duration: 0.8, delay: 2.2 }}
+                transition={{ duration: 0.8 }}
                 className="w-px bg-gradient-to-t from-transparent via-primary/35 to-primary/15"
             />
         </div>

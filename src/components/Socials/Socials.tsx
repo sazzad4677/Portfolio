@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion, Variants } from "framer-motion";
-import { GitHubIcon, TwitterIcon, LinkedInIcon, FacebookIcon } from "@/components/ui/brand-icons";
+import { GitHubIcon, LinkedInIcon } from "@/components/ui/brand-icons";
 
 const Socials: React.FC = () => {
     const socialLinks = [
@@ -14,7 +14,7 @@ const Socials: React.FC = () => {
         animate: {
             transition: {
                 staggerChildren: 0.1,
-                delayChildren: 1.5, // Appear after loader
+                duration: 0.5,
             },
         },
     };
@@ -58,7 +58,7 @@ const Socials: React.FC = () => {
             <motion.div
                 initial={{ height: 0 }}
                 animate={{ height: "100px" }}
-                transition={{ duration: 0.8, delay: 2 }}
+                transition={{ duration: 0.8}}
                 className="w-px bg-gradient-to-t from-transparent via-primary/35 to-primary/15"
             />
         </div>

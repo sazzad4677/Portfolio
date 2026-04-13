@@ -65,10 +65,10 @@ const Header: React.FC = () => {
     return (
         <header
             className={cn(
-                "fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-500",
+                "fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-500 w-[calc(100%-2rem)] max-w-[1440px]",
                 scrollPosition > 50
-                    ? "top-4 w-[calc(100%-2rem)] max-w-[1400px] rounded-2xl glass h-16 shadow-2xl"
-                    : "top-0 w-full bg-transparent h-24"
+                    ? "top-4 rounded-2xl glass h-16 shadow-2xl"
+                    : "top-0 rounded-none bg-transparent h-24"
             )}
         >
             <nav className="site-container flex h-full items-center justify-between">

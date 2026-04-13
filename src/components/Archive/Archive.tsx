@@ -97,8 +97,9 @@ const Archive: React.FC = () => {
 
     return (
         <Element id="archive" name="archive" className="scroll-anchor">
-            <section className="py-16 md:py-24">
-                <div className="mb-14 text-center">
+            <section className="py-16 md:py-24 overflow-hidden">
+                <div className="site-container">
+                    <div className="mb-14 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -191,7 +192,8 @@ const Archive: React.FC = () => {
                             </div>
                         </motion.li>
                     ))}
-                </motion.ul>
+                    </motion.ul>
+                </div>
             </section>
         </Element>
     );

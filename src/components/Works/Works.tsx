@@ -28,7 +28,7 @@ const Works: React.FC = () => {
 
     return (
         <Element name="projects" className="scroll-anchor">
-            <section id="projects" className="py-16 md:py-20">
+            <section id="projects" className="py-16 md:py-20 overflow-hidden">
                 <div className="site-container">
                     <div className="mb-10 flex items-center gap-4 md:mb-14">
                         <h2 className="whitespace-nowrap font-sans text-2xl font-bold tracking-tight text-foreground before:mr-2 before:font-mono before:text-base before:text-primary before:content-['03.'] md:text-3xl">
@@ -48,14 +48,14 @@ const Works: React.FC = () => {
                                     whileInView="visible"
                                     viewport={{ once: true, amount: 0.2 }}
                                     variants={projectVariants}
-                                    className="group/card relative rounded-2xl border border-border/40 bg-surface/20 p-6 shadow-sm shadow-black/5 backdrop-blur-md transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 md:p-10"
+                                    className="group/card relative rounded-2xl border border-border/40 bg-surface/20 p-4 sm:p-6 shadow-sm shadow-black/5 backdrop-blur-md transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 md:p-10"
                                 >
                                     {/* Editorial Background Numeral - Consistent positioning */}
                                     <div className="absolute -top-10 left-6 font-sans text-9xl font-black text-primary/[0.03] select-none pointer-events-none z-0">
                                         {projectNum}
                                     </div>
 
-                                    <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16 relative z-10">
+                                    <div className="grid grid-cols-1 items-center gap-8 xl:grid-cols-2 xl:gap-16 relative z-10">
                                         {/* Content - Always Left */}
                                         <div className="flex flex-col gap-6">
                                             <div className="flex items-center gap-3">
@@ -80,7 +80,7 @@ const Works: React.FC = () => {
                                                 <p>{project.description}</p>
                                             </div>
 
-                                            <ul className="flex flex-wrap gap-x-3 gap-y-2 font-mono text-[10px] text-primary/80">
+                                            <ul className="flex flex-wrap gap-x-2 gap-y-2 font-mono text-[10px] sm:text-xs text-primary/80 sm:gap-x-3">
                                                 {project.technologies.map((tech, i) => (
                                                     <li 
                                                         key={i} 

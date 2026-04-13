@@ -37,7 +37,7 @@ const Experience: React.FC = () => {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.3 }}
                 variants={containerVariants}
-                className="py-24"
+                className="py-24 overflow-hidden"
             >
                 <div className="site-container">
                     <div className="mb-12 flex items-center space-x-4">
@@ -48,16 +48,16 @@ const Experience: React.FC = () => {
                     </div>
 
                     <div className="mx-auto max-w-[900px]">
-                        <div className="flex flex-col md:flex-row min-h-[450px]">
+                        <div className="flex flex-col lg:flex-row min-h-[450px]">
                             {/* Tab List */}
-                            <div className="relative flex md:flex-col overflow-x-auto md:overflow-visible no-scrollbar border-b md:border-b-0 md:border-l border-border/40 pb-2 md:pb-0">
+                            <div className="relative flex lg:flex-col overflow-x-auto lg:overflow-visible no-scrollbar border-b lg:border-b-0 lg:border-l border-border/40 pb-2 lg:pb-0">
                                 {jobs.map((job, index) => (
                                     <button
                                         key={job.id || index}
                                         onClick={() => setTabIndex(index)}
                                         className={`
-                                            group relative flex items-center h-12 px-5 min-w-[140px] md:min-w-[180px] 
-                                            font-mono text-xs transition-all duration-300 md:text-sm
+                                            group relative flex items-center h-12 px-5 min-w-[140px] lg:min-w-[180px] 
+                                            font-mono text-xs transition-all duration-300 lg:text-sm
                                             ${tabIndex === index ? 'text-primary' : 'text-secondary-foreground/60 hover:text-primary hover:bg-primary/5'}
                                         `}
                                     >
@@ -65,7 +65,7 @@ const Experience: React.FC = () => {
                                         {tabIndex === index && (
                                             <motion.div 
                                                 layoutId="activeTab"
-                                                className="absolute inset-x-0 bottom-0 h-0.5 bg-primary md:inset-y-0 md:left-0 md:right-auto md:h-full md:w-0.5"
+                                                className="absolute inset-x-0 bottom-0 h-0.5 bg-primary lg:inset-y-0 lg:left-0 lg:right-auto lg:h-full lg:w-0.5"
                                                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                             />
                                         )}
@@ -74,7 +74,7 @@ const Experience: React.FC = () => {
                             </div>
 
                             {/* Job Details */}
-                            <div className="mt-10 md:mt-0 md:pl-12 flex-1">
+                            <div className="mt-10 lg:mt-0 lg:pl-12 flex-1">
                                 <AnimatePresence mode="wait">
                                     {selectedJob && (
                                         <motion.div

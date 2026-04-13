@@ -75,10 +75,10 @@ const Home: React.FC = () => {
                     <CustomCursor />
                     <ScrollToTop />
                     <Header />
-                    <div className="relative z-10 flex flex-col gap-12 sm:gap-16 md:gap-20 pb-10">
+                    <div className="relative z-10 flex flex-col gap-12 sm:gap-16 md:gap-20 pb-10 overflow-x-hidden">
                         <Hero />
                         <HeroParallax />
-                        <div className="container mx-auto px-6 md:px-12 lg:px-24 space-y-16 md:space-y-20">
+                        <div className="w-full space-y-16 md:space-y-20">
                             <About />
                             <Experience />
                             <Works />

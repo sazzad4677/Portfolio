@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const Email: React.FC = () => {
     return (
-        <div className="hidden fixed bottom-0 right-6 lg:right-12 z-40 md:flex flex-col items-center">
+        <div className="hidden fixed bottom-0 right-6 lg:right-12 z-40 lg:flex flex-col items-center">
             <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}

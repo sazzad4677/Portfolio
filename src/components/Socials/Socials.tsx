@@ -31,7 +31,7 @@ const Socials: React.FC = () => {
     };
 
     return (
-        <div className="hidden fixed bottom-0 left-6 lg:left-12 z-40 md:flex flex-col items-center">
+        <div className="hidden fixed bottom-0 left-6 lg:left-12 z-40 lg:flex flex-col items-center">
             <motion.ul
                 variants={containerVariants}
                 initial="initial"

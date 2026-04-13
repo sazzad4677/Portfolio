@@ -18,7 +18,7 @@ interface NavLink {
 
 const Header: React.FC = () => {
     const scrollPosition = useScrollPosition();
-    const isDesktop = useMediaQuery({ query: "(min-width: 768px)" });
+    const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
     const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
@@ -64,7 +64,7 @@ const Header: React.FC = () => {
             className={cn(
                 "fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-500",
                 scrollPosition > 50
-                    ? "top-4 w-[95%] max-w-[1200px] rounded-2xl glass h-16 shadow-2xl"
+                    ? "top-4 w-[calc(100%-2rem)] max-w-[1400px] rounded-2xl glass h-16 shadow-2xl"
                     : "top-0 w-full bg-transparent h-24"
             )}
         >
@@ -107,16 +107,16 @@ const Header: React.FC = () => {
 
                 {/* Mobile Menu Toggle */}
                 <button
-                    className="flex flex-col gap-1.5 md:hidden z-50"
+                    className="flex flex-col gap-1.5 lg:hidden z-50"
                     onClick={() => setIsOpen(!isOpen)}
                     aria-label="Toggle Menu"
                 >
-                    <span className={cn("h-0.5 w-6 bg-primary transition-all", isOpen && "rotate-45 translate-y-2")} />
-                    <span className={cn("h-0.5 w-6 bg-primary transition-all", isOpen && "opacity-0")} />
-                    <span className={cn("h-0.5 w-6 bg-primary transition-all", isOpen && "-rotate-45 -translate-y-2")} />
+                    <span className={cn("h-0.5 w-6 bg-primary transition-all duration-300", isOpen && "rotate-45 translate-y-2")} />
+                    <span className={cn("h-0.5 w-6 bg-primary transition-all duration-300", isOpen && "opacity-0 scale-x-0")} />
+                    <span className={cn("h-0.5 w-6 bg-primary transition-all duration-300", isOpen && "-rotate-45 -translate-y-2")} />
                 </button>
 
-                {/* Desktop Navigation */}
+                {/* Desktop and Mobile Navigation */}
                 <AnimatePresence>
                     {(isOpen || isDesktop) && (
                         <motion.div
@@ -125,16 +125,16 @@ const Header: React.FC = () => {
                             animate="animate"
                             exit={{ opacity: 0, y: -20 }}
                             className={cn(
-                                "fixed inset-0 flex flex-col items-center justify-center bg-background/95 backdrop-blur-lg md:static md:flex md:flex-row md:bg-transparent md:backdrop-blur-none",
+                                "absolute top-full left-0 right-0 w-full glass-dark rounded-b-2xl py-8 px-6 shadow-2xl flex flex-col items-start gap-8 z-40 overflow-hidden border-t-0 lg:overflow-visible lg:static lg:flex lg:flex-row lg:items-center lg:justify-end lg:bg-transparent lg:backdrop-blur-none lg:border-0 lg:p-0 lg:shadow-none lg:w-auto lg:gap-10",
                                 !isDesktop && !isOpen && "hidden"
                             )}
                         >
-                            <ol className="flex flex-col items-center gap-8 md:flex-row md:gap-10">
+                            <ol className="flex flex-col items-start gap-8 lg:flex-row lg:gap-10 w-full lg:w-auto">
                                 {navLinks.map((link, index) => (
                                     <motion.li
                                         key={link.url}
                                         variants={linkVariants}
-                                        className="font-mono text-sm tracking-wide"
+                                        className="font-mono text-sm tracking-wide w-full lg:w-auto my-auto"
                                     >
                                         <Link
                                             to={link.url}
@@ -143,20 +143,20 @@ const Header: React.FC = () => {
                                             offset={NAV_SCROLL_OFFSET}
                                             spy
                                             activeClass="!text-primary"
-                                            className="group flex cursor-pointer flex-row items-baseline gap-1 text-foreground transition-colors hover:text-primary"
+                                            className="group flex cursor-pointer flex-row items-baseline gap-2 text-foreground transition-colors hover:text-primary py-2 lg:py-0 border-b border-border/10 lg:border-none w-full lg:w-auto"
                                             onClick={() => !isDesktop && setIsOpen(false)}
                                         >
-                                            <span className="text-xs text-primary">0{index + 1}.</span>
+                                            <span className="text-xs text-primary font-bold">0{index + 1}.</span>
                                             {link.name}
                                         </Link>
                                     </motion.li>
                                 ))}
-                                <motion.li variants={linkVariants} className="flex items-center gap-6">
+                                <motion.li variants={linkVariants} className="flex flex-row items-center justify-between gap-6 w-full lg:w-auto lg:justify-end pt-4 lg:pt-0">
                                     <a
                                         href="/resume.pdf"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="rounded border border-primary px-6 py-2.5 font-mono text-sm text-primary transition-all hover:bg-primary/10"
+                                        className="rounded-xl border border-primary px-6 py-2.5 font-mono text-sm text-primary transition-all hover:bg-primary/10 flex-1 text-center md:flex-initial"
                                     >
                                         Resume
                                     </a>

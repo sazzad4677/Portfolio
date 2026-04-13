@@ -80,7 +80,7 @@ const Hero: React.FC = () => {
                     </motion.div>
 
                     <motion.div variants={item}>
-                        <h2 className="font-sans font-semibold text-on-background" style={{ fontSize: "clamp(38px, 8vw, 76px)", lineHeight: 1.25 }}>
+                        <h2 className="font-sans font-semibold text-on-background" style={{ fontSize: "clamp(32px, 7vw, 64px)", lineHeight: 1.25 }}>
                             <span className="text-gradient">{content.name}</span>
                         </h2>
                     </motion.div>
@@ -89,7 +89,7 @@ const Hero: React.FC = () => {
                     <motion.div variants={item}>
                         <h3
                             className="mt-2 font-sans font-semibold leading-tight text-on-surface-variant/80"
-                            style={{ fontSize: "clamp(24px, 5.5vw, 60px)", lineHeight: 1.2 }}
+                            style={{ fontSize: "clamp(20px, 4.5vw, 48px)", lineHeight: 1.2 }}
                             dangerouslySetInnerHTML={{ __html: content.tagline }}
                         />
                     </motion.div>

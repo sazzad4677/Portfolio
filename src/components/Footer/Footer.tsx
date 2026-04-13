@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
     return (
         <footer className="mt-4 bg-background/40 px-6 py-10 text-center backdrop-blur-sm md:py-12">
             {/* Mobile Socials */}
-            <ul className="flex items-center justify-center gap-6 mb-6 md:hidden">
+            <ul className="flex items-center justify-center gap-6 mb-6 lg:hidden">
                 {socialLinks.map((link) => (
                     <li key={link.name}>
                         <a

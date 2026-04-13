@@ -90,10 +90,10 @@ const About: React.FC = () => {
                             >
                                 {/* The Frame */}
                                 <div className="absolute inset-0 translate-x-6 translate-y-6 rounded-md border-2 border-primary/30 transition-all duration-500 group-hover:translate-x-4 group-hover:translate-y-4 group-hover:border-primary" />
-                                
+
                                 {/* Background Glow */}
                                 <div className="absolute -inset-4 rounded-full bg-primary/10 opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-100" />
-                                
+
                                 <div className="relative h-full w-full overflow-hidden rounded-md border border-primary/20 shadow-2xl">
                                     <img
                                         src={content.profileImage}

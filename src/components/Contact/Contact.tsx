@@ -83,7 +83,7 @@ const Contact: React.FC = () => {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.3 }}
                 variants={revealVariants}
-                className="relative py-24 md:py-32"
+                className="relative py-24 md:py-32 overflow-hidden"
             >
                 {/* Atmospheric Glow */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] pointer-events-none z-0" />
@@ -221,13 +221,13 @@ const Contact: React.FC = () => {
 
                                     <div className="flex flex-col gap-4">
                                         <div className="group relative flex items-center justify-between rounded-xl border border-primary/10 bg-primary/5 p-4 transition-all hover:border-primary/30">
-                                            <div className="flex items-center gap-3">
+                                            <div className="flex items-center gap-3 flex-1 min-w-0">
                                                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                                                     <Mail size={20} />
                                                 </div>
-                                                <div className="flex flex-col">
+                                                <div className="flex flex-col flex-1 min-w-0">
                                                     <span className="text-[10px] uppercase tracking-widest text-primary/60 font-mono">Email me at</span>
-                                                    <span className="text-sm font-medium text-foreground">{content.email}</span>
+                                                    <span className="text-xs sm:text-sm xl:text-base font-medium text-foreground truncate">{content.email}</span>
                                                 </div>
                                             </div>
                                             <button

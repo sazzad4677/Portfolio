@@ -189,11 +189,19 @@ const Header: React.FC = () => {
                                     </motion.li>
                                 ))}
 
-                                {/* ThemeSwitcher (Desktop only) */}
+                                {/* Resume + ThemeSwitcher (Desktop only) */}
                                 <motion.li
                                     variants={linkVariants}
                                     className="hidden lg:flex flex-row items-center justify-end gap-3 xl:gap-4 lg:ml-4 xl:ml-6"
                                 >
+                                    <a
+                                        href="/resume.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="rounded-xl border border-primary px-4 xl:px-5 py-2 font-mono text-xs text-primary transition-all hover:bg-primary/10 whitespace-nowrap"
+                                    >
+                                        Resume
+                                    </a>
                                     <ThemeSwitcher />
                                 </motion.li>
                             </ol>

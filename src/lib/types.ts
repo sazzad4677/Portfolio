@@ -7,6 +7,7 @@ export interface HeroContent {
     ctaLink: string;
     cvLink?: string;
     videoUrl?: string;
+    profileImage: string;
 }
 
 export interface AboutContent {
@@ -58,6 +59,16 @@ export interface Project {
     featured: boolean;
 }
 
+export interface ArchiveProject {
+    title: string;
+    description: string;
+    technologies: string[];
+    links: {
+        github: string;
+        liveLink: string;
+    };
+}
+
 export interface Experience {
     id: number;
     company: string;
@@ -92,6 +103,7 @@ export interface PortfolioContent {
     detailedSkills: DetailedSkill[];
     services: Service[];
     projects: Project[];
+    archiveProjects: ArchiveProject[];
     experience: Experience[];
     certifications: Certification[];
     contact: ContactContent;

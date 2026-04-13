@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Element } from "react-scroll/modules";
 import { Briefcase, Calendar, ExternalLink } from "lucide-react";
 import contentManager from "@/lib/contentManager";
-import { Experience as ExperienceType } from "@/lib/types";
 
 const Experience: React.FC = () => {
+    const jobs = contentManager.getExperience();
     const [tabIndex, setTabIndex] = useState(0);
-    const [jobs, setJobs] = useState<ExperienceType[]>([]);
-
-    useEffect(() => {
-        const jobsData = contentManager.getExperience();
-        if (jobsData) setJobs(jobsData);
-    }, []);
 
     const selectedJob = jobs[tabIndex];
 
@@ -21,12 +15,12 @@ const Experience: React.FC = () => {
         visible: {
             opacity: 1,
             y: 0,
-            transition: { 
-                duration: 1, 
+            transition: {
+                duration: 1,
                 ease: [0.22, 1, 0.36, 1],
-                staggerChildren: 0.1 
-            }
-        }
+                staggerChildren: 0.1,
+            },
+        },
     };
 
     return (
@@ -37,10 +31,14 @@ const Experience: React.FC = () => {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.3 }}
                 variants={containerVariants}
-                className="py-24 overflow-hidden"
+                className="py-14 sm:py-20 md:py-24 overflow-hidden"
+
             >
                 <div className="site-container">
-                    <div className="mb-12 flex items-center space-x-4">
+
+                    {/* Heading */}
+                    <div className="mb-8 sm:mb-10 md:mb-12 flex items-center space-x-4">
+                        {/* ↑ mb-8 on mobile (was mb-12) */}
                         <h2 className="whitespace-nowrap font-sans text-2xl font-bold text-foreground before:mr-2 before:font-mono before:text-lg before:text-primary before:content-['04.'] md:text-3xl">
                             Where I&apos;ve worked
                         </h2>
@@ -48,22 +46,28 @@ const Experience: React.FC = () => {
                     </div>
 
                     <div className="mx-auto max-w-[900px]">
-                        <div className="flex flex-col lg:flex-row min-h-[450px]">
+                        <div className="flex flex-col lg:flex-row">
+                            {/* ↑ removed min-h-[450px] — was forcing excess height on mobile */}
+
                             {/* Tab List */}
-                            <div className="relative flex lg:flex-col overflow-x-auto lg:overflow-visible no-scrollbar border-b lg:border-b-0 lg:border-l border-border/40 pb-2 lg:pb-0">
+                            <div className="relative flex lg:flex-col overflow-x-auto lg:overflow-visible no-scrollbar border-b lg:border-b-0 lg:border-l border-border/40 pb-1 lg:pb-0">
                                 {jobs.map((job, index) => (
                                     <button
                                         key={job.id || index}
                                         onClick={() => setTabIndex(index)}
                                         className={`
-                                            group relative flex items-center h-12 px-5 min-w-[140px] lg:min-w-[180px] 
+                                            group relative flex items-center h-10 sm:h-12 px-4 sm:px-5
+                                            min-w-[120px] sm:min-w-[140px] lg:min-w-[180px]
                                             font-mono text-xs transition-all duration-300 lg:text-sm
-                                            ${tabIndex === index ? 'text-primary' : 'text-secondary-foreground/60 hover:text-primary hover:bg-primary/5'}
+                                            ${tabIndex === index
+                                                ? "text-primary"
+                                                : "text-secondary-foreground/60 hover:text-primary hover:bg-primary/5"
+                                            }
                                         `}
                                     >
                                         <span className="relative z-10">{job.company}</span>
                                         {tabIndex === index && (
-                                            <motion.div 
+                                            <motion.div
                                                 layoutId="activeTab"
                                                 className="absolute inset-x-0 bottom-0 h-0.5 bg-primary lg:inset-y-0 lg:left-0 lg:right-auto lg:h-full lg:w-0.5"
                                                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -74,7 +78,8 @@ const Experience: React.FC = () => {
                             </div>
 
                             {/* Job Details */}
-                            <div className="mt-10 lg:mt-0 lg:pl-12 flex-1">
+                            <div className="mt-6 sm:mt-8 lg:mt-0 lg:pl-12 flex-1">
+                                {/* ↑ mt-6 on mobile (was mt-10) */}
                                 <AnimatePresence mode="wait">
                                     {selectedJob && (
                                         <motion.div
@@ -86,13 +91,16 @@ const Experience: React.FC = () => {
                                             className="relative"
                                         >
                                             {/* Job Header */}
-                                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+                                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 mb-5 sm:mb-7 md:mb-8">
+                                                {/* ↑ gap-2 on mobile, mb-5 on mobile (was mb-8) */}
                                                 <div>
-                                                    <div className="flex items-center gap-3 mb-1">
-                                                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20">
-                                                            <Briefcase size={16} />
+                                                    <div className="flex items-center gap-2 sm:gap-3 mb-1">
+                                                        <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20">
+                                                            {/* ↑ smaller icon box on mobile */}
+                                                            <Briefcase size={14} className="sm:w-4 sm:h-4" />
                                                         </div>
-                                                        <h3 className="text-xl font-semibold text-foreground md:text-2xl">
+                                                        <h3 className="text-base sm:text-xl font-semibold text-foreground md:text-2xl">
+                                                            {/* ↑ text-base on mobile (was text-xl) */}
                                                             {selectedJob.position}
                                                         </h3>
                                                     </div>
@@ -100,24 +108,29 @@ const Experience: React.FC = () => {
                                                         href={selectedJob.website}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="inline-flex items-center gap-1.5 font-mono text-lg text-primary hover:underline group"
+                                                        className="inline-flex items-center gap-1.5 font-mono text-sm sm:text-lg text-primary hover:underline group"
+
                                                     >
                                                         @ {selectedJob.name}
-                                                        <ExternalLink size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                                                        <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                                                     </a>
                                                 </div>
+
+                                                {/* Date badge */}
                                                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-border/60 bg-surface/40 backdrop-blur-sm self-start sm:self-center">
-                                                    <Calendar size={14} className="text-primary/70" />
-                                                    <span className="font-mono text-xs text-secondary-foreground/80">
+                                                    <Calendar size={12} className="text-primary/70 sm:w-3.5 sm:h-3.5" />
+                                                    <span className="font-mono text-[10px] sm:text-xs text-secondary-foreground/80">
+                                                        {/* ↑ text-[10px] on mobile */}
                                                         {selectedJob.range}
                                                     </span>
                                                 </div>
                                             </div>
 
                                             {/* Experience Timeline */}
-                                            <div className="relative ml-4 pl-8 border-l border-border/40 space-y-6">
+                                            <div className="relative ml-2 sm:ml-4 pl-5 sm:pl-8 border-l border-border/40 space-y-4 sm:space-y-6">
+                                                {/* ↑ ml-2 + pl-5 on mobile (was ml-4 pl-8) — saves 10px horizontal space */}
                                                 {selectedJob.description.map((item, index) => (
-                                                    <motion.div 
+                                                    <motion.div
                                                         key={index}
                                                         initial={{ opacity: 0, y: 10 }}
                                                         animate={{ opacity: 1, y: 0 }}
@@ -125,8 +138,10 @@ const Experience: React.FC = () => {
                                                         className="relative"
                                                     >
                                                         {/* Timeline Dot */}
-                                                        <div className="absolute -left-[41px] top-[7px] h-4 w-4 rounded-full border-2 border-primary bg-background z-10" />
-                                                        <p className="text-sm leading-relaxed text-secondary-foreground/90 md:text-base">
+                                                        <div className="absolute -left-[29px] sm:-left-[41px] top-[7px] h-3 w-3 sm:h-4 sm:w-4 rounded-full border-2 border-primary bg-background z-10" />
+                                                        {/* ↑ smaller dot + adjusted left offset on mobile */}
+                                                        <p className="text-xs sm:text-sm leading-normal sm:leading-relaxed text-secondary-foreground/90 md:text-base">
+                                                            {/* ↑ text-xs + leading-normal on mobile (was text-sm leading-relaxed) */}
                                                             {item}
                                                         </p>
                                                     </motion.div>
@@ -135,15 +150,18 @@ const Experience: React.FC = () => {
 
                                             {/* Core Technologies */}
                                             {selectedJob.technologies && selectedJob.technologies.length > 0 && (
-                                                <div className="mt-12 pt-8 border-t border-border/30">
-                                                    <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-primary/70">
+                                                <div className="mt-7 sm:mt-10 md:mt-12 pt-5 sm:pt-7 md:pt-8 border-t border-border/30">
+
+                                                    <p className="mb-3 sm:mb-4 font-mono text-[10px] uppercase tracking-[0.2em] text-primary/70">
                                                         Technical Arsenal
                                                     </p>
-                                                    <div className="flex flex-wrap gap-2.5">
+                                                    <div className="flex flex-wrap gap-1.5 sm:gap-2.5">
+
                                                         {selectedJob.technologies.map((tech, index) => (
                                                             <span
                                                                 key={index}
-                                                                className="rounded-lg border border-primary/20 bg-primary/5 px-3 py-1.5 font-mono text-[11px] text-primary transition-all hover:border-primary/50 hover:bg-primary/10"
+                                                                className="rounded-lg border border-primary/20 bg-primary/5 px-2.5 py-1 sm:px-3 sm:py-1.5 font-mono text-[10px] sm:text-[11px] text-primary transition-all hover:border-primary/50 hover:bg-primary/10"
+
                                                             >
                                                                 {tech}
                                                             </span>

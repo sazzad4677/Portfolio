@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import '../index.css';
 import { ThemeProvider } from "@/components/theme-provider";
 import JsonLd from './json-ld';
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
 
 const inter = Inter({
     subsets: ['latin'],
@@ -12,14 +13,14 @@ const inter = Inter({
 
 export const metadata: Metadata = {
     title: {
-        default: 'Sazzad Hosain | Frontend Developer & Software Engineer',
-        template: '%s | Sazzad Hosain'
+        default: 'Sazzad Hossain | Software Engineer & Full-Stack Architect',
+        template: '%s | Sazzad Hossain'
     },
-    description: 'Sazzad is a passionate Software Engineer specializing in modern web technologies. Expert in React, Next.js, and TypeScript.',
+    description: 'Software Engineer with almost 4 years of experience architecting scalable, AI-driven full-stack applications. Expert in Next.js, Node.js, and real-time systems.',
     keywords: [
-        'frontend developer', 'software engineer', 'Sazzad', 'Md Sazzad Hossain',
-        'Full Stack Developer', 'React Developer', 'Next.js Developer',
-        'TypeScript', 'Tailwind CSS'
+        'Software Engineer', 'Full Stack Developer', 'Sazzad Hossain', 'Md Sazzad Hossain',
+        'React Developer', 'Next.js Developer', 'Node.js Developer', 'TypeScript',
+        'Tailwind CSS', 'WebRTC', 'Socket.io', 'AI Integration', 'MongoDB', 'Express.js'
     ],
     authors: [{ name: 'Md Sazzad Hossain', url: 'https://sazzad.dev' }],
     creator: 'Md Sazzad Hossain',
@@ -32,22 +33,22 @@ export const metadata: Metadata = {
         type: 'website',
         locale: 'en_US',
         url: 'https://sazzad.dev/',
-        title: 'Sazzad Hosain | Frontend Developer & Software Engineer',
-        description: 'Building exceptional digital experiences with React, Next.js, and TypeScript.',
-        siteName: 'Sazzad Hosain Portfolio',
+        title: 'Sazzad Hossain | Software Engineer & Full-Stack Architect',
+        description: 'Architecting scalable, AI-driven full-stack systems with Next.js, React, Node.js, and MongoDB.',
+        siteName: 'Sazzad Hossain Portfolio',
         images: [
             {
                 url: '/banner.png',
                 width: 1200,
                 height: 630,
-                alt: 'Sazzad Hosain Portfolio',
+                alt: 'Sazzad Hossain - Software Engineer Portfolio',
             }
         ],
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Sazzad Hosain | Frontend Developer & Software Engineer',
-        description: 'Building exceptional digital experiences.',
+        title: 'Sazzad Hossain | Software Engineer & Full-Stack Architect',
+        description: 'Architecting scalable, AI-driven full-stack systems from server to screen.',
         images: ['/banner.png'],
     },
     robots: {
@@ -62,7 +63,7 @@ export const metadata: Metadata = {
     manifest: '/manifest.json',
 };
 
-import { SmoothScroll } from "@/components/motion/SmoothScroll";
+
 
 export default function RootLayout({
     children,

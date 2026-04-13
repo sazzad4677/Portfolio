@@ -6,18 +6,22 @@ export default function JsonLd() {
         alternateName: 'Sazzad',
         url: 'https://sazzad.dev',
         image: 'https://sazzad.dev/banner.png',
-        jobTitle: 'Frontend Developer & Software Engineer',
-        description: 'Passionate Frontend Developer and Software Engineer from Bangladesh specializing in React, Next.js, and modern web technologies.',
+        jobTitle: 'Software Engineer & Full-Stack Architect',
+        description: 'Software Engineer from Bangladesh with almost 4 years of experience architecting scalable, AI-driven full-stack applications using Next.js, Node.js, and real-time systems.',
         knowsAbout: [
-            'Frontend Development',
             'Software Engineering',
+            'Full-Stack Development',
+            'System Architecture',
             'React',
             'Next.js',
-            'JavaScript',
+            'Node.js',
+            'Express.js',
+            'MongoDB',
             'TypeScript',
-            'Web Development',
-            'Mobile Development',
-            'UI/UX Design',
+            'WebRTC',
+            'Socket.io',
+            'AI Integration',
+            'Docker',
             'Tailwind CSS'
         ],
         sameAs: [
@@ -27,10 +31,6 @@ export default function JsonLd() {
         address: {
             '@type': 'PostalAddress',
             addressCountry: 'Bangladesh'
-        },
-        worksFor: {
-            '@type': 'Organization',
-            name: 'MyMedicalHub International'
         }
     };
 

@@ -10,9 +10,9 @@ const Footer: React.FC = () => {
     ];
 
     return (
-        <footer className="mt-4 bg-background/40 px-6 py-10 text-center backdrop-blur-sm md:py-12">
+        <footer className="mt-4 bg-background/40 px-4 sm:px-6 py-8 sm:py-10 md:py-12 text-center backdrop-blur-sm">
             {/* Mobile Socials */}
-            <ul className="flex items-center justify-center gap-6 mb-6 lg:hidden">
+            <ul className="flex items-center justify-center gap-5 sm:gap-6 mb-5 sm:mb-6 lg:hidden">
                 {socialLinks.map((link) => (
                     <li key={link.name}>
                         <a
@@ -22,14 +22,14 @@ const Footer: React.FC = () => {
                             className="text-secondary-foreground/60 hover:text-primary transition-colors duration-300"
                             aria-label={link.name}
                         >
-                            <link.icon size={24} />
+                            <link.icon size={20} className="sm:w-6 sm:h-6" />
                         </a>
                     </li>
                 ))}
             </ul>
 
-            <div className="font-mono text-sm tracking-wide text-secondary-foreground/60">
-                <p className="mb-2">
+            <div className="font-mono text-xs sm:text-sm tracking-wide text-secondary-foreground/60">
+                <p className="mb-1.5 sm:mb-2">
                     Developed with passion by{" "}
                     <a
                         href="https://github.com/sazzad4677"
@@ -37,10 +37,10 @@ const Footer: React.FC = () => {
                         rel="noopener noreferrer"
                         className="text-primary hover:underline underline-offset-4"
                     >
-                        Sazzad Hosain
+                        Sazzad Hossain
                     </a>
                 </p>
-                <p className="text-xs opacity-70">
+                <p className="text-[10px] sm:text-xs opacity-70">
                     &copy; {new Date().getFullYear()} All Rights Reserved.
                 </p>
             </div>

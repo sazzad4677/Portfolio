@@ -128,16 +128,22 @@ const Header: React.FC = () => {
                             animate="animate"
                             exit={{ opacity: 0, y: -20 }}
                             className={cn(
-                                "absolute top-full left-0 right-0 w-full glass-dark rounded-b-2xl py-8 px-6 shadow-2xl flex flex-col items-start gap-8 z-40 overflow-hidden border-t-0 lg:overflow-visible lg:static lg:flex lg:flex-row lg:items-center lg:justify-end lg:bg-transparent lg:backdrop-blur-none lg:border-0 lg:p-0 lg:shadow-none lg:w-auto lg:gap-10",
+                                // Mobile: full-width dropdown
+                                "absolute top-full left-0 right-0 w-full glass-dark rounded-b-2xl py-8 px-6 shadow-2xl flex flex-col items-start gap-8 z-40 overflow-hidden border-t-0",
+                                // Desktop: inline, compact
+                                "lg:overflow-visible lg:static lg:flex lg:flex-row lg:items-center lg:justify-end lg:bg-transparent lg:backdrop-blur-none lg:border-0 lg:p-0 lg:shadow-none lg:w-auto lg:gap-0",
+                                //                                                                                                                                                              ↑ gap-0 — spacing now handled per-item below
                                 !isDesktop && !isOpen && "hidden"
                             )}
                         >
-                            <ol className="flex flex-col items-start gap-8 lg:flex-row lg:gap-10 w-full lg:w-auto">
+                            <ol className="flex flex-col items-start gap-8 lg:flex-row lg:items-center lg:gap-5 xl:gap-7 w-full lg:w-auto">
+                                {/*                                                                        ↑ lg:gap-5 (was gap-10) saves ~35px per gap = ~245px total for 7 items
+                                                                                                             xl:gap-7 gives a little more room on wider screens */}
                                 {navLinks.map((link, index) => (
                                     <motion.li
                                         key={link.url}
                                         variants={linkVariants}
-                                        className="font-mono text-sm tracking-wide w-full lg:w-auto my-auto"
+                                        className="font-mono tracking-wide w-full lg:w-auto my-auto"
                                     >
                                         <Link
                                             to={link.url}
@@ -146,20 +152,32 @@ const Header: React.FC = () => {
                                             offset={NAV_SCROLL_OFFSET}
                                             spy
                                             activeClass="!text-primary"
-                                            className="group flex cursor-pointer flex-row items-baseline gap-2 text-foreground transition-colors hover:text-primary py-2 lg:py-0 border-b border-border/10 lg:border-none w-full lg:w-auto"
+                                            className="group flex cursor-pointer flex-row items-baseline gap-1.5 text-foreground transition-colors hover:text-primary py-2 lg:py-0 border-b border-border/10 lg:border-none w-full lg:w-auto text-sm lg:text-[11px] xl:text-xs"
+                                            //                                                                                                                                                             ↑ text-[11px] on lg, text-xs on xl
+                                            //                                                                                                                                                               shaves ~2px per character across all links
                                             onClick={() => !isDesktop && setIsOpen(false)}
                                         >
-                                            <span className="text-xs text-primary font-bold">0{index + 1}.</span>
+                                            <span className="text-[10px] lg:text-[9px] text-primary font-bold opacity-70">
+                                                {/*  ↑ number prefix smaller and de-emphasised on desktop */}
+                                                0{index + 1}.
+                                            </span>
                                             {link.name}
                                         </Link>
                                     </motion.li>
                                 ))}
-                                <motion.li variants={linkVariants} className="flex flex-row items-center justify-between gap-6 w-full lg:w-auto lg:justify-end pt-4 lg:pt-0">
+
+                                {/* Resume + ThemeSwitcher */}
+                                <motion.li
+                                    variants={linkVariants}
+                                    className="flex flex-row items-center justify-between gap-6 w-full lg:w-auto lg:justify-end lg:gap-3 xl:gap-4 lg:ml-4 xl:ml-6 pt-4 lg:pt-0"
+
+                                >
                                     <a
                                         href="/resume.pdf"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="rounded-xl border border-primary px-6 py-2.5 font-mono text-sm text-primary transition-all hover:bg-primary/10 flex-1 text-center md:flex-initial"
+                                        className="rounded-xl border border-primary px-4 lg:px-4 xl:px-5 py-2 font-mono text-xs text-primary transition-all hover:bg-primary/10 flex-1 text-center lg:flex-initial whitespace-nowrap"
+
                                     >
                                         Resume
                                     </a>

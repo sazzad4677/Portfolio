@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Element } from "react-scroll";
-import { defaultContent } from "../../lib/defaultContent";
+import contentManager from "../../lib/contentManager";
 import { LayoutTemplate, Server, Layers, X, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Service } from "../../lib/types";
 
@@ -12,7 +12,7 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 const Services = () => {
-    const { services } = defaultContent;
+    const services = contentManager.getServices();
     const [activeService, setActiveService] = useState<Service | null>(null);
 
     const containerVariants = {
@@ -36,7 +36,6 @@ const Services = () => {
     return (
         <Element name="services" className="scroll-anchor">
             <section id="services" className="py-24 overflow-hidden relative">
-                {/* Background glow identical to other sections */}
                 <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-80 h-80 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
 
                 <div className="site-container">
@@ -106,7 +105,6 @@ const Services = () => {
                 </div>
             </section>
 
-            {/* Service Details Modal */}
             <AnimatePresence>
                 {activeService && (
                     <motion.div
@@ -124,7 +122,6 @@ const Services = () => {
                             onClick={(e) => e.stopPropagation()}
                             className="relative w-full max-w-lg bg-surface border border-border/40 rounded-2xl shadow-2xl p-6 md:p-8 overflow-hidden"
                         >
-                            {/* Modal Header */}
                             <div className="flex items-start justify-between mb-6">
                                 <div className="flex items-center gap-4">
                                     <div className="p-3 rounded-lg bg-primary/10 text-primary">
@@ -140,7 +137,6 @@ const Services = () => {
                                 </button>
                             </div>
 
-                            {/* Modal Content */}
                             <div className="space-y-6">
                                 <p className="text-secondary-foreground leading-relaxed">
                                     {activeService.description}

@@ -9,7 +9,8 @@ export const defaultContent: PortfolioContent = {
         ctaText: "Get In Touch",
         ctaLink: "mailto:sazzad4677@gmail.com",
         cvLink: "https://drive.google.com/file/d/1ffycRhonZegQk2VJjfsa_g_AZAOj_5Xw/view?usp=drive_link",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        profileImage: "/images/me.jpg"
     },
 
     about: {
@@ -99,63 +100,14 @@ export const defaultContent: PortfolioContent = {
     projects: [
         {
             id: 0,
-            title: "My Portfolio",
-            description: "A personal portfolio website showcasing my projects and skills. Converted from a React project to a Next.js project for better performance and SEO. Features a dynamic admin panel for content management.",
-            technologies: ["Next.js", "React", "Tailwind CSS", "MongoDB"],
+            title: "Smart Inventory & Business Intelligence System",
+            description: "An AI-driven enterprise inventory platform featuring real-time state orchestration via Socket.io and Redis. Engineered high-performance analytics dashboards using complex MongoDB aggregations and integrated Google Gemini to transform static data into predictive business insights. Secured with a scalable RBAC governance layer and optimized client-side performance using Zustand and Next.js Server Actions.",
+            technologies: ["Next.js 16", "Node.js", "MongoDB", "Redis", "Socket.io", "Gemini AI"],
             links: {
-                github: "https://github.com/sazzad4677/myportfolio",
-                external: "https://test.sazzad.dev",
-                admin: "https://test.sazzad.dev/admin"
+                github: "https://github.com/sazzad4677/Smart-Inventory-System",
+                external: ""
             },
-            image: { url: "portfolio.png" },
-            featured: true
-        },
-        {
-            id: 1,
-            title: "Stationary Shop",
-            description: "Built a modern, responsive frontend for an online stationary shop using React, TypeScript, Vite, Tailwind CSS, ESLint, Node Js, Express Js, Mongoose and ShadCN UI. Features include dynamic product filtering, a functional shopping cart, and mobile-friendly design. Ensured code quality with ESLint and a type-safe architecture.",
-            technologies: ["React", "TypeScript", "ExpressJs", "Mongoose", "Redux"],
-            links: {
-                github: "https://github.com/sazzad4677/Stationary-Shop-Frontend",
-                external: "https://stationary-shop-frontend-silk.vercel.app/"
-            },
-            image: { url: "Pappier.png" },
-            featured: true
-        },
-        {
-            id: 2,
-            title: "Cutly - Link Shortener",
-            description: "A web application for shortening long URLs. Here I used a url validator. I didn't use any third-party APIs. Instead, I built my own API with my proper error handling.",
-            technologies: ["React", "Express JS", "Tailwind CSS", "Mongoose"],
-            links: {
-                github: "https://github.com/sazzad4677/cutly-frontend",
-                external: "https://cutly.netlify.app/"
-            },
-            image: { url: "cutly.webp" },
-            featured: true
-        },
-        {
-            id: 3,
-            title: "Interactive Comments Section",
-            description: "Users can read, add, edit, and delete comments in this project. Comments can be voted up or down by the user. The most popular comments will be displayed first. After the comment, the user can observe how much time has passed.",
-            technologies: ["React", "Tailwind CSS"],
-            links: {
-                github: "https://github.com/sazzad4677/Interactive-comments-section",
-                external: "https://interactive-comments-bd.netlify.app/"
-            },
-            image: { url: "comment.webp" },
-            featured: true
-        },
-        {
-            id: 4,
-            title: "GO Mart",
-            description: "A grocery delivery system controlled by voice. where the user may utilize voice commands to purchase items. A person with the authority to add, remove, and update products. Voice commands may be used to add items to the cart. Sorting and pagination of the products.",
-            technologies: ["Mongoose", "Express.js", "React JS", "Tailwind CSS", "Redux"],
-            links: {
-                github: "https://github.com/sazzad4677/GoMart-Frontend",
-                external: "https://go-mart.netlify.app/"
-            },
-            image: { url: "gomart.webp" },
+            image: { url: "inventory.png" }, // Update this URL to your actual screenshot name
             featured: true
         }
     ],
@@ -166,7 +118,7 @@ export const defaultContent: PortfolioContent = {
             company: "MMHI",
             name: "MyMedical Hub International",
             position: "Software Engineer",
-            range: "March 2024 - Present",
+            range: "March 2024 - December 2025",
             website: "https://mymedicalhub.com/",
             description: [
                 "Developed and maintained responsive, user-friendly web interfaces for the company's healthcare platform, improving patient and provider engagement.",
@@ -217,6 +169,90 @@ export const defaultContent: PortfolioContent = {
             date: "2022",
             description: "Comprehensive certification covering React, UI/UX principles, advanced state management, and web accessibility best practices.",
         }
+    ],
+
+    archiveProjects: [
+        {
+            title: "Stationary Shop",
+            description: "Built a modern, responsive frontend for an online stationary shop using React, TypeScript, Vite, Tailwind CSS, ESLint, Node Js, Express Js, Mongoose and ShadCN UI. Features include dynamic product filtering, a functional shopping cart, and mobile-friendly design. Ensured code quality with ESLint and a type-safe architecture.",
+            technologies: ["React", "TypeScript", "ExpressJs", "Mongoose", "Redux"],
+            links: {
+                github: "https://github.com/sazzad4677/Stationary-Shop-Frontend",
+                liveLink: "https://stationary-shop-frontend-silk.vercel.app/"
+            },
+        },
+        {
+            title: "Cutly - Link Shortener",
+            description: "A web application for shortening long URLs. Here I used a url validator. I didn't use any third-party APIs. Instead, I built my own API with my proper error handling.",
+            technologies: ["React", "Express JS", "Tailwind CSS", "Mongoose"],
+            links: {
+                github: "https://github.com/sazzad4677/cutly-frontend",
+                liveLink: "https://cutly.netlify.app/"
+            },
+        },
+        {
+            title: "Interactive Comments Section",
+            description: "Users can read, add, edit, and delete comments in this project. Comments can be voted up or down by the user. The most popular comments will be displayed first. After the comment, the user can observe how much time has passed.",
+            technologies: ["React", "Tailwind CSS"],
+            links: {
+                github: "https://github.com/sazzad4677/Interactive-comments-section",
+                liveLink: "https://interactive-comments-bd.netlify.app/"
+            },
+        },
+        {
+            title: "GO Mart",
+            description: "A grocery delivery system controlled by voice. where the user may utilize voice commands to purchase items. A person with the authority to add, remove, and update products. Voice commands may be used to add items to the cart. Sorting and pagination of the products.",
+            technologies: ["Mongoose", "Express.js", "React JS", "Tailwind CSS", "Redux"],
+            links: {
+                github: "https://github.com/sazzad4677/GoMart-Frontend",
+                liveLink: "https://go-mart.netlify.app/"
+            },
+        },
+        {
+            title: "Fency Slider",
+            description: "An interactive image search and slider tool powered by Pixabay API. Allows users to dynamicly generate sliders with custom timing and image selections.",
+            technologies: ["JavaScript", "Pixabay API", "CSS3"],
+            links: {
+                github: "https://github.com/sazzad4677/fency-slider",
+                liveLink: "https://sazzad4677.github.io/fency-slider/",
+            },
+        },
+        {
+            title: "Guess The Number",
+            description: "A pure Vanilla JavaScript game focusing on DOM manipulation and state management. Simple, clean, and interactive gaming experience.",
+            technologies: ["Vanilla JS", "DOM Manipulation"],
+            links: {
+                github: "https://github.com/sazzad4677/few-vanilla-javascript-projects#guess-the-number",
+                liveLink: "https://try-guess-the-number.netlify.app/",
+            },
+        },
+        {
+            title: "Dice Game",
+            description: "Two-player dice rolling game built with pure JavaScript. Demonstrates foundational logic and real-time UI updates without heavy frameworks.",
+            technologies: ["JavaScript", "HTML5", "CSS3"],
+            links: {
+                github: "https://github.com/sazzad4677/few-vanilla-javascript-projects#dice-game",
+                liveLink: "https://dice-game-25.netlify.app/",
+            },
+        },
+        {
+            title: "Cooking Master",
+            description: "Meal discovery application using TheMealDB API. Features dynamic searching and recursive data fetching for recipe details.",
+            technologies: ["JavaScript", "TheMealDB API"],
+            links: {
+                github: "https://github.com/sazzad4677/cooking-master",
+                liveLink: "https://sazzad4677.github.io/cooking-master/",
+            },
+        },
+        {
+            title: "Omni Food",
+            description: "Responsive landing page designed with semantic HTML and modern CSS techniques. Focused on layout precision and responsive behavior.",
+            technologies: ["HTML5", "CSS3", "Responsive Design"],
+            links: {
+                github: "https://github.com/sazzad4677/Omni-Food",
+                liveLink: "https://omnifoodbd.netlify.app/",
+            },
+        },
     ],
 
     contact: {

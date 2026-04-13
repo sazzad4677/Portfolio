@@ -1,10 +1,14 @@
-export default function sitemap() {
+import { MetadataRoute } from 'next';
+
+export default function sitemap(): MetadataRoute.Sitemap {
+    const baseUrl = 'https://sazzad.dev';
+    
     return [
         {
-            url: 'https://sazzad.dev',
+            url: baseUrl,
             lastModified: new Date(),
             changeFrequency: 'monthly',
             priority: 1,
         },
-    ]
+    ];
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 interface BrandIconProps extends React.SVGProps<SVGSVGElement> {

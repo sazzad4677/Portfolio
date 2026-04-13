@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Element } from "react-scroll";

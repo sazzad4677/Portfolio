@@ -1,3 +1,5 @@
+"use client";
+
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import React, { useState } from "react";
 import { Element } from "react-scroll";
@@ -62,17 +64,15 @@ const Hero: React.FC = () => {
                     </motion.div>
 
                     <motion.div variants={item}>
-                        <h1 className="mb-3 sm:mb-4 font-mono text-xs sm:text-sm tracking-[0.2em] text-primary md:text-base">
-                            
+                        <p className="mb-3 sm:mb-4 font-mono text-xs sm:text-sm tracking-[0.2em] text-primary md:text-base">
                             {content.greeting}
-                        </h1>
+                        </p>
                     </motion.div>
 
                     <motion.div variants={item}>
-                        <h2 className="font-sans font-semibold text-on-background" style={{ fontSize: "clamp(28px, 7vw, 64px)", lineHeight: 1.25 }}>
-                           
+                        <h1 className="font-sans font-semibold text-on-background" style={{ fontSize: "clamp(28px, 7vw, 64px)", lineHeight: 1.25 }}>
                             <span className="text-gradient">{content.name}</span>
-                        </h2>
+                        </h1>
                     </motion.div>
 
                     <motion.div variants={item}>
@@ -173,7 +173,7 @@ const Hero: React.FC = () => {
                             {/* Video */}
                             <div className="relative aspect-video w-full bg-black">
                                 <iframe
-                                    src={content.videoUrl}
+                                    src={content.videoUrl || undefined}
                                     title="YouTube video player"
                                     style={{ border: 0 }}
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

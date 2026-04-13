@@ -76,7 +76,7 @@ export default function RootLayout({
             <head>
                 <JsonLd />
             </head>
-            <body className={`${inter.className} antialiased selection:bg-primary/30 selection:text-primary`}>
+            <body className={`${inter.className} antialiased selection:bg-primary/30 selection:text-primary`} >
                 <ThemeProvider
                     attribute="data-theme"
                     defaultTheme="navy"

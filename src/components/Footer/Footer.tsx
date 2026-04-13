@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/brand-icons";
 

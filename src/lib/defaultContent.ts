@@ -9,7 +9,7 @@ export const defaultContent: PortfolioContent = {
         ctaText: "Get In Touch",
         ctaLink: "mailto:sazzad4677@gmail.com",
         cvLink: "https://drive.google.com/file/d/1ffycRhonZegQk2VJjfsa_g_AZAOj_5Xw/view?usp=drive_link",
-        videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        videoUrl: "",
         profileImage: "/images/me.jpg"
     },
 

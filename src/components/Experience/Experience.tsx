@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
-import { Element } from "react-scroll/modules";
+import { Element } from "react-scroll";
 import { Briefcase, Calendar, ExternalLink } from "lucide-react";
 import contentManager from "@/lib/contentManager";
 
@@ -22,7 +22,7 @@ const Experience: React.FC = () => {
             },
         },
     };
-
+    
     return (
         <Element name="jobs" className="scroll-anchor">
             <motion.section
@@ -38,7 +38,6 @@ const Experience: React.FC = () => {
 
                     {/* Heading */}
                     <div className="mb-8 sm:mb-10 md:mb-12 flex items-center space-x-4">
-                        {/* ↑ mb-8 on mobile (was mb-12) */}
                         <h2 className="whitespace-nowrap font-sans text-2xl font-bold text-foreground before:mr-2 before:font-mono before:text-lg before:text-primary before:content-['04.'] md:text-3xl">
                             Where I&apos;ve worked
                         </h2>
@@ -47,8 +46,7 @@ const Experience: React.FC = () => {
 
                     <div className="mx-auto max-w-[900px]">
                         <div className="flex flex-col lg:flex-row">
-                            {/* ↑ removed min-h-[450px] — was forcing excess height on mobile */}
-
+                           
                             {/* Tab List */}
                             <div className="relative flex lg:flex-col overflow-x-auto lg:overflow-visible no-scrollbar border-b lg:border-b-0 lg:border-l border-border/40 pb-1 lg:pb-0">
                                 {jobs.map((job, index) => (
@@ -79,7 +77,6 @@ const Experience: React.FC = () => {
 
                             {/* Job Details */}
                             <div className="mt-6 sm:mt-8 lg:mt-0 lg:pl-12 flex-1">
-                                {/* ↑ mt-6 on mobile (was mt-10) */}
                                 <AnimatePresence mode="wait">
                                     {selectedJob && (
                                         <motion.div
@@ -92,15 +89,12 @@ const Experience: React.FC = () => {
                                         >
                                             {/* Job Header */}
                                             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 mb-5 sm:mb-7 md:mb-8">
-                                                {/* ↑ gap-2 on mobile, mb-5 on mobile (was mb-8) */}
                                                 <div>
                                                     <div className="flex items-center gap-2 sm:gap-3 mb-1">
                                                         <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-primary/10 text-primary border border-primary/20">
-                                                            {/* ↑ smaller icon box on mobile */}
                                                             <Briefcase size={14} className="sm:w-4 sm:h-4" />
                                                         </div>
                                                         <h3 className="text-base sm:text-xl font-semibold text-foreground md:text-2xl">
-                                                            {/* ↑ text-base on mobile (was text-xl) */}
                                                             {selectedJob.position}
                                                         </h3>
                                                     </div>
@@ -128,7 +122,6 @@ const Experience: React.FC = () => {
 
                                             {/* Experience Timeline */}
                                             <div className="relative ml-2 sm:ml-4 pl-5 sm:pl-8 border-l border-border/40 space-y-4 sm:space-y-6">
-                                                {/* ↑ ml-2 + pl-5 on mobile (was ml-4 pl-8) — saves 10px horizontal space */}
                                                 {selectedJob.description.map((item, index) => (
                                                     <motion.div
                                                         key={index}
@@ -139,9 +132,7 @@ const Experience: React.FC = () => {
                                                     >
                                                         {/* Timeline Dot */}
                                                         <div className="absolute -left-[29px] sm:-left-[41px] top-[7px] h-3 w-3 sm:h-4 sm:w-4 rounded-full border-2 border-primary bg-background z-10" />
-                                                        {/* ↑ smaller dot + adjusted left offset on mobile */}
                                                         <p className="text-xs sm:text-sm leading-normal sm:leading-relaxed text-secondary-foreground/90 md:text-base">
-                                                            {/* ↑ text-xs + leading-normal on mobile (was text-sm leading-relaxed) */}
                                                             {item}
                                                         </p>
                                                     </motion.div>

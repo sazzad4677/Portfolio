@@ -23,7 +23,6 @@ export function HeroInteractiveBackground() {
             const floaters = floaterInnerRefs.current.filter(Boolean) as HTMLDivElement[];
             const parallaxStrength = floaters.map((_, i) => 10 + i * 7);
 
-            // Pre-allocate quickTo functions for each floater for peak performance
             const xTos = floaters.map(f => gsap.quickTo(f, "x", { duration: 0.55, ease: "power3.out" }));
             const yTos = floaters.map(f => gsap.quickTo(f, "y", { duration: 0.55, ease: "power3.out" }));
 

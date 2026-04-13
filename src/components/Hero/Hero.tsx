@@ -1,6 +1,6 @@
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import React, { useState } from "react";
-import { Element } from "react-scroll/modules";
+import { Element } from "react-scroll";
 import { FileText, Play, X } from "lucide-react";
 import contentManager from "@/lib/contentManager";
 
@@ -133,7 +133,7 @@ const Hero: React.FC = () => {
                 </div>
             </motion.section>
 
-            {/* Premium Video Modal */}
+            {/* Video Modal */}
             <AnimatePresence>
                 {isVideoOpen && (
                     <motion.div
@@ -170,7 +170,7 @@ const Hero: React.FC = () => {
                                 </button>
                             </div>
 
-                            {/* Aspect Ratio Container for Video */}
+                            {/* Video */}
                             <div className="relative aspect-video w-full bg-black">
                                 <iframe
                                     src={content.videoUrl}

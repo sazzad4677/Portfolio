@@ -8,7 +8,6 @@ import { ArrowLeft } from "lucide-react";
 const NoMatchRoute: React.FC = () => {
     return (
         <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-background">
-            {/* Atmospheric Background Glows */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
             <div className="absolute top-1/4 left-1/3 w-[300px] h-[300px] bg-primary/2 rounded-full blur-[80px] pointer-events-none" />
 

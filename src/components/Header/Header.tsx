@@ -108,8 +108,6 @@ const Header: React.FC = () => {
                         </div>
                     </Link>
                 </motion.div>
-
-                {/* nav controls: Resume + Switcher + Hamburger */}
                 <div className="flex items-center gap-2 sm:gap-4 lg:hidden z-50">
                     <a
                         href="/resume.pdf"
@@ -157,9 +155,7 @@ const Header: React.FC = () => {
                             animate="animate"
                             exit={{ opacity: 0, y: -20, transition: { duration: 0.2 } }}
                             className={cn(
-                                // Mobile: floating card
                                 "absolute top-[calc(100%+0.5rem)] right-0 w-[min(calc(100vw-2rem),20rem)] glass-dark rounded-2xl py-8 px-6 shadow-2xl flex flex-col items-start gap-8 z-40 overflow-hidden border border-primary/10",
-                                // Desktop: inline, compact
                                 "lg:overflow-visible lg:static lg:flex lg:flex-row lg:items-center lg:justify-end lg:bg-transparent lg:backdrop-blur-none lg:border-0 lg:p-0 lg:shadow-none lg:w-auto lg:gap-0",
                                 !isDesktop && !isOpen && "hidden"
                             )}

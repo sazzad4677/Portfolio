@@ -4,6 +4,7 @@ import '../index.css';
 import { ThemeProvider } from "@/components/theme-provider";
 import JsonLd from './json-ld';
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
+import { InteractiveBackground } from "@/components/Background/InteractiveBackground";
 
 const inter = Inter({
     subsets: ['latin'],
@@ -83,6 +84,7 @@ export default function RootLayout({
                     disableTransitionOnChange
                 >
                     <div className="bg-mesh-layer" aria-hidden="true" />
+                    <InteractiveBackground />
                     <main className="min-h-screen bg-transparent transition-colors duration-500">
                         <SmoothScroll>
                             {children}

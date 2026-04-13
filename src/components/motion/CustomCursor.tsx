@@ -45,7 +45,7 @@ export function CustomCursor() {
                 scale: hovering ? 1.45 : 1,
                 duration: 0.25,
                 ease: "power2.out",
-                force3D: true, // Force GPU acceleration
+                force3D: true,
             });
             gsap.to(ring, {
                 opacity: hovering ? 1 : 0.65,

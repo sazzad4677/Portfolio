@@ -57,7 +57,6 @@ const Loader: React.FC<LoaderProps> = ({ setLoading }) => {
                 exit={{ opacity: 0, transition: { duration: 0.5 } }}
                 className="fixed inset-0 z-[999] flex h-screen w-full flex-col items-center justify-center bg-background overflow-hidden"
             >
-                {/* Immersive Background Mesh */}
                 <div className="absolute inset-0 z-0 opacity-40">
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_70vw_80vh_at_0%_38%,hsla(var(--primary-hsl)/0.12)_0%,transparent_62%)]" />
                     <div className="absolute inset-0 bg-[radial-gradient(ellipse_68vw_78vh_at_100%_34%,hsla(var(--primary-hsl)/0.1)_0%,transparent_60%)]" />
@@ -65,7 +64,7 @@ const Loader: React.FC<LoaderProps> = ({ setLoading }) => {
 
                 <div className="relative z-10 flex flex-col items-center gap-8">
                     <div className="relative h-32 w-32">
-                        {/* Outer Glow */}
+                        
                         <motion.div
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: [0.2, 0.5, 0.2], scale: [0.9, 1.1, 0.9] }}
@@ -113,8 +112,7 @@ const Loader: React.FC<LoaderProps> = ({ setLoading }) => {
                             </motion.text>
                         </motion.svg>
                     </div>
-
-                    {/* Digital Percentage Counter */}
+                    {/* Percentage Counter */}
                     <motion.div 
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}

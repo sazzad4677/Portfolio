@@ -1,6 +1,3 @@
-// Content Manager - Handles portfolio content using static data
-// Backend functionality removed for modern pure-frontend architecture
-
 import { defaultContent } from './defaultContent';
 import { PortfolioContent, HeroContent, AboutContent, Skill, DetailedSkill, Service, Certification, Project, ArchiveProject, Experience, Education, ContactContent, SeoContent } from './types';
 
@@ -40,8 +37,7 @@ class ContentManager {
     getAllContent(): PortfolioContent {
         return this.content;
     }
-
-    // Modern "Save" - now just a local update (useful for state-driven UI)
+    
     async saveAllContent(newContent: PortfolioContent): Promise<PortfolioContent> {
         this.content = newContent;
         this.notifyListeners();

@@ -34,7 +34,6 @@ const About: React.FC = () => {
 
                     {/* Section Heading */}
                     <div className="mb-8 sm:mb-12 md:mb-14 flex items-center space-x-4">
-                        {/* ↑ FIXED: mb-8 on mobile (was mb-14) */}
                         <h2 className="whitespace-nowrap font-sans text-2xl font-bold text-foreground before:mr-2 before:font-mono before:text-lg before:text-primary before:content-['01.'] md:text-3xl">
                             About Me
                         </h2>
@@ -42,14 +41,10 @@ const About: React.FC = () => {
                     </div>
 
                     <div className="grid grid-cols-1 gap-10 sm:gap-12 lg:grid-cols-[3fr_2fr] lg:gap-16">
-                        {/* ↑ FIXED: gap-10 on mobile (was gap-16) */}
 
                         {/* Text + Skills */}
                         <div className="flex flex-col space-y-5 sm:space-y-8">
-                            {/* ↑ FIXED: space-y-5 on mobile (was space-y-8) */}
                             <div className="space-y-3 sm:space-y-4 font-sans text-sm sm:text-base leading-normal sm:leading-relaxed text-secondary-foreground">
-                                {/* leading-normal on xs (1.5) → leading-relaxed on sm+ (1.625) — saves ~4–6px per line */}
-                                {/* space-y-3 on xs tightens the gap between paragraphs */}
                                 {content.paragraphs.map((paragraph: string, index: number) => (
                                     <p
                                         key={index}
@@ -60,7 +55,6 @@ const About: React.FC = () => {
                             </div>
 
                             <div className="space-y-3 sm:space-y-6">
-                                {/* ↑ FIXED: space-y-3 on mobile */}
                                 <p className="font-mono text-sm uppercase tracking-[0.2em] text-primary/80">
                                     {content.skillsHeading || "Recently Mastered"}
                                 </p>

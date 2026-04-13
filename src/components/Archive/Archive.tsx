@@ -3,7 +3,8 @@
 import React from "react";
 import { motion, Variants } from "framer-motion";
 import { Element } from "react-scroll";
-import { Github, ExternalLink, Folder } from "lucide-react";
+import { ExternalLink, Folder } from "lucide-react";
+import { GitHubIcon } from "@/components/ui/brand-icons";
 import contentManager from "../../lib/contentManager";
 
 interface ArchiveProject {
@@ -56,7 +57,7 @@ const Archive: React.FC = () => {
                                             <Folder className="text-primary w-8 h-8 sm:w-10 sm:h-10" />
                                             <div className="flex items-center gap-3 sm:gap-4 text-secondary-foreground/60">
                                                 <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-                                                    <Github size={18} className="sm:w-[22px] sm:h-[22px]" />
+                                                    <GitHubIcon size={18} className="sm:w-[22px] sm:h-[22px]" />
                                                 </a>
                                                 <a href={project.links.liveLink} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
                                                     <ExternalLink size={18} className="sm:w-[22px] sm:h-[22px]" />

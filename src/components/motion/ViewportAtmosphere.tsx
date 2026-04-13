@@ -4,10 +4,6 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
 
-/**
- * Light accent on top of the same body `--bg-mesh` (main is transparent so the mesh is continuous).
- * Avoids a second “texture” that fights the site background — only soft blooms + cursor follow.
- */
 export function ViewportAtmosphere() {
     const rootRef = useRef<HTMLDivElement>(null);
 
@@ -29,7 +25,6 @@ export function ViewportAtmosphere() {
             const onMove = (e: MouseEvent) => {
                 (xTo as any)(`${e.clientX}px`);
                 (yTo as any)(`${e.clientY}px`);
-                // No need to kill() because quickTo handles updates efficiently
             };
 
             if (!reduce) {
@@ -51,8 +46,7 @@ export function ViewportAtmosphere() {
             className="pointer-events-none fixed inset-0 z-[1] overflow-hidden"
             aria-hidden
         >
-            {/* Same language as --bg-mesh: large soft radials, full viewport (no max-width column) */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_95vw_55vh_at_50%_8%,hsl(var(--primary-hsl)/0.05)_0%,transparent_50%)]" />
+             <div className="absolute inset-0 bg-[radial-gradient(ellipse_95vw_55vh_at_50%_8%,hsl(var(--primary-hsl)/0.05)_0%,transparent_50%)]" />
 
             <div
                 className="absolute inset-0"

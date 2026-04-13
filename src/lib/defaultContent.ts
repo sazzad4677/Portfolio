@@ -51,7 +51,7 @@ export const defaultContent: PortfolioContent = {
         },
         {
             category: "Tools & Architecture",
-            items: ["Git/GitHub", "CI/CD", "Jest", "Microservices", "System Design", "Agile methodologies"]
+            items: ["Git/Github", "CI/CD", "Jest", "Microservices", "System Design", "Agile methodologies"]
         }
     ],
 

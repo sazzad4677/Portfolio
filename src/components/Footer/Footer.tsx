@@ -1,12 +1,10 @@
 import React from "react";
-import { Github, Twitter, Linkedin, Facebook } from "lucide-react";
+import { GitHubIcon, LinkedInIcon } from "@/components/ui/brand-icons";
 
 const Footer: React.FC = () => {
     const socialLinks = [
-        { name: "Github", url: "https://github.com/sazzad4677/", icon: Github },
-        { name: "Twitter", url: "https://twitter.com/sazzad4677/", icon: Twitter },
-        { name: "LinkedIn", url: "https://www.linkedin.com/in/sazzad4673/", icon: Linkedin },
-        { name: "Facebook", url: "https://facebook.com/sazzad4677/", icon: Facebook },
+        { name: "Github", url: "https://github.com/sazzad4677/", icon: GitHubIcon },
+        { name: "LinkedIn", url: "https://www.linkedin.com/in/sazzad4673/", icon: LinkedInIcon },
     ];
 
     return (

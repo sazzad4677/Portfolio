@@ -1,7 +1,8 @@
 import { motion, Variants } from "framer-motion";
 import React from "react";
-import { Element } from "react-scroll/modules";
-import { Github, ExternalLink, ShieldCheck } from "lucide-react";
+import { Element } from "react-scroll";
+import { ExternalLink, ShieldCheck } from "lucide-react";
+import { GitHubIcon } from "@/components/ui/brand-icons";
 import contentManager from "@/lib/contentManager";
 import { Project } from "@/lib/types";
 
@@ -85,7 +86,7 @@ const Works: React.FC = () => {
                                                         rel="noopener noreferrer" 
                                                         className="group flex items-center gap-2 rounded-lg bg-surface/60 px-4 py-2.5 text-xs font-mono text-foreground transition-all duration-300 hover:bg-primary/5 hover:text-primary hover:border-primary/30 border border-border/40 backdrop-blur-sm shadow-sm"
                                                     >
-                                                        <Github size={16} className="transition-transform group-hover:-translate-y-0.5 text-primary/80 group-hover:text-primary" />
+                                                        <GitHubIcon size={16} className="transition-transform group-hover:-translate-y-0.5 text-primary/80 group-hover:text-primary" />
                                                         <span className="font-semibold">Source Code</span>
                                                     </a>
                                                 )}

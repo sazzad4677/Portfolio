@@ -2,14 +2,12 @@
 
 import React from "react";
 import { motion, Variants } from "framer-motion";
-import { Github, Twitter, Linkedin, Facebook, Instagram } from "lucide-react";
+import { GitHubIcon, TwitterIcon, LinkedInIcon, FacebookIcon } from "@/components/ui/brand-icons";
 
 const Socials: React.FC = () => {
     const socialLinks = [
-        { name: "Github", url: "https://github.com/sazzad4677/", icon: Github },
-        { name: "Twitter", url: "https://twitter.com/sazzad4677/", icon: Twitter },
-        { name: "LinkedIn", url: "https://www.linkedin.com/in/sazzad4673/", icon: Linkedin },
-        { name: "Facebook", url: "https://facebook.com/sazzad4677/", icon: Facebook },
+        { name: "Github", url: "https://github.com/sazzad4677/", icon: GitHubIcon },
+        { name: "LinkedIn", url: "https://www.linkedin.com/in/sazzad4673/", icon: LinkedInIcon },
     ];
 
     const containerVariants: Variants = {

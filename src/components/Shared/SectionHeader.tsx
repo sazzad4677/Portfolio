@@ -1,7 +1,11 @@
 import React from "react";
 
-const SectionHeader = ({ sectionId, name }) => {
-  console.log(sectionId)
+interface SectionHeaderProps {
+  sectionId: string;
+  name: string;
+}
+
+const SectionHeader: React.FC<SectionHeaderProps> = ({ sectionId, name }) => {
   return (
     <div className="flex items-center space-x-4 mt-5 mb-10 ">
       <h2
@@ -12,6 +16,6 @@ const SectionHeader = ({ sectionId, name }) => {
       <span className="w-52 h-px bg-surface-variant" />
     </div>
   );
-};
+};  
 
 export default SectionHeader;

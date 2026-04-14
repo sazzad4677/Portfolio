@@ -19,6 +19,7 @@ import { ViewportAtmosphere } from "@/components/motion/ViewportAtmosphere";
 import { CustomCursor } from "@/components/motion/CustomCursor";
 import ScrollToTop from "@/components/Shared/ScrollToTop";
 import { HeroParallax } from "@/components/motion/HeroParallax";
+import AIChatBubble from "@/components/AI/AIChatBubble";
 
 export default function Page() {
     return (
@@ -28,6 +29,7 @@ export default function Page() {
             <ViewportAtmosphere />
             <CustomCursor />
             <ScrollToTop />
+            <AIChatBubble />
             <Header />
             <div className="relative z-10 flex flex-col gap-12 sm:gap-16 md:gap-20 pb-10 overflow-x-hidden">
                 <Hero />

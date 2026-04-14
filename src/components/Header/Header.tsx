@@ -20,8 +20,10 @@ const Header: React.FC = () => {
     const scrollPosition = useScrollPosition();
     const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
     const [isOpen, setIsOpen] = useState(false);
+    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
+        setMounted(true);
         if (isDesktop) setIsOpen(true);
     }, [isDesktop]);
 
@@ -135,7 +137,7 @@ const Header: React.FC = () => {
 
                 {/* Mobile Menu Backdrop */}
                 <AnimatePresence>
-                    {isOpen && !isDesktop && (
+                    {mounted && isOpen && !isDesktop && (
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -148,7 +150,7 @@ const Header: React.FC = () => {
 
                 {/* Desktop and Mobile Navigation */}
                 <AnimatePresence mode="wait">
-                    {(isOpen || isDesktop) && (
+                    {mounted && (isOpen || isDesktop) && (
                         <motion.div
                             variants={navVariants}
                             initial="initial"

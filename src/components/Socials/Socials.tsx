@@ -3,6 +3,7 @@
 import React from "react";
 import { motion, Variants } from "framer-motion";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/brand-icons";
+import Magnetic from "@/components/motion/Magnetic";
 
 const Socials: React.FC = () => {
     const socialLinks = [
@@ -40,18 +41,20 @@ const Socials: React.FC = () => {
                     <motion.li
                         key={link.name}
                         variants={itemVariants}
-                        whileHover={{ y: -3 }}
-                        className="p-2"
+                        className="p-1"
                     >
-                        <a
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-secondary-foreground/60 hover:text-primary transition-colors duration-300 block"
-                            aria-label={link.name}
-                        >
-                            <link.icon size={22} strokeWidth={1.5} />
-                        </a>
+                        <Magnetic strength={0.3}>
+                            <a
+                                href={link.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-secondary-foreground/60 hover:text-primary transition-colors duration-300 block p-2"
+                                aria-label={link.name}
+                                data-cursor-hover
+                            >
+                                <link.icon size={22} strokeWidth={1.5} />
+                            </a>
+                        </Magnetic>
                     </motion.li>
                 ))}
             </motion.ul>

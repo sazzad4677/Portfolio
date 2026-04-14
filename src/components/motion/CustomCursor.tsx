@@ -41,15 +41,18 @@ export function CustomCursor() {
         };
 
         const setHover = (hovering: boolean) => {
-            gsap.to([dot, ring], {
-                scale: hovering ? 1.45 : 1,
-                duration: 0.25,
-                ease: "power2.out",
-                force3D: true,
+            gsap.to(dot, {
+                scale: hovering ? 2 : 1,
+                duration: 0.3,
+                ease: "power3.out",
             });
             gsap.to(ring, {
-                opacity: hovering ? 1 : 0.65,
-                duration: 0.25,
+                scale: hovering ? 2.8 : 1,
+                opacity: hovering ? 0.9 : 0.65,
+                borderWidth: hovering ? "1.5px" : "2px",
+                backgroundColor: hovering ? "hsla(var(--primary-hsl) / 0.05)" : "transparent",
+                duration: 0.4,
+                ease: "power3.out",
             });
         };
 

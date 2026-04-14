@@ -26,15 +26,15 @@
 }
 
 :root {
-  --background-hsl: 222 47% 11%;
+  --background-hsl: 222 47% 4%;
   --foreground-hsl: 210 40% 98%;
   
   --primary-hsl: 171 100% 41%;
   --secondary-hsl: 215 25% 60%;
   --accent-hsl: 171 100% 80%;
   
-  --surface-hsl: 222 47% 15%;
-  --surface-variant-hsl: 222 47% 20%;
+  --surface-hsl: 222 47% 8%;
+  --surface-variant-hsl: 222 47% 12%;
   
   --background: hsl(var(--background-hsl));
   --foreground: hsl(var(--foreground-hsl));
@@ -55,7 +55,6 @@
   --shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
   --mesh-color: hsla(var(--primary-hsl) / 0.06);
   --mesh-color-2: hsla(var(--primary-hsl) / 0.04);
-  /* Softer body mesh so fixed atmosphere layers don’t create visible seams */
   --bg-mesh:
     radial-gradient(ellipse 70vw 80vh at 0% 38%, hsla(var(--primary-hsl) / 0.06) 0%, transparent 62%),
     radial-gradient(ellipse 68vw 78vh at 100% 34%, hsla(var(--primary-hsl) / 0.05) 0%, transparent 60%),
@@ -67,51 +66,35 @@
 
 [data-theme="light"] {
   color-scheme: light;
-  
-  /* Cool Gray - Deepened slightly so the page has a solid 'presence' */
-  --background-hsl: 222 15% 94%; 
-  
-  /* Deep Navy - High contrast text for effortless reading */
-  --foreground-hsl: 222 47% 12%; 
-  
-  /* Bold Teal - Deepened for high legibility on light backgrounds */
-  --primary-hsl: 171 100% 28%; 
-  
-  /* Accent Teal - Much darker than dark mode to ensure contrast in gradients */
-  --accent-hsl: 171 70% 45%;  
-  /* Off-White - Cards pop out against the cooler gray background */
-  --surface-hsl: 222 10% 98%; 
-  
-  /* Strong Navy-Gray - Border definition */
-  --secondary-hsl: 222 20% 60%;
-  
-  /* Hover state - visible but soft */
-  --surface-variant-hsl: 222 15% 88%;
-  
-  --on-surface-variant: hsl(var(--foreground-hsl) / 0.85);
-  
-  /* Sharper, defined shadow */
-  --shadow: 0 10px 40px -15px rgba(2, 6, 23, 0.18); 
-  
-  /* Mesh gradients for brand cohesion */
-  --mesh-color: hsla(171 100% 41% / 0.08);
-  --mesh-color-2: hsla(222 47% 11% / 0.05);
+  --background-hsl: 220 18% 78%;       /* was 222 15% 90% — noticeably darker page background */
+
+  --foreground-hsl: 222 47% 10%;       /* slightly deeper text for better contrast on darker bg */
+
+  --primary-hsl: 171 100% 24%;         /* was 28% — darker teal stays readable */
+  --accent-hsl: 171 70% 38%;           /* was 45% — pulled down to match */
+  --surface-hsl: 220 18% 86%;          /* was 222 10% 98% — cards/surfaces slightly tinted, not stark white */
+  --secondary-hsl: 222 20% 52%;        /* was 60% — slightly deeper */
+  --surface-variant-hsl: 220 16% 74%;  /* was 222 15% 88% — borders/inputs more visible */
+  --on-surface-variant: hsl(var(--foreground-hsl) / 0.80);
+  --shadow: 0 10px 40px -15px rgba(2, 6, 23, 0.22);
+  --mesh-color: hsla(171 100% 35% / 0.09);
+  --mesh-color-2: hsla(222 47% 11% / 0.06);
   
   --bg-mesh:
-    radial-gradient(ellipse 75vw 75vh at 0% 45%, hsla(171 100% 41% / 0.06) 0%, transparent 65%),
-    radial-gradient(ellipse 70vw 70vh at 100% 40%, hsla(222 47% 11% / 0.05) 0%, transparent 60%),
-    radial-gradient(ellipse 55vw 50vh at 50% 100%, hsla(222 47% 12% / 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse 75vw 75vh at 0% 45%, hsla(171 100% 35% / 0.07) 0%, transparent 65%),
+    radial-gradient(ellipse 70vw 70vh at 100% 40%, hsla(222 47% 11% / 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 55vw 50vh at 50% 100%, hsla(222 47% 12% / 0.07) 0%, transparent 50%),
     radial-gradient(ellipse 80% 50% at 20% -20%, var(--mesh-color) 0, transparent 55%),
     radial-gradient(ellipse 60% 40% at 100% 0%, var(--mesh-color-2) 0, transparent 50%),
     radial-gradient(ellipse 50% 30% at 50% 100%, var(--mesh-color-2) 0, transparent 45%);
 }
 
 [data-theme="navy"] {
-  --background-hsl: 222 47% 8%;
+  --background-hsl: 222 47% 2%;
   --foreground-hsl: 210 40% 98%;
   --primary-hsl: 165 100% 42%;
-  --surface-hsl: 222 42% 12%;
-  --surface-variant-hsl: 222 38% 16%;
+  --surface-hsl: 222 42% 6%;
+  --surface-variant-hsl: 222 38% 10%;
   color-scheme: dark;
 }
 

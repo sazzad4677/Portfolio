@@ -142,7 +142,7 @@ export const InteractiveBackground = () => {
 
             {/* Central follow-glow (Spotlight) */}
             <motion.div
-                className="absolute -left-[250px] -top-[250px] h-[500px] w-[500px] rounded-full bg-primary/10 blur-[120px]"
+                className="absolute -left-[100px] -top-[100px] h-[250px] w-[250px] rounded-full bg-primary/10 blur-[80px]"
                 style={{
                     x: springX,
                     y: springY,

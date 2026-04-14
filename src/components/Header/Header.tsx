@@ -110,7 +110,7 @@ const Header: React.FC = () => {
                 </motion.div>
                 <div className="flex items-center gap-2 sm:gap-4 lg:hidden z-50">
                     <a
-                        href="/resume.pdf"
+                        href="https://drive.google.com/file/d/1ffycRhonZegQk2VJjfsa_g_AZAOj_5Xw/view"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center justify-center rounded-lg border border-primary/40 px-3.5 h-9 font-mono text-[10px] font-bold text-primary transition-all hover:bg-primary/10 active:scale-95 whitespace-nowrap bg-primary/5"

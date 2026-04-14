@@ -11,22 +11,14 @@ const ScrollToTop: React.FC = () => {
 
     useEffect(() => {
         const toggleVisibility = () => {
-            if (window.scrollY > 400) {
-                setIsVisible(true);
-            } else {
-                setIsVisible(false);
-            }
+            setIsVisible(window.scrollY > 400);
         };
-
         window.addEventListener("scroll", toggleVisibility);
         return () => window.removeEventListener("scroll", toggleVisibility);
     }, []);
 
     const scrollToTop = () => {
-        scroll.scrollToTop({
-            duration: 500,
-            smooth: "easeOutQuint",
-        });
+        scroll.scrollToTop({ duration: 500, smooth: "easeOutQuint" });
     };
 
     return (
@@ -40,7 +32,7 @@ const ScrollToTop: React.FC = () => {
                     whileTap={{ scale: 0.9 }}
                     onClick={scrollToTop}
                     className={cn(
-                        "fixed bottom-8 right-6 lg:right-12 z-50",
+                        "fixed bottom-24 right-6 lg:bottom-8 lg:right-32 z-50",
                         "flex h-12 w-12 items-center justify-center rounded-xl",
                         "glass transition-all duration-300 shadow-2xl",
                         "text-primary hover:text-white"

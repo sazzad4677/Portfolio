@@ -19,7 +19,7 @@ export default function AIChatBubble() {
 
     return (
         <>
-            <div className="fixed bottom-8 right-6 lg:right-18 z-[100] flex flex-col items-end gap-3">
+            <div className="fixed bottom-8 right-6 lg:right-12 z-[100] flex flex-col items-end gap-3">
 
                 {/* ── Greeting Toast ── */}
                 <AnimatePresence>

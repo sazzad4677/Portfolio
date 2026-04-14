@@ -117,7 +117,7 @@ const Header: React.FC = () => {
                     >
                         Resume
                     </a>
-                    
+
                     <div className="flex items-center">
                         <ThemeSwitcher />
                     </div>
@@ -191,7 +191,7 @@ const Header: React.FC = () => {
                                     className="hidden lg:flex flex-row items-center justify-end gap-3 xl:gap-4 lg:ml-4 xl:ml-6"
                                 >
                                     <a
-                                        href="/resume.pdf"
+                                        href="https://drive.google.com/file/d/1ffycRhonZegQk2VJjfsa_g_AZAOj_5Xw/view"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="rounded-xl border border-primary px-4 xl:px-5 py-2 font-mono text-xs text-primary transition-all hover:bg-primary/10 whitespace-nowrap"

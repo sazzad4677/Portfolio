@@ -114,7 +114,7 @@ const Hero: React.FC = () => {
                             <div className="absolute -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:animate-shine" />
                         </motion.a>
 
-                        <motion.button
+                        {content?.videoUrl ? <motion.button
                             onClick={() => setIsVideoOpen(true)}
                             whileHover={{ scale: 1.05, y: -2 }}
                             whileTap={{ scale: 0.95 }}
@@ -128,7 +128,7 @@ const Hero: React.FC = () => {
                                 <Play size={15} fill="currentColor" className="sm:w-[18px] sm:h-[18px]" />
                                 Watch Video CV
                             </span>
-                        </motion.button>
+                        </motion.button> : null}
                     </motion.div>
                 </div>
             </motion.section>

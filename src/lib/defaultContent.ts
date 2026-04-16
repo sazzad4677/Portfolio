@@ -39,7 +39,7 @@ export const defaultContent: PortfolioContent = {
     detailedSkills: [
         {
             category: "Frontend Ecosystem",
-            items: ["React.js", "Next.js", "TypeScript", "Tailwind CSS", "Zustand", "Tanstack Query", "Framer Motion"]
+            items: ["React.js", "Next.js", "TypeScript", "Tailwind CSS", "Zustand", "Tanstack Query", "Redux", "Framer Motion"]
         },
         {
             category: "Backend & APIs",

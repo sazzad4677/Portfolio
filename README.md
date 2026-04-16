@@ -89,9 +89,7 @@ npm run build
 
 ## 📄 License
 
-Copyright © 2026 **Sazzad Hossain**. All rights reserved.
-Unauthorized copying, modification, or distribution is prohibited.
-For inquiries, please contact [sazzad4677@gmail.com](mailto:sazzad4677@gmail.com).
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 

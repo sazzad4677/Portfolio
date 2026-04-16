@@ -32,7 +32,7 @@ const ScrollToTop: React.FC = () => {
                     whileTap={{ scale: 0.9 }}
                     onClick={scrollToTop}
                     className={cn(
-                        "fixed bottom-24 right-6 lg:bottom-8 lg:right-32 z-50",
+                        "fixed bottom-24 right-6 lg:bottom-8 lg:right-32 z-50 lg:z-[110]",
                         "flex h-12 w-12 items-center justify-center rounded-xl",
                         "glass transition-all duration-300 shadow-2xl",
                         "text-primary hover:text-white"

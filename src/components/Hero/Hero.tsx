@@ -3,158 +3,165 @@
 import { motion, useMotionValue } from "framer-motion";
 import { useEffect } from "react";
 import { Element } from "react-scroll";
-import { FileText } from "lucide-react";
+import { Github, Linkedin, Mail, FileDown, ArrowRight } from "lucide-react";
 
-/* ============================= */
-/* 🔁 ORBIT COMPONENT            */
-/* ============================= */
+/* ================= ORBIT ================= */
+
+const tech = [
+  { label: "Node.js", angle: 0 },
+  { label: "React", angle: 60 },
+  { label: "TypeScript", angle: 120 },
+  { label: "MongoDB", angle: 180 },
+  { label: "Next.js", angle: 240 },
+  { label: "Express", angle: 300 },
+];
 
 const Orbit = () => {
   const rotate = useMotionValue(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      rotate.set(rotate.get() + 0.15);
+    const loop = setInterval(() => {
+      rotate.set(rotate.get() + 0.1);
     }, 16);
-    return () => clearInterval(interval);
+    return () => clearInterval(loop);
   }, [rotate]);
-
-  const icons = [
-    "Node.js",
-    "React",
-    "TypeScript",
-    "MongoDB",
-    "Next.js",
-  ];
 
   return (
     <motion.div
-      drag="x"
+      drag
       onDrag={(e, info) => {
-        rotate.set(rotate.get() + info.delta.x * 0.5);
+        rotate.set(rotate.get() + info.delta.x * 0.4);
       }}
       style={{ rotate }}
       className="absolute inset-0 flex items-center justify-center"
     >
-      {icons.map((text, i) => {
-        const angle = (360 / icons.length) * i;
-
-        return (
-          <div
-            key={i}
-            className="absolute"
-            style={{
-              transform: `rotate(${angle}deg) translate(130px) rotate(-${angle}deg)`,
-            }}
-          >
-            <div className="px-3 py-1 text-xs rounded-full border border-primary/30 bg-background/80 backdrop-blur-md shadow-lg">
-              {text}
-            </div>
+      {tech.map((t, i) => (
+        <div
+          key={i}
+          className="absolute"
+          style={{
+            transform: `rotate(${t.angle}deg) translate(170px) rotate(-${t.angle}deg)`,
+          }}
+        >
+          <div className="px-3 py-1 rounded-lg text-xs border border-white/10 bg-white/5 backdrop-blur-md shadow-xl">
+            {t.label}
           </div>
-        );
-      })}
+        </div>
+      ))}
     </motion.div>
   );
 };
 
-/* ============================= */
-/* 🔥 HERO COMPONENT             */
-/* ============================= */
+/* ================= HERO ================= */
 
-const Hero = () => {
+export default function Hero() {
   return (
     <Element name="home">
-      <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
+      <section className="relative min-h-screen flex items-center overflow-hidden px-6 md:px-16">
 
-        {/* 🌌 Background Glow */}
-        <div className="absolute -left-20 top-20 h-72 w-72 rounded-full bg-primary/10 blur-[100px]" />
-        <div className="absolute -right-20 bottom-20 h-96 w-96 rounded-full bg-secondary/10 blur-[120px]" />
+        {/* Background glow */}
+        <div className="absolute left-0 top-0 w-[500px] h-[500px] bg-primary/10 blur-[120px]" />
+        <div className="absolute right-0 bottom-0 w-[500px] h-[500px] bg-primary/10 blur-[120px]" />
 
-        <div className="max-w-6xl w-full grid md:grid-cols-2 gap-12 items-center z-10">
+        <div className="max-w-7xl w-full grid md:grid-cols-2 gap-12 items-center">
 
           {/* ================= LEFT ================= */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
+          <div>
+
             {/* Badge */}
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/40 px-4 py-1 text-xs font-mono text-primary">
-              <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-              AVAILABLE FOR OPPORTUNITIES
+            <div className="mb-6 inline-flex items-center gap-2 px-4 py-1 rounded-full border border-primary/30 bg-white/5 backdrop-blur-md text-xs text-primary">
+              <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+              AVAILABLE FOR NEW OPPORTUNITIES
             </div>
 
             {/* Headline */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight text-white">
-              I build scalable,
-              <br />
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold leading-tight text-white">
+              I build scalable, <br />
               high-performance{" "}
               <span className="text-primary">web applications.</span>
             </h1>
 
             {/* Description */}
-            <p className="mt-6 text-base sm:text-lg text-gray-400 max-w-xl">
-              Full-stack engineer with 4+ years of experience building AI-driven
-              and real-time systems using modern web technologies.
-            </p>
-
-            {/* Proof */}
-            <p className="mt-4 text-sm text-primary font-mono">
-              40+ Projects • 4+ Years Experience • Real-time systems (~80ms latency)
+            <p className="mt-6 text-gray-400 max-w-lg text-base leading-relaxed">
+              Full-stack engineer with <span className="text-primary">4+ years</span> of experience building AI-driven and real-time applications that solve real-world problems.
             </p>
 
             {/* CTA */}
-            <div className="mt-8 flex flex-wrap gap-4">
-              <a
-                href="#projects"
-                className="px-6 py-3 bg-primary text-black font-semibold rounded-xl hover:scale-105 transition"
-              >
-                🚀 View My Work
+            <div className="mt-8 flex items-center gap-4">
+              <a className="flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-black font-semibold hover:scale-105 transition">
+                🚀 View My Work <ArrowRight size={16} />
               </a>
 
-              <a
-                href="/cv.pdf"
-                target="_blank"
-                className="px-6 py-3 border border-gray-600 rounded-xl flex items-center gap-2 hover:border-primary transition"
-              >
-                <FileText size={16} />
-                Download Resume
+              <a className="flex items-center gap-2 px-6 py-3 rounded-xl border border-white/10 hover:border-primary transition">
+                <FileDown size={16} /> Download Resume
               </a>
             </div>
-          </motion.div>
+
+            {/* Social */}
+            <div className="mt-8 flex items-center gap-4 text-gray-400">
+              <span>Let’s connect</span>
+              <Github size={18} />
+              <Linkedin size={18} />
+              <Mail size={18} />
+            </div>
+
+          </div>
 
           {/* ================= RIGHT ================= */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="relative flex justify-center"
-          >
+          <div className="relative flex justify-center">
+
             {/* Orbit */}
             <Orbit />
 
-            {/* Avatar */}
-            <div className="relative h-44 w-44 sm:h-52 sm:w-52 rounded-full overflow-hidden border border-primary/30 shadow-2xl z-10">
+            {/* Rings */}
+            <div className="absolute w-[380px] h-[380px] rounded-full border border-white/5"></div>
+            <div className="absolute w-[450px] h-[450px] rounded-full border border-white/5"></div>
+
+            {/* Image */}
+            <div className="relative z-10 w-[320px] md:w-[380px]">
               <img
-                src="/profile.jpg" // 🔁 replace with your image path
-                alt="Sazzad Hossain"
-                className="h-full w-full object-cover"
+                src="/profile.png"
+                className="w-full object-contain"
+                alt="profile"
               />
             </div>
 
-            {/* Glow */}
-            <div className="absolute inset-0 rounded-full bg-primary/10 blur-3xl z-0" />
-
-            {/* Open to Work Card */}
-            <div className="absolute bottom-0 translate-y-1/2 bg-black/60 backdrop-blur-md border border-primary/30 px-4 py-2 rounded-xl text-sm">
-              🟢 Open to Work • Remote / Full-time
+            {/* Open to work */}
+            <div className="absolute bottom-6 right-6 bg-white/5 backdrop-blur-md border border-white/10 px-4 py-2 rounded-xl text-sm">
+              🟢 Open to Work <br />
+              Remote • Full-time
             </div>
-          </motion.div>
+
+          </div>
 
         </div>
+
+        {/* ================= STATS ================= */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-6xl bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl px-6 py-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+
+          <div>
+            <p className="text-xl font-bold text-white">40+</p>
+            <p className="text-xs text-gray-400">Projects Completed</p>
+          </div>
+
+          <div>
+            <p className="text-xl font-bold text-white">4+</p>
+            <p className="text-xs text-gray-400">Years Experience</p>
+          </div>
+
+          <div>
+            <p className="text-xl font-bold text-white">10x</p>
+            <p className="text-xs text-gray-400">Performance Boost</p>
+          </div>
+
+          <div>
+            <p className="text-xl font-bold text-white">100%</p>
+            <p className="text-xs text-gray-400">Client Satisfaction</p>
+          </div>
+
+        </div>
+
       </section>
     </Element>
   );
-};
-
-export default Hero;
+}

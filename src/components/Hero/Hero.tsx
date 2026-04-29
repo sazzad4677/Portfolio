@@ -36,7 +36,7 @@ const Hero: React.FC = () => {
             variants={container}
             initial="initial"
             animate="animate"
-            className="relative flex min-h-screen w-full flex-col overflow-x-clip scroll-anchor"
+            className="relative flex min-h-[100dvh] w-full flex-col overflow-x-clip scroll-anchor pt-[104px] pb-6"
         >
                 {/* Background glow blobs */}
                 <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -46,8 +46,8 @@ const Hero: React.FC = () => {
                 </div>
 
                 {/* Main two-column content */}
-                <div className="site-container relative z-10 flex flex-1 flex-col justify-center py-8 lg:py-12 xl:py-16">
-                    <div className="grid w-full grid-cols-1 items-center gap-6 pt-10 pb-6 sm:gap-8 sm:pt-14 sm:pb-8 lg:grid-cols-[1fr_0.65fr] lg:gap-12 lg:pt-0 lg:pb-0 xl:gap-16">
+                <div className="site-container relative z-10 my-auto flex w-full flex-col py-4 sm:py-8 lg:py-12">
+                    <div className="grid w-full grid-cols-1 items-center gap-6 sm:gap-8 lg:grid-cols-[1fr_0.65fr] lg:gap-12 lg:px-4 xl:gap-16 xl:px-8">
                         {/* LEFT — Text Content */}
                         <motion.div variants={item} className="flex flex-col items-center text-center lg:items-start lg:text-left">
                             {/* Availability badge */}
@@ -67,7 +67,7 @@ const Hero: React.FC = () => {
                             {/* Headline */}
                             <motion.h1
                                 variants={item}
-                                className="font-sans font-bold leading-[1.1] tracking-tight text-on-background [&_.text-gradient]:animate-pulse-glow"
+                                className="font-sans font-bold leading-[1.1] tracking-tight text-on-background max-w-[580px] [&_.text-gradient]:animate-pulse-glow"
                                 style={{ fontSize: "clamp(28px, 5.5vw, 64px)" }}
                                 dangerouslySetInnerHTML={{ __html: content.headline }}
                             />
@@ -75,12 +75,12 @@ const Hero: React.FC = () => {
                             {/* Description */}
                             <motion.p
                                 variants={item}
-                                className="mt-4 max-w-[500px] text-sm leading-relaxed text-on-surface-variant/70 sm:mt-6 sm:text-base md:text-[17px]"
+                                className="mt-4 max-w-[500px] text-sm leading-relaxed text-on-surface-variant/85 sm:mt-6 sm:text-base md:text-[17px]"
                                 dangerouslySetInnerHTML={{ __html: content.description }}
                             />
 
                             {/* CTA buttons */}
-                            <motion.div variants={item} className="mt-7 flex flex-wrap items-center justify-center gap-3 sm:mt-9 sm:gap-4 lg:justify-start">
+                            <motion.div variants={item} className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:mt-10 sm:gap-4 lg:justify-start">
                                 <motion.div
                                     whileHover={{ scale: 1.04, y: -2 }}
                                     whileTap={{ scale: 0.97 }}
@@ -142,7 +142,7 @@ const Hero: React.FC = () => {
                         {/* RIGHT — Profile + Orbital System */}
                         <motion.div
                             variants={item}
-                            className="relative mx-auto flex items-center justify-center lg:mx-0"
+                            className="relative mx-auto flex items-center justify-center lg:mx-0 lg:-translate-x-2 xl:-translate-x-4"
                         >
                             <TechOrbit
                                 profileImage={content.profileImage}

@@ -160,7 +160,7 @@ const Header: React.FC = () => {
                                 !isDesktop && !isOpen && "hidden"
                             )}
                         >
-                            <ol className="flex flex-col items-start gap-4 lg:flex-row lg:items-center lg:gap-5 xl:gap-7 w-full lg:w-auto">
+                            <ol className="flex flex-col items-start gap-2 lg:flex-row lg:items-center lg:gap-1 xl:gap-2 w-full lg:w-auto">
                                 {navLinks.map((link, index) => (
                                     <motion.li
                                         key={link.url}
@@ -172,7 +172,7 @@ const Header: React.FC = () => {
                                             offset={NAV_SCROLL_OFFSET}
                                             spy
                                             activeClass="!text-primary !bg-primary/5 border-primary/20"
-                                            className="group flex cursor-pointer flex-row items-center gap-3 text-foreground transition-all hover:text-primary py-3 px-4 rounded-xl border border-transparent hover:border-primary/10 hover:bg-primary/5 lg:p-0 lg:border-none w-full lg:w-auto text-sm lg:text-[11px] xl:text-xs"
+                                            className="group flex cursor-pointer flex-row items-center gap-3 lg:gap-1.5 text-foreground transition-all hover:text-primary py-3 px-4 rounded-xl border border-transparent hover:border-primary/10 hover:bg-primary/5 lg:py-2 lg:px-3 w-full lg:w-auto text-sm lg:text-[11px] xl:text-xs"
                                             onClick={() => !isDesktop && setIsOpen(false)}
                                         >
                                             <span className="text-[10px] lg:text-[9px] text-primary font-bold opacity-70">

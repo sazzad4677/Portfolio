@@ -50,7 +50,7 @@ const About: React.FC = () => {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.1 }}
                 variants={sectionReveal}
-                className="relative overflow-hidden pt-16 pb-0 sm:pt-24 sm:pb-0 md:pt-32 md:pb-0"
+                className="relative overflow-hidden pt-24 sm:pt-28 md:pt-32 pb-32"
             >
                 {/* ── Background blobs ────────────────────────── */}
                 <div
@@ -140,7 +140,7 @@ const About: React.FC = () => {
                             {/* ── Core work card ──────────────── */}
                             <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-sm transition-all duration-300 hover:translate-x-1 hover:border-primary/40 md:p-8">
                                 {/* Header */}
-                                <div className="mb-6 flex items-center gap-2">
+                                <div className="mb-8 sm:mb-10 flex items-center space-x-4">
                                     <span className="h-2 w-2 rounded-full bg-primary/70" />
                                     <span className="text-xs font-medium uppercase tracking-widest text-primary/80">
                                         {content.coreWorkLabel}

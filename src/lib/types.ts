@@ -80,9 +80,17 @@ export interface Skill {
     name: string;
 }
 
+export interface DetailedSkillItem {
+    name: string;
+    level?: 'primary' | 'secondary' | 'familiar';
+    /** @deprecated use level instead */
+    highlight?: boolean;
+}
+
 export interface DetailedSkill {
     category: string;
-    items: string[];
+    context?: string;
+    items: DetailedSkillItem[];
 }
 
 export interface Certification {
@@ -106,6 +114,7 @@ export interface Project {
     id: number;
     title: string;
     description: string;
+    descriptionList?: string[];
     technologies: string[];
     links: {
         github?: string;
@@ -122,6 +131,7 @@ export interface ArchiveProject {
     title: string;
     description: string;
     technologies: string[];
+    featured?: boolean;
     links: {
         github: string;
         liveLink: string;

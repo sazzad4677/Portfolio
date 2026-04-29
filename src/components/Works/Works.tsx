@@ -13,9 +13,9 @@ const Works: React.FC = () => {
 
     return (
         <Element name="projects" className="scroll-anchor">
-            <section id="projects" className="py-14 sm:py-16 md:py-20 overflow-hidden">
+            <section id="projects" className="pt-24 sm:pt-28 md:pt-32 pb-24 sm:pb-28 md:pb-32 overflow-hidden">
                 <div className="site-container">
-                    <div className="mb-8 sm:mb-10 md:mb-14 flex items-center gap-4">
+                    <div className="mb-12 sm:mb-16 md:mb-20 flex items-center gap-4">
                         <h2 className="whitespace-nowrap font-sans text-2xl font-bold tracking-tight text-foreground before:mr-2 before:font-mono before:text-base before:text-primary before:content-['05.'] md:text-3xl">
                             Some Things I&apos;ve Built
                         </h2>
@@ -72,7 +72,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
 
             <div className="grid grid-cols-1 items-center gap-6 sm:gap-8 xl:grid-cols-2 xl:gap-16 relative z-10">
                 {/* Content */}
-                <div className="flex flex-col gap-4 sm:gap-6">
+                <div className="flex flex-col gap-6 sm:gap-8">
                     <div className="flex items-center gap-3">
                         <span className="flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 font-mono text-[10px] font-medium uppercase tracking-widest text-primary">
                             <span className="h-1 w-1 rounded-full bg-primary animate-pulse" />
@@ -92,7 +92,28 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
                     </h3>
 
                     <div className="rounded-xl border border-border/30 bg-background/50 p-4 sm:p-6 md:p-7 text-xs sm:text-sm leading-normal sm:leading-relaxed text-secondary-foreground/90 shadow-lg shadow-black/5 backdrop-blur-xl md:text-base">
-                        <p>{project.description}</p>
+                        <p className="font-medium text-foreground">{project.description}</p>
+                        {project.descriptionList && (
+                            <ul className="mt-4 space-y-4 text-secondary-foreground/80">
+                                {project.descriptionList.map((item, i) => {
+                                    const isImpact = item.startsWith("Impact:");
+                                    return (
+                                        <li key={i} className={`flex gap-2.5 ${isImpact ? "text-primary/90 font-medium mt-4 bg-primary/[0.03] p-2 rounded-lg border border-primary/10" : ""}`}>
+                                            <span className={`mt-1.5 h-1.5 w-1.5 rounded-full shrink-0 ${isImpact ? "bg-primary animate-pulse" : "bg-primary/60"}`} />
+                                            <span>
+                                                {isImpact ? (
+                                                    <>
+                                                        <span className="font-bold text-primary">Impact:</span> {item.replace("Impact:", "").trim()}
+                                                    </>
+                                                ) : (
+                                                    item
+                                                )}
+                                            </span>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        )}
                     </div>
 
                     <ul className="flex flex-wrap gap-1.5 sm:gap-x-2 sm:gap-y-2 font-mono text-[10px] sm:text-xs text-primary/80">

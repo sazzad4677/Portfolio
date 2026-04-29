@@ -31,10 +31,10 @@ const Education: React.FC = () => {
 
     return (
         <Element name="education" className="scroll-anchor">
-            <section id="education" className="py-14 sm:py-20 md:py-24 overflow-hidden relative">
+            <section id="education" className="pt-24 sm:pt-28 md:pt-32 pb-24 sm:pb-28 md:pb-32 overflow-hidden relative">
                 <div className="site-container">
                     {/* Heading */}
-                    <div className="mb-8 sm:mb-10 md:mb-12 flex items-center space-x-4">
+                    <div className="mb-12 sm:mb-16 md:mb-20 flex items-center space-x-4">
                         <h2 className="whitespace-nowrap font-sans text-2xl font-bold text-foreground before:mr-2 before:font-mono before:text-lg before:text-primary before:content-['06.'] md:text-3xl">
                             Education
                         </h2>
@@ -47,7 +47,7 @@ const Education: React.FC = () => {
                             initial="hidden"
                             whileInView="visible"
                             viewport={{ once: true, amount: 0.2 }}
-                            className="space-y-8 sm:space-y-12"
+                            className="space-y-12 sm:space-y-16 md:space-y-20"
                         >
                             {educationList.map((edu) => (
                                 <motion.div

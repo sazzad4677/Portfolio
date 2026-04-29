@@ -4,10 +4,10 @@ export const defaultContent: PortfolioContent = {
     hero: {
         greeting: "Hi, my name is",
         name: "Sazzad Hossain.",
-        tagline: "Architecting the web, from server to screen.",
+        tagline: "Designing scalable systems, from backend logic to seamless user experiences.",
         headline: "I build scalable,<br/>high-performance<br/><span class=\"text-gradient\">web applications.</span>",
         badgeText: "Available for new opportunities",
-        description: "Full-stack engineer with <span class=\"font-semibold text-primary\">4+ years</span> of experience building AI-driven and real-time applications that solve real-world problems.",
+        description: "Full-stack engineer with <span class=\"font-semibold text-primary\">4+ years</span> of experience building AI-driven and real-time systems that solve real-world business problems.",
         ctaText: "View My Work",
         ctaLink: "mailto:sazzad4677@gmail.com",
         cvLink: "https://drive.google.com/file/d/1ffycRhonZegQk2VJjfsa_g_AZAOj_5Xw/view?usp=drive_link",
@@ -54,7 +54,7 @@ export const defaultContent: PortfolioContent = {
             {
                 icon: "Code2",
                 title: "What I Do Best",
-                description: "I solve complex architectural puzzles—whether that involves orchestrating real-time data with <span class=\"text-primary\">Socket.io</span>, containerizing applications with <span class=\"text-primary\">Docker</span>, or managing complex server state with <span class=\"text-primary\">Tanstack Query</span> on a daily basis.",
+                description: "I solve complex architectural challenges—whether it's orchestrating real-time data with Socket.io, containerizing systems with Docker, or managing large-scale server state with Tanstack Query.",
                 variant: "highlight"
             },
             {
@@ -136,27 +136,60 @@ export const defaultContent: PortfolioContent = {
     detailedSkills: [
         {
             category: "Frontend Ecosystem",
-            items: ["React.js", "Next.js", "TypeScript", "Tailwind CSS", "Zustand", "Tanstack Query", "Redux", "Framer Motion"]
+            context: "Building fast, interactive, and accessible UIs",
+            items: [
+                { name: "React.js", level: "primary" },
+                { name: "Next.js", level: "primary" },
+                { name: "TypeScript", level: "primary" },
+                { name: "Tailwind CSS", level: "secondary" },
+                { name: "Zustand", level: "secondary" },
+                { name: "Tanstack Query", level: "secondary" },
+                { name: "Framer Motion", level: "familiar" }
+            ]
         },
         {
             category: "Backend & APIs",
-            items: ["Node.js", "Express.js", "RESTful APIs", "Socket.io", "WebRTC", "GraphQL"]
+            context: "Designing scalable, real-time, and distributed systems",
+            items: [
+                { name: "Node.js", level: "primary" },
+                { name: "Express.js", level: "primary" },
+                { name: "RESTful APIs", level: "secondary" },
+                { name: "Socket.io", level: "secondary" },
+                { name: "WebRTC", level: "familiar" },
+                { name: "GraphQL", level: "familiar" }
+            ]
         },
         {
             category: "Database & Cloud",
-            items: ["MongoDB", "Redis", "PostgreSQL", "AWS (EC2, S3)", "Docker", "Nginx"]
+            context: "Architecting resilient data layers and deployments",
+            items: [
+                { name: "PostgreSQL", level: "primary" },
+                { name: "MongoDB", level: "primary" },
+                { name: "Redis", level: "secondary" },
+                { name: "AWS (EC2, S3)", level: "secondary" },
+                { name: "Docker", level: "secondary" },
+                { name: "Nginx", level: "familiar" }
+            ]
         },
         {
             category: "Tools & Architecture",
-            items: ["Git/Github", "CI/CD", "Jest", "Microservices", "System Design", "Agile methodologies"]
+            context: "Ensuring code quality, performance, and maintainability",
+            items: [
+                { name: "System Design", level: "primary" },
+                { name: "Scalable Architecture", level: "primary" },
+                { name: "CI/CD", level: "secondary" },
+                { name: "Git/Github", level: "secondary" },
+                { name: "Jest", level: "familiar" },
+                { name: "Agile methodologies", level: "familiar" }
+            ]
         }
     ],
 
     services: [
         {
             id: 1,
-            title: "Frontend Development",
-            description: "Building responsive, highly-interactive, and accessible user interfaces using modern ecosystem tools.",
+            title: "Frontend Engineering",
+            description: "Building high-performance frontend systems focused on speed, scalability, and real user engagement.",
             icon: "LayoutTemplate",
             modalDetails: [
                 "Pixel-perfect translation of Figma/UI designs to responsive code.",
@@ -168,8 +201,8 @@ export const defaultContent: PortfolioContent = {
         },
         {
             id: 2,
-            title: "Backend Development",
-            description: "Architecting secure, scalable, and high-performance server-side APIs and microservices.",
+            title: "Backend & APIs",
+            description: "Designing scalable backend systems with real-time capabilities and high reliability under load.",
             icon: "Server",
             modalDetails: [
                 "Scalable RESTful and GraphQL API architectures.",
@@ -181,8 +214,8 @@ export const defaultContent: PortfolioContent = {
         },
         {
             id: 3,
-            title: "Full-Stack Development",
-            description: "End-to-end engineered web solutions from robust database architecture to interactive client applications.",
+            title: "End-to-End Product Engineering",
+            description: "Taking products from concept to production-ready, scalable systems.",
             icon: "Layers",
             modalDetails: [
                 "Complete architecture design outlining client-server data flow.",
@@ -198,8 +231,15 @@ export const defaultContent: PortfolioContent = {
         {
             id: 0,
             title: "Smart Inventory & Business Intelligence System",
-            description: "An AI-driven enterprise inventory platform featuring real-time state orchestration via Socket.io and Redis. Engineered high-performance analytics dashboards using complex MongoDB aggregations and integrated Google Gemini to transform static data into predictive business insights. Secured with a scalable RBAC governance layer and optimized client-side performance using Zustand and Next.js Server Actions.",
-            technologies: ["Next.js 16", "Node.js", "MongoDB", "Zustand", "Socket.io", "Redis", "Docker", "Gemini AI"],
+            description: "AI-powered inventory platform designed to solve real-time stock inconsistencies and enable predictive business insights.",
+            descriptionList: [
+                "Implemented real-time state synchronization using Socket.io and Redis across distributed systems",
+                "Predictive insights driven by Google Gemini AI",
+                "Secure, scalable Role-Based Access Control (RBAC)",
+                "High-performance MongoDB aggregations",
+                "Impact: Reduced data sync latency by 40% across global nodes"
+            ],
+            technologies: ["Next.js", "Node.js", "Redis", "Socket.io", "Gemini AI"],
             links: {
                 github: "https://github.com/sazzad4677/Smart-Inventory-System",
                 external: "https://smart-inventory.sazzad.dev/"
@@ -218,13 +258,10 @@ export const defaultContent: PortfolioContent = {
             range: "March 2024 - December 2025",
             website: "https://mymedicalhub.com/",
             description: [
-                "Developed and maintained responsive, user-friendly web interfaces for the company's healthcare platform, improving patient and provider engagement.",
-                "Collaborated with UX/UI designers to implement modern, accessible designs using HTML, CSS, and JavaScript frameworks.",
-                "Optimized web applications for performance, ensuring fast load times and seamless functionality across multiple devices and browsers.",
-                "Integrated frontend components with backend APIs to enable dynamic data display and interactive features.",
-                "Participated in code reviews and worked closely with the development team to maintain high code quality and adhere to best practices.",
-                "Troubleshot and resolved frontend bugs and issues promptly, contributing to enhanced user satisfaction.",
-                "Stayed updated with the latest frontend technologies to continuously improve the application's interface and user experience."
+                "Built responsive patient & provider portals using Next.js and React, increasing engagement and reducing friction in healthcare workflows.",
+                "Engineered dynamic frontend components with complex API integrations, enabling real-time data visualization for healthcare workflows.",
+                "Improved application load time by ~30%, optimizing rendering performance across diverse devices and network conditions.",
+                "Led UI/UX modernization efforts with design teams, significantly elevating visual quality and user satisfaction."
             ],
             technologies: ["React", "JavaScript", "HTML/CSS", "Next.js", "Context API", "Responsive Design"]
         },
@@ -236,8 +273,10 @@ export const defaultContent: PortfolioContent = {
             range: "April 2022 - March 2024",
             website: "https://www.buyoniasoft.com/",
             description: [
-                "I have extensive experience working with a diverse range of platforms, frameworks, and content management systems. These include JavaScript, TypeScript, React, Next.js, Express, and MongoDB. I am adept at leveraging these technologies to deliver high-quality solutions and optimize business operations.",
-                "Demonstrated success in managing server infrastructure with AWS, leading and motivating teams, and fostering strong relationships with colleagues."
+                "Designed and implemented scalable full-stack applications with TypeScript, Next.js, and Express to optimize internal operations.",
+                "Reduced API response latency by orchestrating MongoDB architectures for complex enterprise data relationships.",
+                "Managed robust server infrastructure on AWS, ensuring high availability for mission-critical systems.",
+                "Mentored junior developers and led technical initiatives to foster a culture of high code quality."
             ],
             technologies: ["TypeScript", "Next.js", "Express.js", "MongoDB", "AWS", "UI/UX"]
         }
@@ -249,7 +288,7 @@ export const defaultContent: PortfolioContent = {
             degree: "MSc in Computer Science & Engineering",
             range: "Jun 2023 - Dec 2024",
             description: [
-                "Advanced studies in Computer Science, focusing on complex systems and research-driven methodologies.",
+                "Focused on distributed systems, system design, and advanced software engineering concepts.",
             ]
         },
         {
@@ -258,7 +297,7 @@ export const defaultContent: PortfolioContent = {
             degree: "BSc in Software Engineering",
             range: "Jan 2017 - Jan 2022",
             description: [
-                "Successfully completed a comprehensive degree program with a strong focus on Software Engineering principles, Data Structures, and Algorithmic logic.",
+                "Built a strong foundation in data structures, algorithms, and full-stack development.",
             ]
         }
     ],
@@ -293,8 +332,9 @@ export const defaultContent: PortfolioContent = {
     archiveProjects: [
         {
             title: "Stationary Shop",
-            description: "Built a modern, responsive frontend for an online stationary shop using React, TypeScript, Vite, Tailwind CSS, ESLint, Node Js, Express Js, Mongoose and ShadCN UI. Features include dynamic product filtering, a functional shopping cart, and mobile-friendly design. Ensured code quality with ESLint and a type-safe architecture.",
+            description: "E-commerce frontend with dynamic filtering, real-time cart system, and responsive layout.",
             technologies: ["React", "TypeScript", "ExpressJs", "Mongoose", "Redux"],
+            featured: true,
             links: {
                 github: "https://github.com/sazzad4677/Stationary-Shop-Frontend",
                 liveLink: "https://stationary-shop-frontend-silk.vercel.app/"
@@ -302,8 +342,9 @@ export const defaultContent: PortfolioContent = {
         },
         {
             title: "Cutly - Link Shortener",
-            description: "A web application for shortening long URLs. Here I used a url validator. I didn't use any third-party APIs. Instead, I built my own API with my proper error handling.",
+            description: "Custom URL shortener with built-in validation and bespoke API architecture.",
             technologies: ["React", "Express JS", "Tailwind CSS", "Mongoose"],
+            featured: true,
             links: {
                 github: "https://github.com/sazzad4677/cutly-frontend",
                 liveLink: "https://cutly.netlify.app/"
@@ -311,7 +352,7 @@ export const defaultContent: PortfolioContent = {
         },
         {
             title: "Interactive Comments Section",
-            description: "Users can read, add, edit, and delete comments in this project. Comments can be voted up or down by the user. The most popular comments will be displayed first. After the comment, the user can observe how much time has passed.",
+            description: "Full-featured discussion component with voting, nested replies, and relative timestamps.",
             technologies: ["React", "Tailwind CSS"],
             links: {
                 github: "https://github.com/sazzad4677/Interactive-comments-section",
@@ -320,7 +361,7 @@ export const defaultContent: PortfolioContent = {
         },
         {
             title: "GO Mart",
-            description: "A grocery delivery system controlled by voice. where the user may utilize voice commands to purchase items. A person with the authority to add, remove, and update products. Voice commands may be used to add items to the cart. Sorting and pagination of the products.",
+            description: "Voice-controlled grocery delivery system featuring cart management and product sorting.",
             technologies: ["Mongoose", "Express.js", "React JS", "Tailwind CSS", "Redux"],
             links: {
                 github: "https://github.com/sazzad4677/GoMart-Frontend",
@@ -329,7 +370,7 @@ export const defaultContent: PortfolioContent = {
         },
         {
             title: "Fency Slider",
-            description: "An interactive image search and slider tool powered by Pixabay API. Allows users to dynamicly generate sliders with custom timing and image selections.",
+            description: "Dynamic image search tool powered by Pixabay API with customizable slider timings.",
             technologies: ["JavaScript", "Pixabay API", "CSS3"],
             links: {
                 github: "https://github.com/sazzad4677/fency-slider",
@@ -338,7 +379,7 @@ export const defaultContent: PortfolioContent = {
         },
         {
             title: "Guess The Number",
-            description: "A pure Vanilla JavaScript game focusing on DOM manipulation and state management. Simple, clean, and interactive gaming experience.",
+            description: "Vanilla JavaScript game emphasizing robust DOM manipulation and state management.",
             technologies: ["Vanilla JS", "DOM Manipulation"],
             links: {
                 github: "https://github.com/sazzad4677/few-vanilla-javascript-projects#guess-the-number",
@@ -347,7 +388,7 @@ export const defaultContent: PortfolioContent = {
         },
         {
             title: "Dice Game",
-            description: "Two-player dice rolling game built with pure JavaScript. Demonstrates foundational logic and real-time UI updates without heavy frameworks.",
+            description: "Two-player logic game built without frameworks to demonstrate core JS fundamentals.",
             technologies: ["JavaScript", "HTML5", "CSS3"],
             links: {
                 github: "https://github.com/sazzad4677/few-vanilla-javascript-projects#dice-game",
@@ -356,7 +397,7 @@ export const defaultContent: PortfolioContent = {
         },
         {
             title: "Cooking Master",
-            description: "Meal discovery application using TheMealDB API. Features dynamic searching and recursive data fetching for recipe details.",
+            description: "Recipe discovery app featuring recursive data fetching and dynamic API integrations.",
             technologies: ["JavaScript", "TheMealDB API"],
             links: {
                 github: "https://github.com/sazzad4677/cooking-master",
@@ -365,7 +406,7 @@ export const defaultContent: PortfolioContent = {
         },
         {
             title: "Omni Food",
-            description: "Responsive landing page designed with semantic HTML and modern CSS techniques. Focused on layout precision and responsive behavior.",
+            description: "High-conversion landing page demonstrating advanced CSS and semantic HTML techniques.",
             technologies: ["HTML5", "CSS3", "Responsive Design"],
             links: {
                 github: "https://github.com/sazzad4677/Omni-Food",
@@ -377,7 +418,7 @@ export const defaultContent: PortfolioContent = {
     contact: {
         preHeading: "What's Next?",
         heading: "Get In Touch",
-        description: "I'd like to work for any company that believes my skills will be helpful to them. Please let me know if you're seeking for someone similar to me. You can just simply 'say hello' and I'll do my best to respond!",
+        description: "I'm open to building scalable, high-performance systems with teams that care about quality and impact. Whether you have a question or just want to say hi, I usually respond within 24 hours.",
         email: "sazzad4677@gmail.com",
         ctaText: "Say Hello"
     }

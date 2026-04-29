@@ -69,7 +69,7 @@ const Contact: React.FC = () => {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
                 variants={revealVariants}
-                className="relative py-20 md:py-28 overflow-hidden"
+                className="relative pt-24 sm:pt-28 md:pt-32 pb-24 sm:pb-28 md:pb-32 overflow-hidden"
             >
                 {/* Atmospheric Glow */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none z-0" />
@@ -78,7 +78,7 @@ const Contact: React.FC = () => {
                     <div className="mx-auto max-w-[960px]">
 
                         {/* Header */}
-                        <motion.div variants={itemVariants} className="text-center mb-12 md:mb-16">
+                        <motion.div variants={itemVariants} className="text-center mb-16 md:mb-20">
                             <span className="mb-4 flex items-center justify-center font-mono text-xs tracking-widest text-primary uppercase">
                                 <span className="mr-3 h-px w-6 bg-primary/30" />
                                 08. {content.preHeading}
@@ -126,7 +126,7 @@ const Contact: React.FC = () => {
                                             animate={{ opacity: 1 }}
                                             exit={{ opacity: 0 }}
                                             onSubmit={handleSubmit}
-                                            className="space-y-5"
+                                            className="space-y-6 sm:space-y-8"
                                         >
                                             {/* Honeypot */}
                                             <input type="text" name="_gotcha" className="hidden" />
@@ -252,7 +252,7 @@ const Contact: React.FC = () => {
                                             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
                                         </span>
                                         <span className="text-xs text-secondary-foreground/70 whitespace-nowrap">
-                                            Open to opportunities
+                                            Available for full-time / freelance (GMT+6)
                                         </span>
                                     </div>
                                 </div>

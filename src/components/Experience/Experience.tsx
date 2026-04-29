@@ -33,13 +33,12 @@ const Experience: React.FC = () => {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.3 }}
                 variants={containerVariants}
-                className="py-14 sm:py-20 md:py-24 overflow-hidden"
-
+                className="pt-24 sm:pt-28 md:pt-32 pb-24 sm:pb-28 md:pb-32 overflow-hidden"
             >
                 <div className="site-container">
 
                     {/* Heading */}
-                    <div className="mb-8 sm:mb-10 md:mb-12 flex items-center space-x-4">
+                    <div className="mb-12 sm:mb-16 md:mb-20 flex items-center space-x-4">
                         <h2 className="whitespace-nowrap font-sans text-2xl font-bold text-foreground before:mr-2 before:font-mono before:text-lg before:text-primary before:content-['04.'] md:text-3xl">
                             Where I&apos;ve worked
                         </h2>
@@ -56,16 +55,19 @@ const Experience: React.FC = () => {
                                         key={job.id || index}
                                         onClick={() => setTabIndex(index)}
                                         className={`
-                                            group relative flex items-center h-10 sm:h-12 px-4 sm:px-5
+                                            group relative flex flex-col justify-center items-start h-14 sm:h-16 px-4 sm:px-5
                                             min-w-[120px] sm:min-w-[140px] lg:min-w-[180px]
-                                            font-mono text-xs transition-all duration-300 lg:text-sm
+                                            transition-all duration-300
                                             ${tabIndex === index
-                                                ? "text-primary"
-                                                : "text-secondary-foreground/60 hover:text-primary hover:bg-primary/5"
+                                                ? "text-primary bg-primary/[0.08]"
+                                                : "text-secondary-foreground/60 hover:text-primary hover:bg-primary/[0.02]"
                                             }
                                         `}
                                     >
-                                        <span className="relative z-10">{job.company}</span>
+                                        <span className="relative z-10 font-mono text-xs lg:text-sm">{job.company}</span>
+                                        <span className={`relative z-10 font-mono text-[10px] mt-0.5 ${tabIndex === index ? 'text-primary/70' : 'text-secondary-foreground/40'}`}>
+                                            {job.range}
+                                        </span>
                                         {tabIndex === index && (
                                             <motion.div
                                                 layoutId="activeTab"
@@ -112,8 +114,8 @@ const Experience: React.FC = () => {
                                                     </a>
                                                 </div>
 
-                                                {/* Date badge */}
-                                                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-border/60 bg-surface/40 backdrop-blur-sm self-start sm:self-center">
+                                                {/* Date badge (hidden on desktop since it's in the tab) */}
+                                                <div className="flex lg:hidden items-center gap-2 px-3 py-1.5 rounded-full border border-border/60 bg-surface/40 backdrop-blur-sm self-start sm:self-center">
                                                     <Calendar size={12} className="text-primary/70 sm:w-3.5 sm:h-3.5" />
                                                     <span className="font-mono text-[10px] sm:text-xs text-secondary-foreground/80">
                                                         {/* ↑ text-[10px] on mobile */}
@@ -123,7 +125,7 @@ const Experience: React.FC = () => {
                                             </div>
 
                                             {/* Experience Timeline */}
-                                            <div className="relative ml-2 sm:ml-4 pl-5 sm:pl-8 border-l border-border/40 space-y-4 sm:space-y-6">
+                                            <div className="relative ml-2 sm:ml-4 pl-5 sm:pl-8 border-l border-border/40 space-y-6 sm:space-y-8">
                                                 {selectedJob.description.map((item, index) => (
                                                     <motion.div
                                                         key={index}
@@ -133,7 +135,13 @@ const Experience: React.FC = () => {
                                                         className="relative"
                                                     >
                                                         {/* Timeline Dot */}
-                                                        <div className="absolute -left-[29px] sm:-left-[41px] top-[7px] h-3 w-3 sm:h-4 sm:w-4 rounded-full border-2 border-primary bg-background z-10" />
+                                                        <motion.div 
+                                                            initial={{ scale: 0, opacity: 0 }}
+                                                            whileInView={{ scale: 1, opacity: 1 }}
+                                                            viewport={{ once: true }}
+                                                            transition={{ type: "spring", stiffness: 300, damping: 20, delay: index * 0.15 }}
+                                                            className="absolute -left-[29px] sm:-left-[41px] top-[7px] h-3 w-3 sm:h-4 sm:w-4 rounded-full border-2 border-primary bg-background z-10" 
+                                                        />
                                                         <p className="text-xs sm:text-sm leading-normal sm:leading-relaxed text-secondary-foreground/90 md:text-base">
                                                             {item}
                                                         </p>

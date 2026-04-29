@@ -37,11 +37,11 @@ const Services = () => {
 
     return (
         <Element name="services" className="scroll-anchor">
-            <section id="services" className="py-24 overflow-hidden relative">
+            <section id="services" className="pt-24 sm:pt-28 md:pt-32 pb-24 sm:pb-28 md:pb-32 overflow-hidden relative">
                 <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-80 h-80 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
 
                 <div className="site-container">
-                    <div className="flex flex-col items-center mb-16 space-y-4">
+                    <div className="flex flex-col items-center mb-12 sm:mb-16 md:mb-20 space-y-4 sm:space-y-6">
                         <motion.h2
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -67,13 +67,13 @@ const Services = () => {
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true, amount: 0.1 }}
-                        className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 relative z-10"
+                        className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10 relative z-10"
                     >
                         {services.map((service) => (
                             <motion.div
                                 key={service.id}
                                 variants={itemVariants}
-                                whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                                whileHover={{ y: -8, rotate: 1, transition: { duration: 0.3 } }}
                                 onClick={() => setActiveService(service)}
                                 className="group flex flex-col h-full rounded-2xl border border-border/40 bg-surface/20 p-8 shadow-sm backdrop-blur-md transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 relative overflow-hidden cursor-pointer"
                             >
@@ -94,12 +94,6 @@ const Services = () => {
                                         {service.description}
                                     </p>
 
-                                    <button
-                                        className="mt-auto group/btn flex items-center gap-2 font-mono text-sm text-primary transition-colors hover:text-primary/80 self-start"
-                                    >
-                                        View Details
-                                        <ArrowRight size={16} className="transition-transform group-hover/btn:translate-x-1" />
-                                    </button>
                                 </div>
                             </motion.div>
                         ))}
@@ -145,7 +139,8 @@ const Services = () => {
                                 </p>
                                 
                                 <div>
-                                    <h4 className="font-mono text-sm tracking-widest uppercase text-primary/80 mb-4">What I Deliver</h4>
+                                    <h4 className="font-mono text-sm tracking-widest uppercase text-primary/80 mb-2">What I Deliver</h4>
+                                    <p className="text-sm text-secondary-foreground mb-4">What I deliver in this area:</p>
                                     <ul className="space-y-3">
                                         {activeService.modalDetails.map((detail, idx) => (
                                             <li key={idx} className="flex items-start gap-3 text-sm text-secondary-foreground">

@@ -86,7 +86,7 @@ const Loader: React.FC<LoaderProps> = ({ setLoading }) => {
                         <motion.path
                             variants={pathVariants}
                             animate="visible"
-                            initial="hidden"
+                            initial={{ opacity: 1, pathLength: 0 }}
                             stroke="currentColor"
                             strokeWidth="5"
                             strokeLinecap="round"
@@ -96,7 +96,7 @@ const Loader: React.FC<LoaderProps> = ({ setLoading }) => {
                         <motion.text
                             variants={textVariants}
                             animate="visible"
-                            initial="hidden"
+                            initial={{ opacity: 1, scale: 0.8 }}
                             x="50%"
                             y="55"
                             fill="currentColor"
@@ -112,7 +112,7 @@ const Loader: React.FC<LoaderProps> = ({ setLoading }) => {
                 </div>
                 {/* Percentage Counter */}
                 <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 1, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="font-mono text-xl tracking-[0.2em] text-primary/80"
                 >

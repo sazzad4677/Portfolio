@@ -9,7 +9,7 @@ import InfoCard from "./InfoCard";
 import FeatureItem from "./FeatureItem";
 import TechChip from "./TechChip";
 
-/* ── Animation variants ─────────────────────────────────────── */
+
 const sectionReveal: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -36,9 +36,7 @@ const fadeRight: Variants = {
     },
 };
 
-/* ================================================================
-   ABOUT SECTION
-   ================================================================ */
+
 const About: React.FC = () => {
     const content = contentManager.getAbout();
 
@@ -63,7 +61,7 @@ const About: React.FC = () => {
                 />
 
                 <div className="site-container relative z-10">
-                    {/* ── Two-column grid ────────────────────── */}
+
                     <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
                         {/* ═══════════════════ LEFT COLUMN ═══════════════════ */}
                         <motion.div
@@ -80,7 +78,7 @@ const About: React.FC = () => {
                                     {content.sectionLabel}
                                 </span>
                             </div>
-                            {/* ── Quote card (whisper-level) ──── */}
+                            {/* ── Quote card ──── */}
                             <motion.div
                                 variants={fadeUp}
                                 className="mb-2 rounded-xl border border-border/40 bg-surface/20 px-3 py-2.5 md:mb-4 md:px-4 md:py-3"
@@ -108,7 +106,7 @@ const About: React.FC = () => {
                                 ))}
                             </div>
 
-                            {/* ── Spacer before CTA ──────────── */}
+
                             <div aria-hidden className="h-px w-full bg-gradient-to-r from-border/40 via-border/20 to-transparent" />
 
                             {/* ── CTA block ────────────────────── */}
@@ -132,7 +130,7 @@ const About: React.FC = () => {
                             </motion.div>
                         </motion.div>
 
-                        {/* ═══════════════════ RIGHT COLUMN (centered) ═════ */}
+
                         <motion.div
                             variants={fadeRight}
                             className="mx-auto flex w-full max-w-lg flex-col gap-6 lg:mx-0 lg:max-w-none"

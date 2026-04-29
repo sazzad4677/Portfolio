@@ -51,7 +51,6 @@ function parseErrorMessage(error: Error): string {
 }
 
 // ── Markdown link component ────────────────────────────────────────────────────
-// mailto links open the mail client; all other links open in a new tab
 function MarkdownLink({
     href,
     children,
@@ -115,7 +114,7 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
     }, [isOpen, onClose]);
 
     const onSubmit = useCallback(
-        (e: React.FormEvent<HTMLFormElement>) => {
+        (e: React.SyntheticEvent<HTMLFormElement>) => {
             e.preventDefault();
             if (!input.trim() || isLoading) return;
             handleSubmit(e);

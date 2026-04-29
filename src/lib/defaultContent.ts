@@ -19,26 +19,98 @@ export const defaultContent: PortfolioContent = {
             { name: "Email", url: "mailto:sazzad4677@gmail.com", type: "email" }
         ],
         techStack: [
-            { label: "Node.js",     color: "bg-emerald-500/15" },
-            { label: "React",       color: "bg-cyan-500/15" },
-            { label: "TypeScript",  color: "bg-blue-500/15" },
-            { label: "PostgreSQL",  color: "bg-blue-700/15" },
-            { label: "Prisma",      color: "bg-indigo-500/15" },
-            { label: "Express.js",  color: "bg-white/10" },
-            { label: "Supabase",    color: "bg-emerald-400/15" },
-            { label: "Next.js",     color: "bg-white/10" },
-            { label: "Python",      color: "bg-yellow-500/15" },
-            { label: "MongoDB",     color: "bg-green-500/15" }
+            { label: "Node.js", color: "bg-emerald-500/15" },
+            { label: "React", color: "bg-cyan-500/15" },
+            { label: "TypeScript", color: "bg-blue-500/15" },
+            { label: "PostgreSQL", color: "bg-blue-700/15" },
+            { label: "Prisma", color: "bg-indigo-500/15" },
+            { label: "Express.js", color: "bg-white/10" },
+            { label: "Supabase", color: "bg-emerald-400/15" },
+            { label: "Next.js", color: "bg-white/10" },
+            { label: "Python", color: "bg-yellow-500/15" },
+            { label: "MongoDB", color: "bg-green-500/15" }
         ],
         stats: [
-            { value: "40+", label: "Projects Completed", sublabel: "Across industries",  icon: "Code2",       color: "text-primary" },
-            { value: "4+",  label: "Years Experience",   sublabel: "Building solutions",  icon: "Users",       color: "text-primary" },
-            { value: "10x", label: "Performance Boost",  sublabel: "For key systems",     icon: "Zap",         color: "text-yellow-400" },
-            { value: "100%",label: "Client Satisfaction", sublabel: "Quality is priority", icon: "CheckCircle2",color: "text-emerald-400" }
+            { value: "40+", label: "Projects Completed", sublabel: "Across industries", icon: "Code2", color: "text-primary" },
+            { value: "4+", label: "Years Experience", sublabel: "Building solutions", icon: "Users", color: "text-primary" },
+            { value: "10x", label: "Performance Boost", sublabel: "For key systems", icon: "Zap", color: "text-yellow-400" },
+            { value: "100%", label: "Client Satisfaction", sublabel: "Quality is priority", icon: "CheckCircle2", color: "text-emerald-400" }
         ]
     },
 
     about: {
+        sectionNumber: "01.",
+        sectionLabel: "ABOUT ME",
+        headline: "I build scalable,\nhigh-performance\n<span class=\"text-gradient\">web applications.</span>",
+        description: "Full-stack engineer with <span class=\"font-semibold text-primary\">4+ years</span> of experience building AI-driven and real-time applications that solve real-world problems.",
+        quote: "I don’t just build features—I design systems that scale, evolve, and stay maintainable.",
+        infoCards: [
+            {
+                icon: "Compass",
+                title: "My Journey",
+                description: "Over the last <span class=\"text-primary\">four years</span>, my software engineering journey has evolved from building basic web components to engineering full-scale, AI-integrated enterprise systems. Anchored firmly in the modern JavaScript ecosystem, I focus on building solutions that are scalable, testable, and highly performant.",
+                variant: "normal"
+            },
+            {
+                icon: "Code2",
+                title: "What I Do Best",
+                description: "I solve complex architectural puzzles—whether that involves orchestrating real-time data with <span class=\"text-primary\">Socket.io</span>, containerizing applications with <span class=\"text-primary\">Docker</span>, or managing complex server state with <span class=\"text-primary\">Tanstack Query</span> on a daily basis.",
+                variant: "highlight"
+            },
+            {
+                icon: "Heart",
+                title: "Beyond the Code",
+                description: "When I'm not in the IDE, you'll find me <span class=\"text-primary\">traveling</span>, exploring new cuisines, and planning getaways. I believe the best ideas come when you step away, get inspired, and experience the world.",
+                variant: "minimal"
+            }
+        ],
+        cta: {
+            text: "If this aligns with what you're looking for, let's build something great together.",
+            buttonLabel: "Let's Work Together",
+            buttonLink: "mailto:sazzad4677@gmail.com"
+        },
+        coreWorkLabel: "THE CORE OF MY WORK",
+        coreWorkItems: [
+            {
+                icon: "Code2",
+                title: "Clean & Scalable Code",
+                description: "I write maintainable, scalable, and performance-focused code."
+            },
+            {
+                icon: "Radio",
+                title: "Real-time & Backend Systems",
+                description: "Building robust APIs, real-time features, and distributed systems."
+            },
+            {
+                icon: "Container",
+                title: "DevOps & Deployment",
+                description: "Docker, AWS, CI/CD, and modern workflows for reliable deployments."
+            },
+            {
+                icon: "Puzzle",
+                title: "Problem Solving",
+                description: "I break down complex problems and design simple, effective solutions."
+            }
+        ],
+        techStackLabel: "MY CORE TECHNICAL STACK",
+        techStack: [
+            { icon: "nodejs", label: "Node.js" },
+            { icon: "express", label: "Express.js" },
+            { icon: "mongodb", label: "MongoDB" },
+            { icon: "postgresql", label: "PostgreSQL" },
+            { icon: "nextjs", label: "Next.js" },
+            { icon: "react", label: "React" },
+            { icon: "typescript", label: "TypeScript" },
+            { icon: "socketio", label: "Socket.io" },
+            { icon: "docker", label: "Docker" },
+            { icon: "aws", label: "AWS" },
+            { icon: "tailwind", label: "Tailwind CSS" },
+            { icon: "tanstack", label: "Tanstack Query" },
+            { icon: "redis", label: "Redis" },
+            { icon: "zustand", label: "Zustand" },
+            { icon: "webrtc", label: "WebRTC" },
+            { icon: "llm", label: "LLM Integration" }
+        ],
         paragraphs: [
             "<em>“I spend 90% of my time architecting scalable backend logic, and the remaining 10% wondering why a `&lt;div&gt;` won't center.”</em>",
             "Jokes aside, over the last <span class=\"text-primary\">four years</span>, my software engineering journey has evolved from building basic web components to engineering full-scale, AI-integrated enterprise systems. Anchored firmly in the modern JavaScript ecosystem, I focus on the bigger picture: designing solutions that are scalable, testable, and highly performant.",

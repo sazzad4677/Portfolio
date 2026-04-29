@@ -3,24 +3,44 @@
 import React from "react";
 import { motion, Variants } from "framer-motion";
 import { Element } from "react-scroll";
+import { Quote, ArrowRight } from "lucide-react";
 import contentManager from "@/lib/contentManager";
-import { Skill } from "@/lib/types";
+import InfoCard from "./InfoCard";
+import FeatureItem from "./FeatureItem";
+import TechChip from "./TechChip";
 
+/* ── Animation variants ─────────────────────────────────────── */
+const sectionReveal: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { staggerChildren: 0.12, delayChildren: 0.15 },
+    },
+};
+
+const fadeUp: Variants = {
+    hidden: { opacity: 0, y: 28 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+    },
+};
+
+const fadeRight: Variants = {
+    hidden: { opacity: 0, x: 40 },
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+    },
+};
+
+/* ================================================================
+   ABOUT SECTION
+   ================================================================ */
 const About: React.FC = () => {
     const content = contentManager.getAbout();
-    const skills = contentManager.getSkills();
-
-    const revealVariants: Variants = {
-        hidden: { opacity: 0, y: 30 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 1.2,
-                ease: [0.22, 1, 0.36, 1],
-            },
-        },
-    };
 
     return (
         <Element name="about" className="scroll-anchor">
@@ -28,79 +48,142 @@ const About: React.FC = () => {
                 id="about"
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.25 }}
-                variants={revealVariants}
-                className="py-14 sm:py-20 md:py-32 relative overflow-hidden"
+                viewport={{ once: true, amount: 0.1 }}
+                variants={sectionReveal}
+                className="relative overflow-hidden pt-16 pb-0 sm:pt-24 sm:pb-0 md:pt-32 md:pb-0"
             >
+                {/* ── Background blobs ────────────────────────── */}
+                <div
+                    aria-hidden
+                    className="pointer-events-none absolute left-[-10%] top-[10%] h-[500px] w-[500px] rounded-full bg-primary/[0.06] blur-[120px]"
+                />
+                <div
+                    aria-hidden
+                    className="pointer-events-none absolute bottom-[5%] right-[-8%] h-[400px] w-[400px] rounded-full bg-primary/[0.04] blur-[100px]"
+                />
+
                 <div className="site-container relative z-10">
-
-                    {/* Section Heading */}
-                    <div className="mb-8 sm:mb-12 md:mb-14 flex items-center space-x-4">
-                        <h2 className="whitespace-nowrap font-sans text-2xl font-bold text-foreground before:mr-2 before:font-mono before:text-lg before:text-primary before:content-['01.'] md:text-3xl">
-                            About Me
-                        </h2>
-                        <div className="h-px flex-1 bg-gradient-to-r from-border/60 to-transparent" />
-                    </div>
-
-                    <div className="grid grid-cols-1 gap-10 sm:gap-12 lg:grid-cols-[3fr_2fr] lg:gap-16">
-
-                        {/* Text + Skills */}
-                        <div className="flex flex-col space-y-5 sm:space-y-8">
-                            <div className="space-y-3 sm:space-y-4 font-sans text-sm sm:text-base leading-normal sm:leading-relaxed text-secondary-foreground">
-                                {content.paragraphs.map((paragraph: string, index: number) => (
-                                    <p
-                                        key={index}
-                                        className="max-w-[700px] tracking-normal sm:tracking-wide"
-                                        dangerouslySetInnerHTML={{ __html: paragraph }}
+                    {/* ── Two-column grid ────────────────────── */}
+                    <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
+                        {/* ═══════════════════ LEFT COLUMN ═══════════════════ */}
+                        <motion.div
+                            variants={fadeUp}
+                            className="flex flex-col gap-6 md:gap-10"
+                        >
+                            {/* Section label */}
+                            <div className="flex items-center gap-3">
+                                <span className="font-mono text-sm text-primary/80 md:text-base">
+                                    {content.sectionNumber}
+                                </span>
+                                <span className="h-px w-8 bg-primary/40" />
+                                <span className="text-xs font-medium uppercase tracking-widest text-primary/60">
+                                    {content.sectionLabel}
+                                </span>
+                            </div>
+                            {/* ── Quote card (whisper-level) ──── */}
+                            <motion.div
+                                variants={fadeUp}
+                                className="mb-2 rounded-xl border border-white/[0.06] bg-white/[0.015] px-3 py-2.5 md:mb-4 md:px-4 md:py-3"
+                            >
+                                <div className="flex items-start gap-2.5">
+                                    <Quote
+                                        size={16}
+                                        className="mt-0.5 shrink-0 text-primary/20"
                                     />
+                                    <p
+                                        className="text-[13px] italic leading-relaxed text-white/50"
+                                        dangerouslySetInnerHTML={{
+                                            __html: content.quote,
+                                        }}
+                                    />
+                                </div>
+                            </motion.div>
+
+                            {/* ── Info cards ───────────────────── */}
+                            <div className="flex flex-col gap-3">
+                                {content.infoCards.map((card, i) => (
+                                    <motion.div key={i} variants={fadeUp}>
+                                        <InfoCard card={card} />
+                                    </motion.div>
                                 ))}
                             </div>
 
-                            <div className="space-y-3 sm:space-y-6">
-                                <p className="font-mono text-sm uppercase tracking-[0.2em] text-primary/80">
-                                    {content.skillsHeading || "Recently Mastered"}
+                            {/* ── Spacer before CTA ──────────── */}
+                            <div aria-hidden className="h-px w-full bg-gradient-to-r from-white/[0.06] via-white/[0.03] to-transparent" />
+
+                            {/* ── CTA block ────────────────────── */}
+                            <motion.div
+                                variants={fadeUp}
+                                className="flex flex-col items-start gap-4 rounded-xl border border-primary/20 bg-primary/[0.05] p-4 backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between md:p-5"
+                            >
+                                <p className="text-sm font-medium leading-relaxed text-white/80">
+                                    {content.cta.text}
                                 </p>
-                                <div className="flex flex-wrap gap-2 sm:gap-2.5 max-w-[800px]">
-                                    {skills.map((skill: Skill, index: number) => (
-                                        <motion.div
-                                            key={skill.id || index}
-                                            whileHover={{ y: -2, scale: 1.02 }}
-                                            className="glass px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs font-mono border-primary/20 text-secondary-foreground hover:border-primary/50 hover:text-primary transition-all duration-300"
-                                           
-                                        >
-                                            <span className="mr-1.5 text-primary">#</span>
-                                            {skill.name}
+                                <a
+                                    href={content.cta.buttonLink}
+                                    className="group inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-background transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(0,210,150,0.35)] w-full justify-center sm:w-auto"
+                                >
+                                    {content.cta.buttonLabel}
+                                    <ArrowRight
+                                        size={14}
+                                        className="transition-transform group-hover:translate-x-0.5"
+                                    />
+                                </a>
+                            </motion.div>
+                        </motion.div>
+
+                        {/* ═══════════════════ RIGHT COLUMN (centered) ═════ */}
+                        <motion.div
+                            variants={fadeRight}
+                            className="mx-auto flex w-full max-w-lg flex-col gap-6 lg:mx-0 lg:max-w-none"
+                        >
+                            {/* ── Core work card ──────────────── */}
+                            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-sm transition-all duration-300 hover:translate-x-1 hover:border-primary/40 md:p-8">
+                                {/* Header */}
+                                <div className="mb-6 flex items-center gap-2">
+                                    <span className="h-2 w-2 rounded-full bg-primary/70" />
+                                    <span className="text-xs font-medium uppercase tracking-widest text-primary/80">
+                                        {content.coreWorkLabel}
+                                    </span>
+                                </div>
+
+                                {/* Feature items */}
+                                <div className="flex flex-col gap-5">
+                                    {content.coreWorkItems.map((item, i) => (
+                                        <FeatureItem
+                                            key={i}
+                                            item={item}
+                                            isLast={
+                                                i ===
+                                                content.coreWorkItems.length - 1
+                                            }
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* ── Tech stack chips (contained) ── */}
+                            <div className="flex flex-col gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-4 backdrop-blur-sm md:p-5">
+                                {/* Header */}
+                                <div className="flex items-center gap-2">
+                                    <span className="h-1.5 w-1.5 rounded-full bg-primary/70" />
+                                    <span className="text-xs font-medium uppercase tracking-widest text-primary/80">
+                                        {content.techStackLabel}
+                                    </span>
+                                </div>
+
+                                {/* Chips grid */}
+                                <div className="flex max-w-[600px] flex-wrap gap-x-2.5 gap-y-4">
+                                    {content.techStack.map((chip, i) => (
+                                        <motion.div key={i} variants={fadeUp}>
+                                            <TechChip chip={chip} />
                                         </motion.div>
                                     ))}
                                 </div>
                             </div>
-                        </div>
-
-                        {/* Profile Image */}
-                        <div className="relative mx-auto lg:mt-0 lg:ml-auto">
-                            <motion.div
-                                whileHover={{ x: -12, y: -12 }}
-                                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                                className="group relative h-56 w-56 sm:h-72 sm:w-72 md:h-80 md:w-80"
-                            >
-                                {/* The Frame */}
-                                <div className="absolute inset-0 translate-x-5 translate-y-5 sm:translate-x-6 sm:translate-y-6 rounded-md border-2 border-primary/30 transition-all duration-500 group-hover:translate-x-4 group-hover:translate-y-4 group-hover:border-primary" />
-
-                                {/* Background Glow */}
-                                <div className="absolute -inset-4 rounded-full bg-primary/10 opacity-0 blur-2xl transition-opacity duration-700 group-hover:opacity-100" />
-
-                                <div className="relative h-full w-full overflow-hidden rounded-md border border-primary/20 shadow-2xl">
-                                    <img
-                                        src={content.profileImage}
-                                        alt="Profile"
-                                        className="h-full w-full object-cover mix-blend-multiply grayscale transition-all duration-700 group-hover:mix-blend-normal group-hover:grayscale-0 group-hover:scale-105"
-                                    />
-                                    <div className="absolute inset-0 bg-primary/5 group-hover:opacity-0 transition-opacity duration-500" />
-                                </div>
-                            </motion.div>
-                        </div>
-
+                        </motion.div>
                     </div>
+
                 </div>
             </motion.section>
         </Element>

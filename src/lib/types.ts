@@ -34,7 +34,42 @@ export interface HeroContent {
     stats: HeroStat[];
 }
 
+// ── About Section ──────────────────────────────────────────────
+export interface AboutInfoCard {
+    icon: string;
+    title: string;
+    description: string;
+    variant: 'normal' | 'highlight' | 'minimal';
+}
+
+export interface AboutFeatureItem {
+    icon: string;
+    title: string;
+    description: string;
+}
+
+export interface AboutTechChip {
+    icon: string;
+    label: string;
+}
+
 export interface AboutContent {
+    sectionNumber: string;
+    sectionLabel: string;
+    headline: string;
+    description: string;
+    quote: string;
+    infoCards: AboutInfoCard[];
+    cta: {
+        text: string;
+        buttonLabel: string;
+        buttonLink: string;
+    };
+    coreWorkLabel: string;
+    coreWorkItems: AboutFeatureItem[];
+    techStackLabel: string;
+    techStack: AboutTechChip[];
+    /** @deprecated kept for backward compat */
     paragraphs: string[];
     skillsHeading: string;
     profileImage: string;

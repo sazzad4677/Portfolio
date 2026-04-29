@@ -28,7 +28,7 @@ const Skills = () => {
 
     return (
         <Element name="skills" className="scroll-anchor">
-            <section id="skills" className="py-14 sm:py-20 md:py-24 overflow-hidden relative">
+            <section id="skills" className="pb-14 pt-4 sm:pb-20 sm:pt-8 md:pb-24 md:pt-10 overflow-hidden relative">
                 <div className="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
                 <div className="absolute bottom-0 right-10 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
 

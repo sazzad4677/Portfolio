@@ -35,6 +35,16 @@
 
 ---
 
+## 🎨 Customization & Personalization
+
+This portfolio is designed to be fully data-driven. To personalize the content for yourself, you only need to modify two core files:
+
+1.  **Main Portfolio Content**: Edit `src/lib/defaultContent.ts`. This file contains all the text, project details, experience, and social links displayed across the site.
+2.  **AI Assistant Context**: Edit `src/lib/portfolioContext.ts`. This file provides the structured data that the AI uses to answer questions about you. Ensure this matches your `defaultContent` for consistency.
+3.  **Visual Branding**: Design tokens like colors and fonts are managed in `src/index.css` using Tailwind v4 theme variables.
+
+---
+
 ## 🛠️ Technical Stack
 
 | Category | Technology |

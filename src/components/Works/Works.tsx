@@ -130,10 +130,10 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
 
                     <div className="flex flex-wrap items-center gap-2 sm:gap-4 pt-4 border-t border-border/20">
                         {project.links.github && (
-                            <a 
-                                href={project.links.github} 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
+                            <a
+                                href={project.links.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="group flex items-center gap-2 rounded-lg bg-surface/60 px-4 py-2.5 text-xs font-mono text-foreground transition-all duration-300 hover:bg-primary/5 hover:text-primary hover:border-primary/30 border border-border/40 backdrop-blur-sm shadow-sm"
                             >
                                 <GitHubIcon size={16} className="transition-transform group-hover:-translate-y-0.5 text-primary/80 group-hover:text-primary" />
@@ -141,10 +141,10 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
                             </a>
                         )}
                         {project.links.external && (
-                            <a 
-                                href={project.links.external} 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
+                            <a
+                                href={project.links.external}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="group flex items-center gap-2 rounded-lg bg-primary/10 px-3 py-2 text-xs font-mono text-primary transition-all duration-300 hover:bg-primary/20 hover:scale-[1.02] border border-primary/20 shadow-md shadow-primary/5"
                             >
                                 <ExternalLink size={16} className="transition-transform group-hover:-translate-y-0.5" />
@@ -164,7 +164,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
                     >
                         <div className="absolute inset-0 z-10 bg-primary/20 mix-blend-multiply opacity-100 transition-all duration-700 group-hover/card:bg-transparent group-hover/card:opacity-0" />
                         <div className="absolute inset-0 z-20 bg-gradient-to-tr from-background/40 via-transparent to-primary/5 opacity-80 transition-opacity duration-500 group-hover/card:opacity-0" />
-                        
+
                         <img
                             src={`/images/${project.image.url}`}
                             alt={project.title}

@@ -24,7 +24,7 @@ const Experience: React.FC = () => {
             },
         },
     };
-    
+
     return (
         <Element name="jobs" className="scroll-anchor">
             <motion.section
@@ -47,7 +47,7 @@ const Experience: React.FC = () => {
 
                     <div className="mx-auto max-w-[900px]">
                         <div className="flex flex-col lg:flex-row">
-                           
+
                             {/* Tab List */}
                             <div className="relative flex lg:flex-col overflow-x-auto lg:overflow-visible no-scrollbar border-b lg:border-b-0 lg:border-l border-border/40 pb-1 lg:pb-0">
                                 {jobs.map((job, index) => (
@@ -135,12 +135,12 @@ const Experience: React.FC = () => {
                                                         className="relative"
                                                     >
                                                         {/* Timeline Dot */}
-                                                        <motion.div 
+                                                        <motion.div
                                                             initial={{ scale: 0, opacity: 0 }}
                                                             whileInView={{ scale: 1, opacity: 1 }}
                                                             viewport={{ once: true }}
                                                             transition={{ type: "spring", stiffness: 300, damping: 20, delay: index * 0.15 }}
-                                                            className="absolute -left-[29px] sm:-left-[41px] top-[7px] h-3 w-3 sm:h-4 sm:w-4 rounded-full border-2 border-primary bg-background z-10" 
+                                                            className="absolute -left-[29px] sm:-left-[41px] top-[7px] h-3 w-3 sm:h-4 sm:w-4 rounded-full border-2 border-primary bg-background z-10"
                                                         />
                                                         <p className="text-xs sm:text-sm leading-normal sm:leading-relaxed text-secondary-foreground/90 md:text-base">
                                                             {item}

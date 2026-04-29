@@ -5,12 +5,37 @@ export const defaultContent: PortfolioContent = {
         greeting: "Hi, my name is",
         name: "Sazzad Hossain.",
         tagline: "Architecting the web, from server to screen.",
-        description: "Software Engineer with <span class=\"text-primary\">almost 4 years of experience</span> building high-performance, AI-driven applications. I bridge the gap between robust backend architectures <span class=\"text-primary\">(Node.js, Express, MongoDB)</span> and modern frontend ecosystems <span class=\"text-primary\">(Next.js, React)</span> to engineer real-time, full-stack solutions.",
-        ctaText: "Get In Touch",
+        headline: "I build scalable,<br/>high-performance<br/><span class=\"text-gradient\">web applications.</span>",
+        badgeText: "Available for new opportunities",
+        description: "Full-stack engineer with <span class=\"font-semibold text-primary\">4+ years</span> of experience building AI-driven and real-time applications that solve real-world problems.",
+        ctaText: "View My Work",
         ctaLink: "mailto:sazzad4677@gmail.com",
         cvLink: "https://drive.google.com/file/d/1ffycRhonZegQk2VJjfsa_g_AZAOj_5Xw/view?usp=drive_link",
         videoUrl: "",
-        profileImage: "/images/me.jpg"
+        profileImage: "/images/me.jpg",
+        socials: [
+            { name: "GitHub", url: "https://github.com/sazzad4677/", type: "github" },
+            { name: "LinkedIn", url: "https://www.linkedin.com/in/sazzad4673/", type: "linkedin" },
+            { name: "Email", url: "mailto:sazzad4677@gmail.com", type: "email" }
+        ],
+        techStack: [
+            { label: "Node.js",     color: "bg-emerald-500/15" },
+            { label: "React",       color: "bg-cyan-500/15" },
+            { label: "TypeScript",  color: "bg-blue-500/15" },
+            { label: "PostgreSQL",  color: "bg-blue-700/15" },
+            { label: "Prisma",      color: "bg-indigo-500/15" },
+            { label: "Express.js",  color: "bg-white/10" },
+            { label: "Supabase",    color: "bg-emerald-400/15" },
+            { label: "Next.js",     color: "bg-white/10" },
+            { label: "Python",      color: "bg-yellow-500/15" },
+            { label: "MongoDB",     color: "bg-green-500/15" }
+        ],
+        stats: [
+            { value: "40+", label: "Projects Completed", sublabel: "Across industries",  icon: "Code2",       color: "text-primary" },
+            { value: "4+",  label: "Years Experience",   sublabel: "Building solutions",  icon: "Users",       color: "text-primary" },
+            { value: "10x", label: "Performance Boost",  sublabel: "For key systems",     icon: "Zap",         color: "text-yellow-400" },
+            { value: "100%",label: "Client Satisfaction", sublabel: "Quality is priority", icon: "CheckCircle2",color: "text-emerald-400" }
+        ]
     },
 
     about: {

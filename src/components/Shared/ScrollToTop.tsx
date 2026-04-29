@@ -18,7 +18,7 @@ const ScrollToTop: React.FC = () => {
     }, []);
 
     const scrollToTop = () => {
-        scroll.scrollToTop({ duration: 500, smooth: "easeOutQuint" });
+        window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
     return (

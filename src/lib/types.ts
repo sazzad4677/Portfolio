@@ -1,13 +1,37 @@
+export interface HeroSocialLink {
+    name: string;
+    url: string;
+    type: 'github' | 'linkedin' | 'email';
+}
+
+export interface HeroTechItem {
+    label: string;
+    color: string;
+}
+
+export interface HeroStat {
+    value: string;
+    label: string;
+    sublabel: string;
+    icon: string;
+    color: string;
+}
+
 export interface HeroContent {
     greeting: string;
     name: string;
     tagline: string;
+    headline: string;
+    badgeText: string;
     description: string;
     ctaText: string;
     ctaLink: string;
     cvLink?: string;
     videoUrl?: string;
     profileImage: string;
+    socials: HeroSocialLink[];
+    techStack: HeroTechItem[];
+    stats: HeroStat[];
 }
 
 export interface AboutContent {

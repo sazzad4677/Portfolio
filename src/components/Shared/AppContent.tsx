@@ -22,8 +22,6 @@ export default function AppContent({ children }: { children: React.ReactNode }) 
         
         const timer = window.setTimeout(() => {
             scroller.scrollTo(raw, {
-                smooth: true,
-                duration: 500,
                 offset: HASH_SCROLL_OFFSET,
             });
         }, 300);

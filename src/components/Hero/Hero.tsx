@@ -1,167 +1,162 @@
 "use client";
 
-import { motion, useMotionValue } from "framer-motion";
-import { useEffect } from "react";
-import { Element } from "react-scroll";
-import { Github, Linkedin, Mail, FileDown, ArrowRight } from "lucide-react";
+import { motion, Variants } from "framer-motion";
+import React from "react";
+import { ArrowRight, Download, Mail, Code2 } from "lucide-react";
+import { GitHubIcon, LinkedInIcon } from "@/components/ui/brand-icons";
+import contentManager from "@/lib/contentManager";
+import TechOrbit from "./TechOrbit";
+import StatsBar from "./StatsBar";
 
-/* ================= ORBIT ================= */
-
-const tech = [
-  { label: "Node.js", angle: 0 },
-  { label: "React", angle: 60 },
-  { label: "TypeScript", angle: 120 },
-  { label: "MongoDB", angle: 180 },
-  { label: "Next.js", angle: 240 },
-  { label: "Express", angle: 300 },
-];
-
-const Orbit = () => {
-  const rotate = useMotionValue(0);
-
-  useEffect(() => {
-    const loop = setInterval(() => {
-      rotate.set(rotate.get() + 0.1);
-    }, 16);
-    return () => clearInterval(loop);
-  }, [rotate]);
-
-  return (
-    <motion.div
-      drag
-      onDrag={(e, info) => {
-        rotate.set(rotate.get() + info.delta.x * 0.4);
-      }}
-      style={{ rotate }}
-      className="absolute inset-0 flex items-center justify-center"
-    >
-      {tech.map((t, i) => (
-        <div
-          key={i}
-          className="absolute"
-          style={{
-            transform: `rotate(${t.angle}deg) translate(170px) rotate(-${t.angle}deg)`,
-          }}
-        >
-          <div className="px-3 py-1 rounded-lg text-xs border border-white/10 bg-white/5 backdrop-blur-md shadow-xl">
-            {t.label}
-          </div>
-        </div>
-      ))}
-    </motion.div>
-  );
+const container: Variants = {
+    animate: { transition: { delayChildren: 0.2, staggerChildren: 0.12 } },
 };
 
-/* ================= HERO ================= */
+const item: Variants = {
+    initial: { opacity: 0, y: 28 },
+    animate: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+    },
+};
 
-export default function Hero() {
-  return (
-    <Element name="home">
-      <section className="relative min-h-screen flex items-center overflow-hidden px-6 md:px-16">
+const SOCIAL_ICON_MAP: Record<string, React.FC<{ size: number }>> = {
+    github: GitHubIcon,
+    linkedin: LinkedInIcon,
+    email: ({ size }) => <Mail size={size} />,
+};
 
-        {/* Background glow */}
-        <div className="absolute left-0 top-0 w-[500px] h-[500px] bg-primary/10 blur-[120px]" />
-        <div className="absolute right-0 bottom-0 w-[500px] h-[500px] bg-primary/10 blur-[120px]" />
+const Hero: React.FC = () => {
+    const content = contentManager.getHero();
 
-        <div className="max-w-7xl w-full grid md:grid-cols-2 gap-12 items-center">
+    return (
+        <motion.section
+            id="home"
+            variants={container}
+            initial="initial"
+            animate="animate"
+            className="relative flex min-h-screen w-full flex-col overflow-x-clip scroll-anchor"
+        >
+                {/* Background glow blobs */}
+                <div className="pointer-events-none absolute inset-0 overflow-hidden">
+                    <div className="absolute -left-32 top-1/4 h-[500px] w-[500px] rounded-full bg-primary/8 blur-[120px]" />
+                    <div className="absolute -right-24 top-1/3 h-[400px] w-[400px] rounded-full bg-primary/6 blur-[100px]" />
+                    <div className="absolute bottom-0 left-1/3 h-[300px] w-[300px] rounded-full bg-secondary/5 blur-[100px]" />
+                </div>
 
-          {/* ================= LEFT ================= */}
-          <div>
+                {/* Main two-column content */}
+                <div className="site-container relative z-10 flex flex-1 flex-col justify-center py-8 lg:py-12 xl:py-16">
+                    <div className="grid w-full grid-cols-1 items-center gap-6 pt-10 pb-6 sm:gap-8 sm:pt-14 sm:pb-8 lg:grid-cols-[1fr_0.65fr] lg:gap-12 lg:pt-0 lg:pb-0 xl:gap-16">
+                        {/* LEFT — Text Content */}
+                        <motion.div variants={item} className="flex flex-col items-center text-center lg:items-start lg:text-left">
+                            {/* Availability badge */}
+                            <motion.div
+                                variants={item}
+                                className="mb-5 inline-flex items-center gap-2 rounded-full border border-border/40 bg-surface/30 px-3 py-1.5 backdrop-blur-md sm:mb-7 sm:gap-2.5 sm:px-4 sm:py-2"
+                            >
+                                <span className="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5">
+                                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                                    <span className="relative inline-flex h-full w-full rounded-full bg-emerald-400" />
+                                </span>
+                                <span className="font-mono text-[9px] font-semibold uppercase tracking-[0.12em] text-emerald-600 dark:text-emerald-300 sm:text-[11px] sm:tracking-[0.15em]">
+                                    {content.badgeText}
+                                </span>
+                            </motion.div>
 
-            {/* Badge */}
-            <div className="mb-6 inline-flex items-center gap-2 px-4 py-1 rounded-full border border-primary/30 bg-white/5 backdrop-blur-md text-xs text-primary">
-              <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-              AVAILABLE FOR NEW OPPORTUNITIES
-            </div>
+                            {/* Headline */}
+                            <motion.h1
+                                variants={item}
+                                className="font-sans font-bold leading-[1.1] tracking-tight text-on-background [&_.text-gradient]:animate-pulse-glow"
+                                style={{ fontSize: "clamp(28px, 5.5vw, 64px)" }}
+                                dangerouslySetInnerHTML={{ __html: content.headline }}
+                            />
 
-            {/* Headline */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold leading-tight text-white">
-              I build scalable, <br />
-              high-performance{" "}
-              <span className="text-primary">web applications.</span>
-            </h1>
+                            {/* Description */}
+                            <motion.p
+                                variants={item}
+                                className="mt-4 max-w-[500px] text-sm leading-relaxed text-on-surface-variant/70 sm:mt-6 sm:text-base md:text-[17px]"
+                                dangerouslySetInnerHTML={{ __html: content.description }}
+                            />
 
-            {/* Description */}
-            <p className="mt-6 text-gray-400 max-w-lg text-base leading-relaxed">
-              Full-stack engineer with <span className="text-primary">4+ years</span> of experience building AI-driven and real-time applications that solve real-world problems.
-            </p>
+                            {/* CTA buttons */}
+                            <motion.div variants={item} className="mt-7 flex flex-wrap items-center justify-center gap-3 sm:mt-9 sm:gap-4 lg:justify-start">
+                                <motion.div
+                                    whileHover={{ scale: 1.04, y: -2 }}
+                                    whileTap={{ scale: 0.97 }}
+                                >
+                                    <a
+                                        href="#projects"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            const el = document.getElementById("projects");
+                                            if (el) {
+                                                const y = el.getBoundingClientRect().top + window.scrollY - 80;
+                                                window.scrollTo({ top: y, behavior: "smooth" });
+                                            }
+                                        }}
+                                        className="group relative inline-flex cursor-pointer items-center gap-2 overflow-hidden rounded-xl bg-primary px-5 py-3 font-sans text-sm font-bold text-primary-foreground shadow-lg shadow-primary/25 transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/35 sm:gap-2.5 sm:px-6 sm:py-3.5"
+                                    >
+                                        <Code2 size={16} />
+                                        {content.ctaText}
+                                        <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-0.5" />
+                                        <div className="absolute -inset-full z-[5] block h-full w-1/2 -skew-x-12 transform bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:animate-shine" />
+                                    </a>
+                                </motion.div>
+                                <motion.a
+                                    href={content.cvLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    whileHover={{ scale: 1.04, y: -2 }}
+                                    whileTap={{ scale: 0.97 }}
+                                    className="inline-flex items-center gap-2 rounded-xl border border-border/40 bg-surface/30 px-5 py-3 font-sans text-sm font-semibold text-on-background backdrop-blur-md transition-all duration-300 hover:border-primary/40 hover:bg-surface/50 sm:gap-2.5 sm:px-6 sm:py-3.5"
+                                >
+                                    <Download size={16} />
+                                    Download Resume
+                                </motion.a>
+                            </motion.div>
 
-            {/* CTA */}
-            <div className="mt-8 flex items-center gap-4">
-              <a className="flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-black font-semibold hover:scale-105 transition">
-                🚀 View My Work <ArrowRight size={16} />
-              </a>
+                            {/* Social row */}
+                            <motion.div variants={item} className="mt-8 flex items-center gap-4 sm:mt-10 sm:gap-5">
+                                <span className="text-xs text-on-surface-variant/50 sm:text-sm">Let&apos;s connect</span>
+                                <div className="flex items-center gap-2 sm:gap-3">
+                                    {content.socials.map((social) => {
+                                        const IconComp = SOCIAL_ICON_MAP[social.type];
+                                        return (
+                                            <a
+                                                key={social.name}
+                                                href={social.url}
+                                                target={social.type !== "email" ? "_blank" : undefined}
+                                                rel={social.type !== "email" ? "noopener noreferrer" : undefined}
+                                                className="flex h-9 w-9 items-center justify-center rounded-lg border border-border/40 bg-surface/30 text-on-surface-variant/60 transition-all duration-300 hover:border-primary/40 hover:text-primary sm:h-10 sm:w-10"
+                                                aria-label={social.name}
+                                            >
+                                                {IconComp && <IconComp size={18} />}
+                                            </a>
+                                        );
+                                    })}
+                                </div>
+                            </motion.div>
+                        </motion.div>
 
-              <a className="flex items-center gap-2 px-6 py-3 rounded-xl border border-white/10 hover:border-primary transition">
-                <FileDown size={16} /> Download Resume
-              </a>
-            </div>
+                        {/* RIGHT — Profile + Orbital System */}
+                        <motion.div
+                            variants={item}
+                            className="relative mx-auto flex items-center justify-center lg:mx-0"
+                        >
+                            <TechOrbit
+                                profileImage={content.profileImage}
+                                name={content.name}
+                                techStack={content.techStack}
+                            />
+                        </motion.div>
+                    </div>
+                </div>
 
-            {/* Social */}
-            <div className="mt-8 flex items-center gap-4 text-gray-400">
-              <span>Let’s connect</span>
-              <Github size={18} />
-              <Linkedin size={18} />
-              <Mail size={18} />
-            </div>
+                {/* Bottom stats bar */}
+                <StatsBar stats={content.stats} />
+        </motion.section>
+    );
+};
 
-          </div>
-
-          {/* ================= RIGHT ================= */}
-          <div className="relative flex justify-center">
-
-            {/* Orbit */}
-            <Orbit />
-
-            {/* Rings */}
-            <div className="absolute w-[380px] h-[380px] rounded-full border border-white/5"></div>
-            <div className="absolute w-[450px] h-[450px] rounded-full border border-white/5"></div>
-
-            {/* Image */}
-            <div className="relative z-10 w-[320px] md:w-[380px]">
-              <img
-                src="/profile.png"
-                className="w-full object-contain"
-                alt="profile"
-              />
-            </div>
-
-            {/* Open to work */}
-            <div className="absolute bottom-6 right-6 bg-white/5 backdrop-blur-md border border-white/10 px-4 py-2 rounded-xl text-sm">
-              🟢 Open to Work <br />
-              Remote • Full-time
-            </div>
-
-          </div>
-
-        </div>
-
-        {/* ================= STATS ================= */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-6xl bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl px-6 py-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-
-          <div>
-            <p className="text-xl font-bold text-white">40+</p>
-            <p className="text-xs text-gray-400">Projects Completed</p>
-          </div>
-
-          <div>
-            <p className="text-xl font-bold text-white">4+</p>
-            <p className="text-xs text-gray-400">Years Experience</p>
-          </div>
-
-          <div>
-            <p className="text-xl font-bold text-white">10x</p>
-            <p className="text-xs text-gray-400">Performance Boost</p>
-          </div>
-
-          <div>
-            <p className="text-xl font-bold text-white">100%</p>
-            <p className="text-xs text-gray-400">Client Satisfaction</p>
-          </div>
-
-        </div>
-
-      </section>
-    </Element>
-  );
-}
+export default Hero;

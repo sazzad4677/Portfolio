@@ -66,24 +66,24 @@
 
 [data-theme="light"] {
   color-scheme: light;
-  --background-hsl: 220 18% 78%;       /* was 222 15% 90% — noticeably darker page background */
+  --background-hsl: 225 14% 92%;        /* warm off-white, not cold gray */
 
-  --foreground-hsl: 222 47% 10%;       /* slightly deeper text for better contrast on darker bg */
+  --foreground-hsl: 222 47% 6%;         /* near-black for crisp text */
 
-  --primary-hsl: 171 100% 24%;         /* was 28% — darker teal stays readable */
-  --accent-hsl: 171 70% 38%;           /* was 45% — pulled down to match */
-  --surface-hsl: 220 18% 86%;          /* was 222 10% 98% — cards/surfaces slightly tinted, not stark white */
-  --secondary-hsl: 222 20% 52%;        /* was 60% — slightly deeper */
-  --surface-variant-hsl: 220 16% 74%;  /* was 222 15% 88% — borders/inputs more visible */
-  --on-surface-variant: hsl(var(--foreground-hsl) / 0.80);
-  --shadow: 0 10px 40px -15px rgba(2, 6, 23, 0.22);
-  --mesh-color: hsla(171 100% 35% / 0.09);
-  --mesh-color-2: hsla(222 47% 11% / 0.06);
+  --primary-hsl: 171 100% 24%;          /* teal stays punchy */
+  --accent-hsl: 171 70% 38%;
+  --surface-hsl: 225 12% 96%;           /* clean warm surface */
+  --secondary-hsl: 222 20% 48%;         /* deeper secondary */
+  --surface-variant-hsl: 225 12% 82%;   /* visible borders/inputs */
+  --on-surface-variant: hsl(var(--foreground-hsl) / 0.85);
+  --shadow: 0 10px 40px -15px rgba(2, 6, 23, 0.18);
+  --mesh-color: hsla(171 100% 35% / 0.06);
+  --mesh-color-2: hsla(222 47% 11% / 0.04);
   
   --bg-mesh:
-    radial-gradient(ellipse 75vw 75vh at 0% 45%, hsla(171 100% 35% / 0.07) 0%, transparent 65%),
-    radial-gradient(ellipse 70vw 70vh at 100% 40%, hsla(222 47% 11% / 0.06) 0%, transparent 60%),
-    radial-gradient(ellipse 55vw 50vh at 50% 100%, hsla(222 47% 12% / 0.07) 0%, transparent 50%),
+    radial-gradient(ellipse 75vw 75vh at 0% 45%, hsla(171 100% 35% / 0.05) 0%, transparent 65%),
+    radial-gradient(ellipse 70vw 70vh at 100% 40%, hsla(222 47% 11% / 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 55vw 50vh at 50% 100%, hsla(222 47% 12% / 0.04) 0%, transparent 50%),
     radial-gradient(ellipse 80% 50% at 20% -20%, var(--mesh-color) 0, transparent 55%),
     radial-gradient(ellipse 60% 40% at 100% 0%, var(--mesh-color-2) 0, transparent 50%),
     radial-gradient(ellipse 50% 30% at 50% 100%, var(--mesh-color-2) 0, transparent 45%);
@@ -272,3 +272,51 @@ body.custom-cursor-on select {
     padding-right: 4rem;
   }
 }
+
+/* Shine sweep animation for CTA button hover */
+@keyframes shine {
+  100% {
+    left: 125%;
+  }
+}
+
+@utility animate-shine {
+  animation: shine 0.6s ease-in-out forwards;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 15px hsl(var(--primary-hsl) / 0.4));
+    background-position: 0% 50%;
+  }
+  50% {
+    filter: drop-shadow(0 0 35px hsl(var(--primary-hsl) / 0.8));
+    background-position: 100% 50%;
+  }
+}
+
+@utility animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+  background-size: 200% 200%;
+}
+
+/* Responsive orbit scaling */
+:root {
+  --orbit-scale: 0.615; /* 320/520 */
+}
+@media (min-width: 640px) {
+  :root { --orbit-scale: 0.769; } /* 400/520 */
+}
+@media (min-width: 768px) {
+  :root { --orbit-scale: 0.885; } /* 460/520 */
+}
+@media (min-width: 1024px) {
+  :root { --orbit-scale: 0.730; } /* 380/520 */
+}
+@media (min-width: 1280px) {
+  :root { --orbit-scale: 0.885; } /* 460/520 */
+}
+@media (min-width: 1536px) {
+  :root { --orbit-scale: 1; } /* 520/520 */
+}
+

@@ -79,8 +79,6 @@ const Header: React.FC = () => {
                 <motion.div variants={logoVariants} initial="initial" animate="animate">
                     <Link
                         to="home"
-                        smooth
-                        duration={NAV_SCROLL_DURATION}
                         offset={NAV_SCROLL_OFFSET}
                         className="group flex cursor-pointer items-center gap-2"
                         aria-label="Home"
@@ -171,8 +169,6 @@ const Header: React.FC = () => {
                                     >
                                         <Link
                                             to={link.url}
-                                            smooth
-                                            duration={NAV_SCROLL_DURATION}
                                             offset={NAV_SCROLL_OFFSET}
                                             spy
                                             activeClass="!text-primary !bg-primary/5 border-primary/20"

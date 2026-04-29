@@ -22,12 +22,12 @@ const Loader: React.FC<LoaderProps> = ({ setLoading }) => {
         return () => clearInterval(interval);
     }, []);
 
-    const svgVariants: Variants = {
-        hidden: { opacity: 1 },
-        visible: {
+    const containerVariants: Variants = {
+        show: { opacity: 1 },
+        exit: {
             opacity: 0,
             scale: 0.8,
-            transition: { delay: 0.2, duration: 0.4, ease: "easeInOut" },
+            transition: { duration: 0.4, ease: "easeInOut" },
         },
     };
 
@@ -64,16 +64,16 @@ const Loader: React.FC<LoaderProps> = ({ setLoading }) => {
             <div className="relative z-10 flex flex-col items-center gap-8">
                 <div className="relative h-32 w-32">
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
+                        initial={{ opacity: 0.5, scale: 0.9 }}
                         animate={{ opacity: [0.2, 0.5, 0.2], scale: [0.9, 1.1, 0.9] }}
                         transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                        className="absolute inset-0 rounded-full bg-primary/20 blur-3xl"
+                        className="absolute inset-0 rounded-full bg-primary/20 blur-3xl animate-pulse"
                     />
                     
                     <motion.svg
-                        variants={svgVariants}
-                        initial="hidden"
-                        animate={counter === 100 ? "visible" : "hidden"}
+                        variants={containerVariants}
+                        initial="show"
+                        animate={counter === 100 ? "exit" : "show"}
                         onAnimationComplete={() => setLoading(false)}
                         id="logo"
                         className="h-full w-full text-primary drop-shadow-[0_0_15px_rgba(var(--primary-hsl),0.3)]"
@@ -86,7 +86,8 @@ const Loader: React.FC<LoaderProps> = ({ setLoading }) => {
                         <motion.path
                             variants={pathVariants}
                             animate="visible"
-                            initial={{ opacity: 1, pathLength: 0 }}
+                            initial="hidden"
+                            style={{ opacity: 0.3, pathLength: 1 }} // Initial SSR/static state
                             stroke="currentColor"
                             strokeWidth="5"
                             strokeLinecap="round"
@@ -114,9 +115,13 @@ const Loader: React.FC<LoaderProps> = ({ setLoading }) => {
                 <motion.div 
                     initial={{ opacity: 1, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="font-mono text-xl tracking-[0.2em] text-primary/80"
+                    className="font-mono text-xl tracking-[0.2em] text-primary/80 uppercase"
                 >
-                    {counter}%
+                    {counter > 0 ? (
+                        `${counter}%`
+                    ) : (
+                        <span className="inline-block animate-pulse">Loading...</span>
+                    )}
                 </motion.div>
             </div>
         </motion.div>

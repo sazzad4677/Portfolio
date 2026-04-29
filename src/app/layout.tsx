@@ -75,6 +75,10 @@ export default function RootLayout({
         <html lang="en" className={`${inter.variable}`} suppressHydrationWarning>
             <head>
                 <JsonLd />
+                <style>{`
+                    html, body { background: #02050e; }
+                    #initial-loader-check { display: none; }
+                `}</style>
             </head>
             <body className={`${inter.className} antialiased selection:bg-primary/30 selection:text-primary`} >
                 <ThemeProvider

@@ -85,7 +85,7 @@ const TechChip: React.FC<TechChipProps> = ({ chip }) => {
         <motion.div
             whileHover={{ scale: 1.05, borderColor: "rgba(0,210,150,0.4)" }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs text-white/70 transition-colors duration-200 hover:bg-primary/[0.08] hover:text-white/90"
+            className="flex items-center gap-2 rounded-full border border-border/60 bg-surface/40 px-3 py-1.5 text-xs text-on-surface-variant/80 transition-colors duration-200 hover:bg-primary/[0.08] hover:text-on-background"
         >
             <span className="flex items-center text-primary/80">
                 {chipIcons[chip.icon] ?? (

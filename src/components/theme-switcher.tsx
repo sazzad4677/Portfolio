@@ -40,18 +40,18 @@ export function ThemeSwitcher() {
                     <Moon className="h-4 w-4" />
                     <span>Navy (Default)</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("light")} className="flex items-center gap-2">
+                {/* <DropdownMenuItem onClick={() => setTheme("light")} className="flex items-center gap-2">
                     <Sun className="h-4 w-4" />
                     <span>Light</span>
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
                 <DropdownMenuItem onClick={() => setTheme("rose")} className="flex items-center gap-2">
                     <Palette className="h-4 w-4 text-rose-400" />
                     <span>Rose</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("system")} className="flex items-center gap-2">
+                {/* <DropdownMenuItem onClick={() => setTheme("system")} className="flex items-center gap-2">
                     <Laptop className="h-4 w-4" />
                     <span>System</span>
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
             </DropdownMenuContent>
         </DropdownMenu>
     )

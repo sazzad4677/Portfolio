@@ -80,7 +80,7 @@ export default function RootLayout({
                 <ThemeProvider
                     attribute="data-theme"
                     defaultTheme="navy"
-                    enableSystem
+                    enableSystem={false}
                     disableTransitionOnChange
                 >
                     <div className="bg-mesh-layer" aria-hidden="true" />

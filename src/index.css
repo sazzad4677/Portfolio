@@ -64,17 +64,16 @@
     radial-gradient(ellipse 50% 30% at 50% 100%, var(--mesh-color-2) 0, transparent 45%);
 }
 
-[data-theme="light"] {
+/* [data-theme="light"] {
   color-scheme: light;
-  --background-hsl: 225 14% 92%;        /* warm off-white, not cold gray */
+  --background-hsl: 225 14% 92%;        
+  --foreground-hsl: 222 47% 6%;         
 
-  --foreground-hsl: 222 47% 6%;         /* near-black for crisp text */
-
-  --primary-hsl: 171 100% 24%;          /* teal stays punchy */
+  --primary-hsl: 171 100% 24%;          
   --accent-hsl: 171 70% 38%;
-  --surface-hsl: 225 12% 96%;           /* clean warm surface */
-  --secondary-hsl: 222 20% 48%;         /* deeper secondary */
-  --surface-variant-hsl: 225 12% 82%;   /* visible borders/inputs */
+  --surface-hsl: 225 12% 96%;           
+  --secondary-hsl: 222 20% 48%;         
+  --surface-variant-hsl: 225 12% 82%;   
   --on-surface-variant: hsl(var(--foreground-hsl) / 0.85);
   --shadow: 0 10px 40px -15px rgba(2, 6, 23, 0.18);
   --mesh-color: hsla(171 100% 35% / 0.06);
@@ -87,7 +86,7 @@
     radial-gradient(ellipse 80% 50% at 20% -20%, var(--mesh-color) 0, transparent 55%),
     radial-gradient(ellipse 60% 40% at 100% 0%, var(--mesh-color-2) 0, transparent 50%),
     radial-gradient(ellipse 50% 30% at 50% 100%, var(--mesh-color-2) 0, transparent 45%);
-}
+} */
 
 [data-theme="navy"] {
   --background-hsl: 222 47% 2%;
@@ -109,10 +108,10 @@
   border: 1px solid hsla(var(--foreground-hsl) / 0.1);
 }
 
-[data-theme="light"] .glass,
+/* [data-theme="light"] .glass,
 [data-theme="light"] .glass-dark {
   backdrop-filter: blur(8px);
-}
+} */
 
 @utility glass-dark {
   background-color: hsla(var(--background-hsl) / 0.7);

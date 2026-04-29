@@ -38,10 +38,10 @@ const FeatureItem: React.FC<FeatureItemProps> = ({ item, isLast = false }) => {
 
                 {/* Text */}
                 <div className="min-w-0 flex-1">
-                    <h4 className="mb-1 text-sm font-semibold text-white transition-colors duration-300 group-hover:text-white md:text-base">
+                    <h4 className="mb-1 text-sm font-semibold text-on-background transition-colors duration-300 group-hover:text-on-background md:text-base">
                         {item.title}
                     </h4>
-                    <p className="text-xs leading-relaxed text-white/60 transition-colors duration-300 group-hover:text-white/80 md:text-sm">
+                    <p className="text-xs leading-relaxed text-on-surface-variant/80 transition-colors duration-300 group-hover:text-on-surface-variant md:text-sm">
                         {item.description}
                     </p>
                 </div>
@@ -51,7 +51,7 @@ const FeatureItem: React.FC<FeatureItemProps> = ({ item, isLast = false }) => {
             </div>
 
             {/* Divider */}
-            {!isLast && <div className="border-t border-white/10" />}
+            {!isLast && <div className="border-t border-border/60" />}
         </>
     );
 };

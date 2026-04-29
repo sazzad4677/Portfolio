@@ -24,9 +24,9 @@ export const defaultContent: PortfolioContent = {
             { label: "TypeScript", color: "bg-blue-500/15" },
             { label: "PostgreSQL", color: "bg-blue-700/15" },
             { label: "Prisma", color: "bg-indigo-500/15" },
-            { label: "Express.js", color: "bg-white/10" },
+            { label: "Express.js", color: "bg-on-background/10" },
             { label: "Supabase", color: "bg-emerald-400/15" },
-            { label: "Next.js", color: "bg-white/10" },
+            { label: "Next.js", color: "bg-on-background/10" },
             { label: "Python", color: "bg-yellow-500/15" },
             { label: "MongoDB", color: "bg-green-500/15" }
         ],
@@ -234,12 +234,12 @@ export const defaultContent: PortfolioContent = {
             description: "AI-powered inventory platform designed to solve real-time stock inconsistencies and enable predictive business insights.",
             descriptionList: [
                 "Implemented real-time state synchronization using Socket.io and Redis across distributed systems",
-                "Predictive insights driven by Google Gemini AI",
+                "Predictive insights driven by OpenAI",
                 "Secure, scalable Role-Based Access Control (RBAC)",
                 "High-performance MongoDB aggregations",
                 "Impact: Reduced data sync latency by 40% across global nodes"
             ],
-            technologies: ["Next.js", "Node.js", "Redis", "Socket.io", "Gemini AI"],
+            technologies: ["Next.js", "Node.js", "Redis", "Socket.io", "Open AI"],
             links: {
                 github: "https://github.com/sazzad4677/Smart-Inventory-System",
                 external: "https://smart-inventory.sazzad.dev/"

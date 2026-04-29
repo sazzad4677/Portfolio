@@ -100,7 +100,7 @@ const Hero: React.FC = () => {
                                         <Code2 size={16} />
                                         {content.ctaText}
                                         <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-0.5" />
-                                        <div className="absolute -inset-full z-[5] block h-full w-1/2 -skew-x-12 transform bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:animate-shine" />
+                                        <div className="absolute -inset-full z-[5] block h-full w-1/2 -skew-x-12 transform bg-gradient-to-r from-transparent via-on-background/20 to-transparent opacity-0 group-hover:animate-shine" />
                                     </a>
                                 </motion.div>
                                 <motion.a

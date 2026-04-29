@@ -31,8 +31,8 @@ const variantStyles: Record<
 > = {
     normal: {
         wrapper:
-            "rounded-xl border border-white/10 bg-white/[0.02] p-5 backdrop-blur-sm",
-        hoverClass: "hover:border-white/20",
+            "rounded-xl border border-border/60 bg-surface/40 p-5 backdrop-blur-sm",
+        hoverClass: "hover:border-on-background/20",
         iconBox:
             "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary",
     },
@@ -44,10 +44,10 @@ const variantStyles: Record<
             "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/15 text-primary",
     },
     minimal: {
-        wrapper: "rounded-lg bg-white/[0.02] p-4",
+        wrapper: "rounded-lg bg-surface/30 p-4",
         hoverClass: "",
         iconBox:
-            "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-white/50",
+            "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-on-surface-variant/50",
     },
 };
 
@@ -72,11 +72,11 @@ const InfoCard: React.FC<InfoCardProps> = ({ card }) => {
 
             {/* Text */}
             <div className="min-w-0">
-                <h3 className="mb-1.5 text-sm font-semibold text-white md:text-base">
+                <h3 className="mb-1.5 text-sm font-semibold text-on-background md:text-base">
                     {card.title}
                 </h3>
                 <p
-                    className="text-xs leading-relaxed text-white/60 md:text-sm"
+                    className="text-xs leading-relaxed text-on-surface-variant/80 md:text-sm"
                     dangerouslySetInnerHTML={{ __html: card.description }}
                 />
             </div>

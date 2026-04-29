@@ -83,7 +83,7 @@ const About: React.FC = () => {
                             {/* ── Quote card (whisper-level) ──── */}
                             <motion.div
                                 variants={fadeUp}
-                                className="mb-2 rounded-xl border border-white/[0.06] bg-white/[0.015] px-3 py-2.5 md:mb-4 md:px-4 md:py-3"
+                                className="mb-2 rounded-xl border border-border/40 bg-surface/20 px-3 py-2.5 md:mb-4 md:px-4 md:py-3"
                             >
                                 <div className="flex items-start gap-2.5">
                                     <Quote
@@ -91,7 +91,7 @@ const About: React.FC = () => {
                                         className="mt-0.5 shrink-0 text-primary/20"
                                     />
                                     <p
-                                        className="text-[13px] italic leading-relaxed text-white/50"
+                                        className="text-[13px] italic leading-relaxed text-on-surface-variant/60"
                                         dangerouslySetInnerHTML={{
                                             __html: content.quote,
                                         }}
@@ -109,14 +109,14 @@ const About: React.FC = () => {
                             </div>
 
                             {/* ── Spacer before CTA ──────────── */}
-                            <div aria-hidden className="h-px w-full bg-gradient-to-r from-white/[0.06] via-white/[0.03] to-transparent" />
+                            <div aria-hidden className="h-px w-full bg-gradient-to-r from-border/40 via-border/20 to-transparent" />
 
                             {/* ── CTA block ────────────────────── */}
                             <motion.div
                                 variants={fadeUp}
                                 className="flex flex-col items-start gap-4 rounded-xl border border-primary/20 bg-primary/[0.05] p-4 backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between md:p-5"
                             >
-                                <p className="text-sm font-medium leading-relaxed text-white/80">
+                                <p className="text-sm font-medium leading-relaxed text-on-background">
                                     {content.cta.text}
                                 </p>
                                 <a
@@ -138,7 +138,7 @@ const About: React.FC = () => {
                             className="mx-auto flex w-full max-w-lg flex-col gap-6 lg:mx-0 lg:max-w-none"
                         >
                             {/* ── Core work card ──────────────── */}
-                            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 backdrop-blur-sm transition-all duration-300 hover:translate-x-1 hover:border-primary/40 md:p-8">
+                            <div className="rounded-2xl border border-border/60 bg-surface/40 p-6 backdrop-blur-sm transition-all duration-300 hover:translate-x-1 hover:border-primary/40 md:p-8">
                                 {/* Header */}
                                 <div className="mb-8 sm:mb-10 flex items-center space-x-4">
                                     <span className="h-2 w-2 rounded-full bg-primary/70" />
@@ -163,7 +163,7 @@ const About: React.FC = () => {
                             </div>
 
                             {/* ── Tech stack chips (contained) ── */}
-                            <div className="flex flex-col gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-4 backdrop-blur-sm md:p-5">
+                            <div className="flex flex-col gap-4 rounded-xl border border-border/60 bg-surface/40 p-4 backdrop-blur-sm md:p-5">
                                 {/* Header */}
                                 <div className="flex items-center gap-2">
                                     <span className="h-1.5 w-1.5 rounded-full bg-primary/70" />

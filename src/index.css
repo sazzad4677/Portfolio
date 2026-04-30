@@ -299,6 +299,28 @@ body.custom-cursor-on select {
   background-size: 200% 200%;
 }
 
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@utility shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    hsla(var(--primary-hsl) / 0.05) 25%,
+    hsla(var(--primary-hsl) / 0.1) 50%,
+    hsla(var(--primary-hsl) / 0.05) 75%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite linear;
+}
+
 /* Responsive orbit scaling */
 :root {
   --orbit-scale: 0.615; /* 320/520 */

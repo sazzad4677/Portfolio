@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { scroller } from "react-scroll";
 import Loader from "../Loader/Loader";
+import ShimmerLoader from "../Loader/ShimmerLoader";
 
 const HASH_SCROLL_TARGETS = new Set([
     "home", "about", "skills", "services", "jobs", "projects", "archive", "education", "certifications", "contact",
@@ -13,9 +14,19 @@ const HASH_SCROLL_OFFSET = -108;
 
 export default function AppContent({ children }: { children: React.ReactNode }) {
     const [loading, setLoading] = useState(true);
+    const [showSkeleton, setShowSkeleton] = useState(false);
 
     useEffect(() => {
-        if (loading) return;
+        if (!loading) {
+            // After the main loader is done, show skeleton for a brief moment
+            setShowSkeleton(true);
+            const timer = setTimeout(() => setShowSkeleton(false), 1200);
+            return () => clearTimeout(timer);
+        }
+    }, [loading]);
+
+    useEffect(() => {
+        if (loading || showSkeleton) return;
         
         const raw = window.location.hash.replace(/^#/, "");
         if (!raw || !HASH_SCROLL_TARGETS.has(raw)) return;
@@ -26,26 +37,39 @@ export default function AppContent({ children }: { children: React.ReactNode }) 
             });
         }, 300);
         return () => clearTimeout(timer);
-    }, [loading]);
+    }, [loading, showSkeleton]);
 
     return (
         <>
             <AnimatePresence mode="wait">
                 {loading && (
-                    <Loader setLoading={setLoading} />
+                    <Loader key="loader" setLoading={setLoading} />
+                )}
+            </AnimatePresence>
+
+            <AnimatePresence>
+                {showSkeleton && (
+                    <motion.div
+                        key="skeleton"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="fixed inset-0 z-[997]"
+                    >
+                        <ShimmerLoader />
+                    </motion.div>
                 )}
             </AnimatePresence>
 
             <motion.div
                 initial={{ opacity: 0 }}
-                animate={{ opacity: loading ? 0 : 1 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+                animate={{ opacity: (loading || showSkeleton) ? 0 : 1 }}
+                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
                 className="relative"
                 style={{ 
-                    // SEO Tip: Keep content in DOM but hidden from view until ready.
-                    // Pointer events disabled while loading to prevent interactions through the loader.
-                    pointerEvents: loading ? 'none' : 'auto',
-                    visibility: loading ? 'hidden' : 'visible'
+                    pointerEvents: (loading || showSkeleton) ? 'none' : 'auto',
+                    visibility: (loading || showSkeleton) ? 'hidden' : 'visible'
                 }}
             >
                 {children}

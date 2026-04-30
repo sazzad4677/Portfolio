@@ -53,7 +53,7 @@ const Loader: React.FC<LoaderProps> = ({ setLoading }) => {
         <motion.div
             key="loader"
             initial={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
+            exit={{ opacity: 0, transition: { duration: 0.5, ease: "easeInOut" } }}
             className="fixed inset-0 z-[999] flex h-screen w-full flex-col items-center justify-center bg-background overflow-hidden"
         >
             {/* Shimmering Background Elements (Skeleton-like) */}

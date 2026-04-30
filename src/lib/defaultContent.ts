@@ -25,7 +25,6 @@ export const defaultContent: PortfolioContent = {
             { label: "PostgreSQL", color: "bg-blue-700/15" },
             { label: "Prisma", color: "bg-indigo-500/15" },
             { label: "Express.js", color: "bg-on-background/10" },
-            { label: "Supabase", color: "bg-emerald-400/15" },
             { label: "Next.js", color: "bg-on-background/10" },
             { label: "Python", color: "bg-yellow-500/15" },
             { label: "MongoDB", color: "bg-green-500/15" }

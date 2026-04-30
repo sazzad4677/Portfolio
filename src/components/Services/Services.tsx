@@ -38,7 +38,7 @@ const Services = () => {
     return (
         <Element name="services" className="scroll-anchor">
             <section id="services" className="pt-24 sm:pt-28 md:pt-32 pb-24 sm:pb-28 md:pb-32 overflow-hidden relative">
-                <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-80 h-80 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
+                <div aria-hidden="true" className="absolute top-1/2 left-1/4 -translate-y-1/2 w-80 h-80 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
 
                 <div className="site-container">
                     <div className="flex flex-col items-center mb-12 sm:mb-16 md:mb-20 space-y-4 sm:space-y-6">
@@ -69,12 +69,21 @@ const Services = () => {
                         viewport={{ once: true, amount: 0.1 }}
                         className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 lg:gap-10 relative z-10"
                     >
-                        {services.map((service) => (
+                        {services?.map((service) => (
                             <motion.div
                                 key={service.id}
                                 variants={itemVariants}
                                 whileHover={{ y: -8, rotate: 1, transition: { duration: 0.3 } }}
                                 onClick={() => setActiveService(service)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        setActiveService(service);
+                                    }
+                                }}
+                                role="button"
+                                tabIndex={0}
+                                aria-label={`View details for ${service.title}`}
                                 className="group flex flex-col h-full rounded-2xl border border-border/40 bg-surface/20 p-8 shadow-sm backdrop-blur-md transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 relative overflow-hidden cursor-pointer"
                             >
                                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/10 via-primary/50 to-primary/10 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
@@ -128,6 +137,7 @@ const Services = () => {
                                 <button 
                                     onClick={() => setActiveService(null)}
                                     className="p-1 rounded-md text-secondary-foreground hover:text-foreground hover:bg-surface-variant/50 transition-colors"
+                                    aria-label="Close modal"
                                 >
                                     <X size={24} />
                                 </button>
@@ -142,7 +152,7 @@ const Services = () => {
                                     <h4 className="font-mono text-sm tracking-widest uppercase text-primary/80 mb-2">What I Deliver</h4>
                                     <p className="text-sm text-secondary-foreground mb-4">What I deliver in this area:</p>
                                     <ul className="space-y-3">
-                                        {activeService.modalDetails.map((detail, idx) => (
+                                        {activeService.modalDetails?.map((detail, idx) => (
                                             <li key={idx} className="flex items-start gap-3 text-sm text-secondary-foreground">
                                                 <CheckCircle2 size={18} className="text-primary shrink-0 mt-0.5" />
                                                 <span className="leading-relaxed">{detail}</span>

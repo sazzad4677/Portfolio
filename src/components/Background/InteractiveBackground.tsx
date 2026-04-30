@@ -128,7 +128,7 @@ export const InteractiveBackground = () => {
     if (!mounted || isMobile) return null;
 
     return (
-        <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none">
+        <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none">
             {/* Click Bursts */}
             <AnimatePresence>
                 {clicks.map((click) => (

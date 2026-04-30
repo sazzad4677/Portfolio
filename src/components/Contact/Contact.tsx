@@ -72,7 +72,7 @@ const Contact: React.FC = () => {
                 className="relative pt-24 sm:pt-28 md:pt-32 pb-24 sm:pb-28 md:pb-32 overflow-hidden"
             >
                 {/* Atmospheric Glow */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none z-0" />
+                <div aria-hidden="true" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none z-0" />
 
                 <div className="site-container relative z-10 px-4 sm:px-6 lg:px-8">
                     <div className="mx-auto max-w-[960px]">
@@ -209,9 +209,9 @@ const Contact: React.FC = () => {
                             {/* Sidebar */}
                             <motion.div variants={itemVariants} className="lg:col-span-2 flex flex-col gap-6">
                                 <div className="rounded-2xl border border-border/40 bg-surface/20 p-5">
-                                    <h4 className="mb-2 font-sans text-base font-bold text-foreground">
+                                    <h3 className="mb-2 font-sans text-base font-bold text-foreground">
                                         Let&apos;s talk directly
-                                    </h4>
+                                    </h3>
                                     <p className="mb-5 text-xs leading-relaxed text-secondary-foreground/60">
                                         Prefer to use your own email client? Use the direct address below. I typically respond within 24 hours.
                                     </p>

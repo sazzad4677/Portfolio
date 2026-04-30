@@ -174,7 +174,6 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
                         ref={scrollRef}
                         data-lenis-prevent
                         role="log"
-                        aria-live="polite"
                         aria-label="Chat messages"
                         className="flex-1 overflow-y-auto px-4 py-4 space-y-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-border hover:scrollbar-thumb-border/80"
                     >
@@ -209,7 +208,7 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
                         )}
 
                         {/* Message bubbles */}
-                        {messages.map((m) => (
+                        {messages?.map((m) => (
                             <div
                                 key={m.id}
                                 className={cn(
@@ -219,7 +218,7 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
                             >
                                 {/* Avatar */}
                                 <div
-                                    aria-hidden
+                                    aria-hidden="true"
                                     className={cn(
                                         "h-7 w-7 rounded-full flex items-center justify-center shrink-0 mb-0.5",
                                         m.role === "user" ? "bg-primary" : "bg-primary/10"

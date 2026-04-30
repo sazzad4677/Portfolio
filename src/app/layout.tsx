@@ -57,7 +57,7 @@ export const metadata: Metadata = {
         follow: true,
     },
     icons: {
-        icon: '/favicon.ico',
+        icon: '/favicon-32x32.png',
         shortcut: '/favicon-32x32.png',
         apple: '/apple-touch-icon.png',
     },
@@ -80,7 +80,7 @@ export default function RootLayout({
                     #initial-loader-check { display: none; }
                 `}</style>
             </head>
-            <body className={`${inter.className} antialiased selection:bg-primary/30 selection:text-primary`} >
+            <body className={`${inter.className} antialiased`} suppressHydrationWarning>
                 <ThemeProvider
                     attribute="data-theme"
                     defaultTheme="navy"

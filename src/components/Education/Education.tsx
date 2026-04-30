@@ -49,7 +49,7 @@ const Education: React.FC = () => {
                             viewport={{ once: true, amount: 0.2 }}
                             className="space-y-12 sm:space-y-16 md:space-y-20"
                         >
-                            {educationList.map((edu) => (
+                            {educationList?.map((edu) => (
                                 <motion.div
                                     key={edu.id}
                                     variants={itemVariants}
@@ -85,7 +85,7 @@ const Education: React.FC = () => {
 
                                         {edu.description && (
                                             <ul className="space-y-3">
-                                                {edu.description.map((item, index) => (
+                                                {edu.description?.map((item, index) => (
                                                     <li key={index} className="flex gap-3 text-sm sm:text-base text-secondary-foreground/80 leading-relaxed italic">
                                                         <span className="text-primary mt-1.5 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
                                                         {item}

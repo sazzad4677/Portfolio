@@ -26,10 +26,12 @@
 }
 
 :root {
-  --background-hsl: 222 47% 4%;
+  --background-hsl: 222 47% 2%;
   --foreground-hsl: 210 40% 98%;
+  --on-surface-variant-hsl: 215 20% 92%;
+  --secondary-foreground-hsl: 215 20% 92%;
   
-  --primary-hsl: 171 100% 41%;
+  --primary-hsl: 171 100% 52%;
   --secondary-hsl: 215 25% 60%;
   --accent-hsl: 171 100% 80%;
   
@@ -41,14 +43,14 @@
   --primary: hsl(var(--primary-hsl));
   --primary-foreground: hsl(var(--background-hsl));
   --secondary: hsl(var(--secondary-hsl));
-  --secondary-foreground: hsl(var(--foreground-hsl));
+  --secondary-foreground: hsl(var(--secondary-foreground-hsl));
   --accent: hsl(var(--accent-hsl));
   --accent-foreground: hsl(var(--background-hsl));
   --surface: hsl(var(--surface-hsl));
   --surface-variant: hsl(var(--surface-variant-hsl));
   --on-background: var(--foreground);
   --on-surface: var(--foreground);
-  --on-surface-variant: hsl(var(--foreground-hsl) / 0.8);
+  --on-surface-variant: hsl(var(--on-surface-variant-hsl));
   --border: hsl(var(--surface-variant-hsl));
   --input: hsl(var(--surface-variant-hsl));
   --ring: hsl(var(--primary-hsl));
@@ -148,6 +150,11 @@
     overflow-x: hidden;
     max-width: 100%;
   }
+  
+  ::selection {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+  }
   /* Global content container for perfect vertical alignment */
   .site-container {
     width: 100%;
@@ -188,14 +195,25 @@
     margin-right: 0;
     padding: 0; 
   }
+
+  /* Distinguishable links in body text */
+  p a {
+    text-decoration: underline;
+    text-decoration-color: hsla(var(--primary-hsl) / 0.3);
+    text-underline-offset: 4px;
+    transition: text-decoration-color 0.3s ease;
+  }
+  p a:hover {
+    text-decoration-color: hsla(var(--primary-hsl) / 1);
+  }
 }
 
 html {
   scroll-behavior: smooth;
-  font-size: 100%; /* Reset to standard base */
+  font-size: 100%;
   overflow-x: hidden;
   scrollbar-width: thin;
-  scrollbar-color: hsl(var(--primary-hsl) / 0.38) hsl(var(--background-hsl));
+  scrollbar-color: hsl(var(--primary-hsl) / 0.38) transparent;
 }
 
 @media (min-width: 2560px) {
@@ -285,40 +303,43 @@ body.custom-cursor-on select {
 
 @keyframes pulse-glow {
   0%, 100% {
-    filter: drop-shadow(0 0 15px hsl(var(--primary-hsl) / 0.4));
-    background-position: 0% 50%;
+    opacity: 0.85;
   }
   50% {
-    filter: drop-shadow(0 0 35px hsl(var(--primary-hsl) / 0.8));
-    background-position: 100% 50%;
+    opacity: 1;
   }
 }
 
 @utility animate-pulse-glow {
-  animation: pulse-glow 4s ease-in-out infinite;
-  background-size: 200% 200%;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
+  animation: pulse-glow 3s ease-in-out infinite;
 }
 
 @utility shimmer {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    hsla(var(--primary-hsl) / 0.05) 25%,
-    hsla(var(--primary-hsl) / 0.1) 50%,
-    hsla(var(--primary-hsl) / 0.05) 75%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite linear;
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    will-change: transform;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      hsla(var(--primary-hsl) / 0.05) 25%,
+      hsla(var(--primary-hsl) / 0.1) 50%,
+      hsla(var(--primary-hsl) / 0.05) 75%,
+      transparent 100%
+    );
+    animation: shimmer-composited 2s infinite linear;
+  }
+}
+
+@keyframes shimmer-composited {
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 /* Responsive orbit scaling */

@@ -50,7 +50,7 @@ const Experience: React.FC = () => {
 
                             {/* Tab List */}
                             <div className="relative flex lg:flex-col overflow-x-auto lg:overflow-visible no-scrollbar border-b lg:border-b-0 lg:border-l border-border/40 pb-1 lg:pb-0">
-                                {jobs.map((job, index) => (
+                                {jobs?.map((job, index) => (
                                     <button
                                         key={job.id || index}
                                         onClick={() => setTabIndex(index)}
@@ -126,7 +126,7 @@ const Experience: React.FC = () => {
 
                                             {/* Experience Timeline */}
                                             <div className="relative ml-2 sm:ml-4 pl-5 sm:pl-8 border-l border-border/40 space-y-6 sm:space-y-8">
-                                                {selectedJob.description.map((item, index) => (
+                                                {selectedJob.description?.map((item, index) => (
                                                     <motion.div
                                                         key={index}
                                                         initial={{ opacity: 0, y: 10 }}
@@ -158,7 +158,7 @@ const Experience: React.FC = () => {
                                                     </p>
                                                     <div className="flex flex-wrap gap-1.5 sm:gap-2.5">
 
-                                                        {selectedJob.technologies.map((tech, index) => (
+                                                        {selectedJob.technologies?.map((tech, index) => (
                                                             <span
                                                                 key={index}
                                                                 className="rounded-lg border border-primary/20 bg-primary/5 px-2.5 py-1 sm:px-3 sm:py-1.5 font-mono text-[10px] sm:text-[11px] text-primary transition-all hover:border-primary/50 hover:bg-primary/10"

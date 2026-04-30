@@ -72,7 +72,7 @@ export function HeroInteractiveBackground() {
         <div
             ref={layerRef}
             className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
-            aria-hidden
+            aria-hidden="true"
         >
             <div
                 data-hero-float-outer

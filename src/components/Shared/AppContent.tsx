@@ -18,9 +18,8 @@ export default function AppContent({ children }: { children: React.ReactNode }) 
 
     useEffect(() => {
         if (!loading) {
-            // After the main loader is done, show skeleton for a brief moment
             setShowSkeleton(true);
-            const timer = setTimeout(() => setShowSkeleton(false), 1200);
+            const timer = setTimeout(() => setShowSkeleton(false), 200);
             return () => clearTimeout(timer);
         }
     }, [loading]);
@@ -54,7 +53,7 @@ export default function AppContent({ children }: { children: React.ReactNode }) 
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.5 }}
+                        transition={{ duration: 0.4 }}
                         className="fixed inset-0 z-[997]"
                     >
                         <ShimmerLoader />

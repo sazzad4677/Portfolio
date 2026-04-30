@@ -39,7 +39,7 @@ const Hero: React.FC = () => {
             className="relative flex min-h-[100dvh] w-full flex-col overflow-x-clip scroll-anchor pt-[104px] pb-6"
         >
             {/* Background glow blobs */}
-            <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
                 <div className="absolute -left-32 top-1/4 h-[500px] w-[500px] rounded-full bg-primary/8 blur-[120px]" />
                 <div className="absolute -right-24 top-1/3 h-[400px] w-[400px] rounded-full bg-primary/6 blur-[100px]" />
                 <div className="absolute bottom-0 left-1/3 h-[300px] w-[300px] rounded-full bg-secondary/5 blur-[100px]" />
@@ -67,7 +67,7 @@ const Hero: React.FC = () => {
                         {/* Headline */}
                         <motion.h1
                             variants={item}
-                            className="font-sans font-bold leading-[1.1] tracking-tight text-on-background max-w-[580px] [&_.text-gradient]:animate-pulse-glow"
+                            className="font-sans font-bold leading-[1.1] tracking-tight text-on-background max-w-[580px] lg:[&_.text-gradient]:animate-pulse-glow"
                             style={{ fontSize: "clamp(28px, 5.5vw, 64px)" }}
                             dangerouslySetInnerHTML={{ __html: content.headline }}
                         />
@@ -87,14 +87,6 @@ const Hero: React.FC = () => {
                             >
                                 <a
                                     href="#projects"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        const el = document.getElementById("projects");
-                                        if (el) {
-                                            const y = el.getBoundingClientRect().top + window.scrollY - 80;
-                                            window.scrollTo({ top: y, behavior: "smooth" });
-                                        }
-                                    }}
                                     className="group relative inline-flex cursor-pointer items-center gap-2 overflow-hidden rounded-xl bg-primary px-5 py-3 font-sans text-sm font-bold text-primary-foreground shadow-lg shadow-primary/25 transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/35 sm:gap-2.5 sm:px-6 sm:py-3.5"
                                 >
                                     <Code2 size={16} />
@@ -120,7 +112,7 @@ const Hero: React.FC = () => {
                         <motion.div variants={item} className="mt-8 flex items-center gap-4 sm:mt-10 sm:gap-5">
                             <span className="text-xs text-on-surface-variant/50 sm:text-sm">Let&apos;s connect</span>
                             <div className="flex items-center gap-2 sm:gap-3">
-                                {content.socials.map((social) => {
+                                {content.socials?.map((social) => {
                                     const IconComp = SOCIAL_ICON_MAP[social.type];
                                     return (
                                         <a
@@ -128,10 +120,10 @@ const Hero: React.FC = () => {
                                             href={social.url}
                                             target={social.type !== "email" ? "_blank" : undefined}
                                             rel={social.type !== "email" ? "noopener noreferrer" : undefined}
-                                            className="flex h-9 w-9 items-center justify-center rounded-lg border border-border/40 bg-surface/30 text-on-surface-variant/60 transition-all duration-300 hover:border-primary/40 hover:text-primary sm:h-10 sm:w-10"
+                                            className="flex h-11 w-11 items-center justify-center rounded-lg border border-border/40 bg-surface/30 text-on-surface-variant/60 transition-all duration-300 hover:border-primary/40 hover:text-primary sm:h-10 sm:w-10"
                                             aria-label={social.name}
                                         >
-                                            {IconComp && <IconComp size={18} />}
+                                            {IconComp && <IconComp size={20} />}
                                         </a>
                                     );
                                 })}

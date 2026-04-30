@@ -36,7 +36,7 @@ const StatsBar: React.FC<StatsBarProps> = ({ stats }) => {
             <div className="site-container">
                 <div className="rounded-xl border border-on-background/[0.08] bg-on-background/[0.03] px-4 py-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)] backdrop-blur-xl sm:rounded-2xl sm:px-8 sm:py-7 md:px-10 md:py-8">
                     <div className="grid grid-cols-2 gap-5 sm:gap-8 lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-on-background/[0.1]">
-                        {stats.map((stat, i) => {
+                        {stats?.map((stat, i) => {
                             const IconComp = ICON_MAP[stat.icon];
                             return (
                                 <div
@@ -52,10 +52,10 @@ const StatsBar: React.FC<StatsBarProps> = ({ stats }) => {
                                         <p className="text-2xl font-extrabold text-on-background sm:text-3xl md:text-[34px]">
                                             {stat.value}
                                         </p>
-                                        <p className="truncate text-[10px] font-medium text-on-surface-variant/70 sm:text-xs md:text-sm">
+                                        <p className="truncate text-[10px] font-medium text-on-surface-variant sm:text-xs md:text-sm">
                                             {stat.label}
                                         </p>
-                                        <p className="truncate text-[9px] text-on-surface-variant/30 sm:text-[10px] md:text-xs">
+                                        <p className="truncate text-[9px] text-on-surface-variant/70 sm:text-[10px] md:text-xs">
                                             {stat.sublabel}
                                         </p>
                                     </div>

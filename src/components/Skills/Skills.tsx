@@ -40,7 +40,7 @@ const Skills = () => {
                             viewport={{ once: true, amount: 0.8 }}
                             className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground relative"
                         >
-                            <span className="text-primary font-mono text-xl mr-2 absolute -left-10 top-2 opacity-50 hidden sm:inline-block">02.</span>
+                            <span aria-hidden="true" className="text-primary font-mono text-xl mr-2 absolute -left-10 top-2 opacity-50 hidden sm:inline-block">02.</span>
                             Technical Arsenal
                         </motion.h2>
                         <motion.p
@@ -70,7 +70,7 @@ const Skills = () => {
                         viewport={{ once: true, amount: 0.1 }}
                         className="grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10"
                     >
-                        {detailedSkills.map((skillGroup, idx) => (
+                        {detailedSkills?.map((skillGroup, idx) => (
                             <motion.div key={idx} variants={itemVariants} className="group relative">
                                 <div className="absolute -inset-px bg-gradient-to-r from-primary/20 via-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
                                 <div className="relative h-full rounded-2xl border border-primary/10 bg-primary/[0.02] p-6 sm:p-8 backdrop-blur-sm transition-all duration-300 hover:bg-primary/[0.04] hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_8px_30px_rgb(var(--primary-rgb),0.05)]">
@@ -90,7 +90,7 @@ const Skills = () => {
                                         </div>
                                     </div>
                                     <ul className="flex flex-wrap gap-3">
-                                        {skillGroup.items.map((item, itemIdx) => {
+                                        {skillGroup.items?.map((item, itemIdx) => {
                                             let levelClasses = "";
                                             
                                             // Fallback for deprecated highlight

@@ -89,12 +89,12 @@ export function CustomCursor() {
             <div
                 ref={ringRef}
                 className="pointer-events-none fixed left-0 top-0 z-[10000] h-10 w-10 rounded-full border-2 border-primary/50 bg-transparent opacity-[0.65]"
-                aria-hidden
+                aria-hidden="true"
             />
             <div
                 ref={dotRef}
                 className="pointer-events-none fixed left-0 top-0 z-[10001] h-1.5 w-1.5 rounded-full bg-primary"
-                aria-hidden
+                aria-hidden="true"
             />
         </>
     );

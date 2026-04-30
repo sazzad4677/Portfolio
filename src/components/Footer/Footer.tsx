@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
                             href={link.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-secondary-foreground/60 hover:text-primary transition-colors duration-300"
+                            className="flex h-11 w-11 items-center justify-center rounded-lg border border-border/40 bg-surface/30 text-secondary-foreground/60 hover:text-primary transition-all duration-300"
                             aria-label={link.name}
                         >
                             <link.icon size={20} className="sm:w-6 sm:h-6" />
@@ -40,7 +40,7 @@ const Footer: React.FC = () => {
                         Sazzad Hossain
                     </a>
                 </p>
-                <p className="text-[10px] sm:text-xs opacity-70">
+                <p className="text-[10px] sm:text-xs text-secondary-foreground/80">
                     &copy; {new Date().getFullYear()} All Rights Reserved.
                 </p>
             </div>

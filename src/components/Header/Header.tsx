@@ -79,11 +79,12 @@ const Header: React.FC = () => {
                 <motion.div variants={logoVariants} initial="initial" animate="animate">
                     <Link
                         to="home"
+                        href="#home"
                         offset={NAV_SCROLL_OFFSET}
                         className="group flex cursor-pointer items-center gap-2"
                         aria-label="Home"
                     >
-                        <div className="h-10 w-10 text-primary transition-transform duration-300 group-hover:rotate-12">
+                        <div className="h-11 w-11 text-primary transition-transform duration-300 group-hover:rotate-12">
                             <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M 50, 5 L 11, 27 L 11, 72 L 50, 95 L 89, 73 L 89, 28 z"
@@ -113,7 +114,7 @@ const Header: React.FC = () => {
                         href="https://drive.google.com/file/d/1ffycRhonZegQk2VJjfsa_g_AZAOj_5Xw/view"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center rounded-lg border border-primary/40 px-3.5 h-9 font-mono text-[10px] font-bold text-primary transition-all hover:bg-primary/10 active:scale-95 whitespace-nowrap bg-primary/5"
+                        className="flex items-center justify-center rounded-lg border border-primary/40 px-3.5 h-11 font-mono text-[10px] font-bold text-primary transition-all hover:bg-primary/10 active:scale-95 whitespace-nowrap bg-primary/5"
                     >
                         Resume
                     </a>
@@ -123,7 +124,7 @@ const Header: React.FC = () => {
                     </div>
 
                     <button
-                        className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 rounded-lg border border-transparent transition-all active:scale-90"
+                        className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-lg border border-transparent transition-all active:scale-90"
                         onClick={() => setIsOpen(!isOpen)}
                         aria-label="Toggle Menu"
                     >
@@ -169,13 +170,14 @@ const Header: React.FC = () => {
                                     >
                                         <Link
                                             to={link.url}
+                                            href={`#${link.url}`}
                                             offset={NAV_SCROLL_OFFSET}
                                             spy
                                             activeClass="!text-primary !bg-primary/5 border-primary/20"
                                             className="group flex cursor-pointer flex-row items-center gap-3 lg:gap-1.5 text-foreground transition-all hover:text-primary py-3 px-4 rounded-xl border border-transparent hover:border-primary/10 hover:bg-primary/5 lg:py-2 lg:px-3 w-full lg:w-auto text-sm lg:text-[11px] xl:text-xs"
                                             onClick={() => !isDesktop && setIsOpen(false)}
                                         >
-                                            <span className="text-[10px] lg:text-[9px] text-primary font-bold opacity-70">
+                                            <span className="text-[10px] lg:text-[9px] text-primary font-bold">
                                                 0{index + 1}.
                                             </span>
                                             <span className="font-semibold lg:font-normal leading-none">{link.name}</span>

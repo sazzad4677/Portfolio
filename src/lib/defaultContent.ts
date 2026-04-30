@@ -19,15 +19,15 @@ export const defaultContent: PortfolioContent = {
             { name: "Email", url: "mailto:sazzad4677@gmail.com", type: "email" }
         ],
         techStack: [
-            { label: "Node.js", color: "bg-emerald-500/15" },
-            { label: "React", color: "bg-cyan-500/15" },
-            { label: "TypeScript", color: "bg-blue-500/15" },
-            { label: "PostgreSQL", color: "bg-blue-700/15" },
-            { label: "Prisma", color: "bg-indigo-500/15" },
-            { label: "Express.js", color: "bg-on-background/10" },
-            { label: "Next.js", color: "bg-on-background/10" },
-            { label: "Python", color: "bg-yellow-500/15" },
-            { label: "MongoDB", color: "bg-green-500/15" }
+            { label: "Node.js", color: "bg-emerald-500/30" },
+            { label: "React", color: "bg-cyan-500/30" },
+            { label: "TypeScript", color: "bg-blue-500/30" },
+            { label: "PostgreSQL", color: "bg-blue-700/30" },
+            { label: "Prisma", color: "bg-indigo-500/30" },
+            { label: "Express.js", color: "bg-on-background/20" },
+            { label: "Next.js", color: "bg-on-background/20" },
+            { label: "Python", color: "bg-yellow-500/30" },
+            { label: "MongoDB", color: "bg-green-500/30" }
         ],
         stats: [
             { value: "40+", label: "Projects Completed", sublabel: "Across industries", icon: "Code2", color: "text-primary" },

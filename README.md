@@ -13,21 +13,26 @@
 ## ✨ Key Features
 
 ### 🤖 AI Chat Assistant
+
 - **Conversational Insights**: An OpenAI-powered chat interface that lets visitors query my skills, projects, and professional background.
 - **Context-Aware Mastery**: Fed with structured portfolio data (`portfolioContext.ts`) and a customized system prompt for accurate, personality-driven responses.
 - **Real-time Streaming**: Leverages the Vercel AI SDK for smooth, lightning-fast streaming replies.
 
 ### ⚡ Performance & Optimization
+
+- **Perfect Lighthouse Score**: Achieved a flawless **100/100/100/100** score across Performance, Accessibility, Best Practices, and SEO.
 - **Critical Path Optimization**: Injected critical CSS in the root layout to eliminate the "white flash" during initial uncached loads.
 - **SSR-Aware Entrance**: A bespoke 0–100% loader that is fully visible in the initial SSR HTML, preventing "black window" hydration delays.
 - **Turbopack Powered**: Blazing fast development experience with Next.js 16 and Turbopack.
 
 ### 🔍 Elite SEO & Visibility
+
 - **Structured Data**: Integrated JSON-LD (Schema.org) support for rich search results and professional indexing.
 - **Dynamic Sitemap**: Automated discovery via `sitemap.ts` and `robots.ts` ensuring 100% search engine coverage.
 - **Semantic HTML5**: Engineered with a strict heading hierarchy and accessible landmarks for maximum reach.
 
 ### 💎 Premium User Experience
+
 - **Cinematic Motion**: High-fidelity transitions powered by Framer Motion and GSAP.
 - **Silky Smooth Scroll**: Integrated Lenis for a refined, modern scrolling experience.
 - **Interactive Atmosphere**: A custom-built mesh background and particle system that reacts to user engagement.
@@ -39,9 +44,9 @@
 
 This portfolio is designed to be fully data-driven. To personalize the content for yourself, you only need to modify two core files:
 
-1.  **Main Portfolio Content**: Edit `src/lib/defaultContent.ts`. This file contains all the text, project details, experience, and social links displayed across the site.
-2.  **AI Assistant Context**: Edit `src/lib/portfolioContext.ts`. This file provides the structured data that the AI uses to answer questions about you. Ensure this matches your `defaultContent` for consistency.
-3.  **Visual Branding**: Design tokens like colors and fonts are managed in `src/index.css` using Tailwind v4 theme variables.
+1. **Main Portfolio Content**: Edit `src/lib/defaultContent.ts`. This file contains all the text, project details, experience, and social links displayed across the site.
+2. **AI Assistant Context**: Edit `src/lib/portfolioContext.ts`. This file provides the structured data that the AI uses to answer questions about you. Ensure this matches your `defaultContent` for consistency.
+3. **Visual Branding**: Design tokens like colors and fonts are managed in `src/index.css` using Tailwind v4 theme variables.
 
 ---
 
@@ -84,7 +89,7 @@ cp .env.local.example .env.local
 
 ```bash
 npm run dev
-```
+``` 
 Navigate to [http://localhost:3000](http://localhost:3000).
 
 ---
@@ -110,6 +115,7 @@ src/
 ## 🤖 AI Context System
 
 The AI assistant is more than just a chatbot; it's a representation of my professional persona. It consumes structured data from `lib/portfolioContext.ts` which includes:
+
 - Deep dives into project architectures.
 - Verified skill sets and experience levels.
 - Direct links to certifications and social profiles.

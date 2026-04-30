@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
+import Image from "next/image";
 import { motion, Variants, useMotionValue } from "framer-motion";
 import { Element } from "react-scroll";
 import { ExternalLink } from "lucide-react";
@@ -23,7 +24,7 @@ const Works: React.FC = () => {
                     </div>
 
                     <div className="flex flex-col gap-10 sm:gap-16 md:gap-24 lg:gap-32">
-                        {projects.map((project: Project, index: number) => (
+                        {projects?.map((project: Project, index: number) => (
                             <ProjectCard key={project.id || index} project={project} index={index} />
                         ))}
                     </div>
@@ -35,13 +36,23 @@ const Works: React.FC = () => {
 
 const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, index }) => {
     const projectNum = (index + 1).toString().padStart(2, "0");
+    const rectRef = useRef<DOMRect | null>(null);
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
 
-    function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
-        const { left, top } = currentTarget.getBoundingClientRect();
+    function handleMouseEnter({ currentTarget }: React.MouseEvent) {
+        rectRef.current = currentTarget.getBoundingClientRect();
+    }
+
+    function handleMouseMove({ clientX, clientY }: React.MouseEvent) {
+        if (!rectRef.current) return;
+        const { left, top } = rectRef.current;
         mouseX.set(clientX - left);
         mouseY.set(clientY - top);
+    }
+
+    function handleMouseLeave() {
+        rectRef.current = null;
     }
 
     const projectVariants: Variants = {
@@ -53,7 +64,9 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
         <motion.article
             initial="hidden"
             whileInView="visible"
+            onMouseEnter={handleMouseEnter}
             onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
             viewport={{ once: true, amount: 0.2 }}
             variants={projectVariants}
             className="group/card relative rounded-2xl border border-border/40 bg-surface/20 p-4 sm:p-6 md:p-10 shadow-sm shadow-black/5 backdrop-blur-md transition-all duration-500 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5"
@@ -95,7 +108,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
                         <p className="font-medium text-foreground">{project.description}</p>
                         {project.descriptionList && (
                             <ul className="mt-4 space-y-4 text-secondary-foreground/80">
-                                {project.descriptionList.map((item, i) => {
+                                {project.descriptionList?.map((item, i) => {
                                     const isImpact = item.startsWith("Impact:");
                                     return (
                                         <li key={i} className={`flex gap-2.5 ${isImpact ? "text-primary/90 font-medium mt-4 bg-primary/[0.03] p-2 rounded-lg border border-primary/10" : ""}`}>
@@ -117,7 +130,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
                     </div>
 
                     <ul className="flex flex-wrap gap-1.5 sm:gap-x-2 sm:gap-y-2 font-mono text-[10px] sm:text-xs text-primary/80">
-                        {project.technologies.map((tech: string, i: number) => (
+                        {project.technologies?.map((tech: string, i: number) => (
                             <li
                                 key={i}
                                 className="flex items-center gap-1 sm:gap-1.5 rounded-md border border-primary/10 bg-primary/5 px-2 py-1 sm:px-2.5 transition-all duration-300 group-hover/card:border-primary/30 group-hover/card:bg-primary/10 group-hover/card:text-primary"
@@ -161,14 +174,18 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
                         target="_blank"
                         rel="noopener noreferrer"
                         className="relative block aspect-[16/10] sm:aspect-video overflow-hidden rounded-xl border border-border/40 bg-surface/10 transition-all duration-700 group-hover/card:scale-[1.02] group-hover/card:shadow-2xl group-hover/card:shadow-primary/10"
+                        aria-label={`View ${project.title} live demo`}
                     >
                         <div className="absolute inset-0 z-10 bg-primary/20 mix-blend-multiply opacity-100 transition-all duration-700 group-hover/card:bg-transparent group-hover/card:opacity-0" />
                         <div className="absolute inset-0 z-20 bg-gradient-to-tr from-background/40 via-transparent to-primary/5 opacity-80 transition-opacity duration-500 group-hover/card:opacity-0" />
 
-                        <img
+                        <Image
                             src={`/images/${project.image.url}`}
                             alt={project.title}
+                            width={700}
+                            height={438}
                             className="w-full h-auto object-top transition-transform duration-[5000ms] ease-in-out group-hover/card:-translate-y-[calc(100%-240px)] md:group-hover/card:-translate-y-[calc(100%-320px)] lg:group-hover/card:-translate-y-[calc(100%-380px)]"
+                            sizes="(max-width: 768px) 100vw, 50vw"
                         />
                     </a>
                 </div>

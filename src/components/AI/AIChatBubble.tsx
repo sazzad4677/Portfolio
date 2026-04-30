@@ -29,6 +29,15 @@ export default function AIChatBubble() {
                             animate={{ opacity: 1, x: 0, scale: 1 }}
                             exit={{ opacity: 0, x: 16, scale: 0.92 }}
                             transition={{ type: "spring", stiffness: 300, damping: 24 }}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                    e.preventDefault();
+                                    setIsOpen(true);
+                                    setShowGreeting(false);
+                                }
+                            }}
                             className="relative mb-2 bg-background border border-border/50 rounded-2xl py-3 px-4 shadow-lg max-w-[220px] cursor-pointer"
                             onClick={() => {
                                 setIsOpen(true);
@@ -42,9 +51,9 @@ export default function AIChatBubble() {
                                     setShowGreeting(false);
                                 }}
                                 aria-label="Dismiss greeting"
-                                className="absolute -top-2 -right-2 h-5 w-5 bg-background border border-border/50 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors shadow-sm"
+                                className="absolute -top-3 -right-3 h-9 w-9 bg-background border border-border/50 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground transition-all shadow-md active:scale-90"
                             >
-                                <X size={10} />
+                                <X size={14} />
                             </button>
 
                             <div className="flex items-center gap-2.5">

@@ -2,6 +2,7 @@
 
 import React, { useRef, useCallback, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useAnimationFrame } from "framer-motion";
+import Image from "next/image";
 import { Globe, Briefcase } from "lucide-react";
 import type { HeroTechItem } from "@/lib/types";
 
@@ -77,7 +78,7 @@ const TechOrbit: React.FC<TechOrbitProps> = ({ profileImage, name, techStack }) 
     }, [mouseX, mouseY]);
 
     /* Build badge array — split across 2 rings to prevent overlap */
-    const badges: TechBadge[] = techStack.map((t, i) => {
+    const badges: TechBadge[] = techStack?.map((t, i) => {
         const ring = i % 2;  // alternate inner(0) / outer(1)
         const ringIndex = Math.floor(i / 2); // position within ring
         const countPerRing = Math.ceil(techStack.length / 2);
@@ -97,7 +98,9 @@ const TechOrbit: React.FC<TechOrbitProps> = ({ profileImage, name, techStack }) 
                 rawAngle.set(rawAngle.get() + velocityRef.current);
             } else {
                 velocityRef.current = 0;
-                // Sinusoidal speed modulation for organic feel
+                // Optimization: Disable idle sinusoidal animation on mobile to save main-thread work
+                if (window.innerWidth < 768) return;
+
                 const base = rawAngle.get();
                 const speed = 0.08 + 0.03 * Math.sin(base * 0.005);
                 rawAngle.set(base + speed);
@@ -172,10 +175,10 @@ const TechOrbit: React.FC<TechOrbitProps> = ({ profileImage, name, techStack }) 
                 <div className="pointer-events-none absolute rounded-full bg-primary/5 blur-[60px]"
                     style={{ width: 180, height: 180, left: cx - 90, top: cy - 90 }} />
 
-                {/* Particles */}
+                {/* Particles — Disabled on mobile for performance */}
                 {PARTICLES.map((p, i) => (
                     <motion.div key={i}
-                        className="pointer-events-none absolute rounded-full bg-primary/40"
+                        className="pointer-events-none absolute rounded-full bg-primary/40 hidden md:block"
                         style={{ left: p.x, top: p.y, width: p.size, height: p.size }}
                         animate={{ opacity: [0.2, 0.7, 0.2], scale: [1, 1.4, 1] }}
                         transition={{ duration: 3, repeat: Infinity, delay: p.delay, ease: "easeInOut" }}
@@ -185,12 +188,20 @@ const TechOrbit: React.FC<TechOrbitProps> = ({ profileImage, name, techStack }) 
                 {/* Profile image */}
                 <div className="absolute z-10 overflow-hidden rounded-2xl shadow-[0_15px_60px_rgba(0,0,0,0.15)] dark:shadow-[0_40px_120px_rgba(0,0,0,0.7)]"
                     style={{ width: IMG_W, height: IMG_H, left: cx - IMG_W / 2, top: cy - IMG_H / 2 }}>
-                    <img src={profileImage} alt={name} className="h-full w-full object-cover object-top" draggable={false} />
-                    {/* <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[hsl(var(--background-hsl))] via-[hsl(var(--background-hsl)/0.6)] to-transparent" /> */}
+                    <Image 
+                        src={profileImage} 
+                        alt={name} 
+                        width={220} 
+                        height={280} 
+                        className="h-full w-full object-cover object-top" 
+                        draggable={false} 
+                        priority
+                        quality={85}
+                    />
                 </div>
 
                 {/* Orbiting badges */}
-                {badges.map((badge) => (
+                {badges?.map((badge) => (
                     <OrbitBadge key={badge.label} badge={badge} angle={angle} cx={cx} cy={cy}
                         radius={badge.ring === 0 ? ORBIT_R_INNER : ORBIT_R_OUTER} />
                 ))}
@@ -242,22 +253,32 @@ const OrbitBadge: React.FC<OrbitBadgeProps> = ({ badge, angle, cx, cy, radius })
 
         const scale = 0.75 + t * 0.45;      // 0.75 → 1.2
         const opacity = 0.35 + t * 0.65;    // 0.35 → 1.0
-        const blurVal = (1 - t) * 2;        // 2px → 0px
+        const isMobile = window.innerWidth < 768;
+        const blurVal = isMobile ? 0 : (1 - t) * 2;        // 2px → 0px (No blur on mobile)
         const zIdx = Math.round(t * 30);    // 0 → 30
 
-        ref.current.style.transform = `translate(-50%,-50%) scale(${scale.toFixed(3)})`;
-        ref.current.style.left = `${x}px`;
-        ref.current.style.top = `${y}px`;
+        const xVal = (x - cx).toFixed(2);
+        const yVal = (y - cy).toFixed(2);
+
+        ref.current.style.transform = `translate(calc(-50% + ${xVal}px), calc(-50% + ${yVal}px)) scale(${scale.toFixed(3)})`;
         ref.current.style.zIndex = `${zIdx}`;
         ref.current.style.opacity = `${opacity.toFixed(3)}`;
-        ref.current.style.filter = blurVal > 0.1 ? `blur(${blurVal.toFixed(1)}px)` : 'none';
+        if (!isMobile) {
+            ref.current.style.filter = blurVal > 0.1 ? `blur(${blurVal.toFixed(1)}px)` : 'none';
+        } else {
+            ref.current.style.filter = 'none';
+        }
     });
 
     return (
-        <div ref={ref} className="pointer-events-none absolute will-change-[transform,left,top,opacity,filter]">
+        <div 
+            ref={ref} 
+            className="pointer-events-none absolute will-change-transform"
+            style={{ left: cx, top: cy }}
+        >
             <div className={`flex items-center gap-2 whitespace-nowrap rounded-full border border-on-background/[0.08] ${badge.color} px-3 py-1.5 shadow-lg shadow-black/10 backdrop-blur-lg text-on-background`}>
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-on-background/10">{badge.icon}</span>
-                <span className="text-xs font-medium text-on-background/85">{badge.label}</span>
+                <span className="text-xs font-medium text-on-background">{badge.label}</span>
             </div>
         </div>
     );

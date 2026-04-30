@@ -50,7 +50,7 @@ const Archive: React.FC = () => {
                         viewport={{ once: true }}
                         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10"
                     >
-                        {archive.map((project, index) => (
+                        {archive?.map((project, index) => (
                             <motion.li key={index} variants={itemVariants} className="group h-full">
                                 <div className={`h-full flex flex-col p-5 sm:p-8 rounded-2xl border ${project.featured ? 'border-primary/40 shadow-[0_0_15px_rgba(var(--primary-rgb),0.1)]' : 'border-border/40 shadow-sm'} bg-surface/20 backdrop-blur-md hover:border-primary/50 transition-all duration-300 hover:shadow-xl relative`}>
                                     {project.featured && (
@@ -64,11 +64,23 @@ const Archive: React.FC = () => {
                                     <header className="mb-5 sm:mb-8">
                                         <div className="flex items-center justify-between mb-4 sm:mb-6">
                                             <Folder className="text-primary w-8 h-8 sm:w-10 sm:h-10" />
-                                            <div className="flex items-center gap-3 sm:gap-4 text-secondary-foreground/60">
-                                                <a href={project.links.github} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+                                            <div className="flex items-center gap-2 sm:gap-3 text-secondary-foreground/60">
+                                                <a 
+                                                    href={project.links.github} 
+                                                    target="_blank" 
+                                                    rel="noopener noreferrer" 
+                                                    className="flex h-11 w-11 items-center justify-center rounded-lg border border-border/40 hover:text-primary hover:border-primary/30 transition-all"
+                                                    aria-label={`View source code for ${project.title}`}
+                                                >
                                                     <GitHubIcon size={18} className="sm:w-[22px] sm:h-[22px]" />
                                                 </a>
-                                                <a href={project.links.liveLink} target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+                                                <a 
+                                                    href={project.links.liveLink} 
+                                                    target="_blank" 
+                                                    rel="noopener noreferrer" 
+                                                    className="flex h-11 w-11 items-center justify-center rounded-lg border border-border/40 hover:text-primary hover:border-primary/30 transition-all"
+                                                    aria-label={`View live demo for ${project.title}`}
+                                                >
                                                     <ExternalLink size={18} className="sm:w-[22px] sm:h-[22px]" />
                                                 </a>
                                             </div>
@@ -82,7 +94,7 @@ const Archive: React.FC = () => {
                                     </header>
                                     <footer className="mt-auto pt-4 border-t border-border/20">
                                         <ul className="flex flex-wrap gap-x-2 gap-y-2 font-mono text-[10px] sm:text-xs">
-                                            {project.technologies.map((tech, i) => (
+                                            {project.technologies?.map((tech, i) => (
                                                 <li key={i} className="rounded border border-primary/10 bg-primary/5 px-2 py-0.5 text-primary/70 transition-colors group-hover:border-primary/20 group-hover:bg-primary/10 group-hover:text-primary/90">
                                                     {tech}
                                                 </li>

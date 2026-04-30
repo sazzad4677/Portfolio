@@ -51,7 +51,7 @@ const Certifications = () => {
                         viewport={{ once: true, amount: 0.1 }}
                         className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 relative z-10"
                     >
-                        {certifications.map((cert) => (
+                        {certifications?.map((cert) => (
                             <motion.div
                                 key={cert.id}
                                 variants={itemVariants}

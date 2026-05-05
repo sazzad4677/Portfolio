@@ -227,27 +227,27 @@ export const defaultContent: PortfolioContent = {
     ],
 
     projects: [
-        {
-            id: 0,
-            title: "Smart Inventory & Business Intelligence System",
-            description: "AI-powered inventory platform designed to solve real-time stock inconsistencies and enable predictive business insights.",
-            descriptionList: [
-                "Implemented real-time state synchronization using Socket.io and Redis across distributed systems",
-                "Predictive insights driven by OpenAI",
-                "Secure, scalable Role-Based Access Control (RBAC)",
-                "High-performance MongoDB aggregations",
-                "Impact: Reduced data sync latency by 40% across global nodes"
-            ],
-            technologies: ["Next.js", "Node.js", "Redis", "Socket.io", "Open AI"],
-            links: {
-                github: "https://github.com/sazzad4677/Smart-Inventory-System",
-                external: "https://smart-inventory.sazzad.dev/"
-            },
-            image: { url: "smart-inventory.png" },
-            featured: true
-        }
+    {
+        id: 0,
+        title: "Smart Inventory System | Full-Stack Enterprise Solution",
+        description: "A high-performance inventory management platform focused on operational excellence, featuring scalable architectures, real-time data streams, and production-ready security protocols.",
+        descriptionList: [
+            "Real-time Synchronization Engine: Developed a bi-directional communication layer using Socket.io for live dashboard updates and global activity logs with Undo/Redo functionality.",
+            "Scalable Data Layer: Engineered a robust relational schema using PostgreSQL and Prisma, optimizing for complex transactions and high data integrity.",
+            "Intelligent Restock Queue: Built an automated logic layer that monitors stock thresholds and utilizes AI (LLM) to suggest proactive restock optimizations.",
+            "Security Architecture: Implemented Role-Based Access Control (RBAC), Admin session revocation tools, and Redis-based rate limiting to prevent API abuse.",
+            "Infrastructure: Fully containerized using Docker with multi-stage builds for optimized production images and a seamless CI/CD pipeline."
+        ],
+        technologies: ["Next.js 15", "Node.js", "PostgreSQL", "Prisma", "Redis", "Socket.io", "Docker"],
+        links: {
+            github: "https://github.com/sazzad4677/Smart-Inventory-System",
+            external: "https://smart-inventory.sazzad.dev/"
+        },
+        image: { url: "smart-inventory.png" },
+        featured: true
+    }
     ],
-
+    
     experience: [
         {
             id: 1,

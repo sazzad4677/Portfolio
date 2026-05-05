@@ -74,7 +74,7 @@ const Header: React.FC = () => {
                     : "top-0 rounded-none bg-transparent h-24"
             )}
         >
-            <nav className="site-container flex h-full items-center justify-between">
+            <nav className="site-container flex h-full items-center justify-between" aria-label="Main Navigation">
                 {/* Logo */}
                 <motion.div variants={logoVariants} initial="initial" animate="animate">
                     <Link
@@ -85,7 +85,7 @@ const Header: React.FC = () => {
                         aria-label="Home"
                     >
                         <div className="h-11 w-11 text-primary transition-transform duration-300 group-hover:rotate-12">
-                            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                 <path
                                     d="M 50, 5 L 11, 27 L 11, 72 L 50, 95 L 89, 73 L 89, 28 z"
                                     stroke="currentColor"
@@ -115,6 +115,7 @@ const Header: React.FC = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center justify-center rounded-lg border border-primary/40 px-3.5 h-11 font-mono text-[10px] font-bold text-primary transition-all hover:bg-primary/10 active:scale-95 whitespace-nowrap bg-primary/5"
+                        aria-label="Download Resume (opens in a new tab)"
                     >
                         Resume
                     </a>
@@ -126,7 +127,8 @@ const Header: React.FC = () => {
                     <button
                         className="flex h-11 w-11 flex-col items-center justify-center gap-1.5 rounded-lg border border-transparent transition-all active:scale-90"
                         onClick={() => setIsOpen(!isOpen)}
-                        aria-label="Toggle Menu"
+                        aria-label={isOpen ? "Close Menu" : "Open Menu"}
+                        aria-expanded={isOpen}
                     >
                         <span className={cn("h-0.5 w-5 bg-primary transition-all duration-300", isOpen && "rotate-45 translate-y-2")} />
                         <span className={cn("h-0.5 w-5 bg-primary transition-all duration-300", isOpen && "opacity-0 scale-x-0")} />
@@ -195,6 +197,7 @@ const Header: React.FC = () => {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="rounded-xl border border-primary px-4 xl:px-5 py-2 font-mono text-xs text-primary transition-all hover:bg-primary/10 whitespace-nowrap"
+                                        aria-label="Download Resume (opens in a new tab)"
                                     >
                                         Resume
                                     </a>

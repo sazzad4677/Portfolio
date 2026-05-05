@@ -156,30 +156,34 @@ const TechOrbit: React.FC<TechOrbitProps> = ({ profileImage, name, techStack }) 
             <motion.div style={{ x: mouseX, y: mouseY }} className="h-full w-full">
                 <div
                     ref={containerRef}
-                    className="relative cursor-grab select-none active:cursor-grabbing origin-top-left"
-                    style={{ width: BASE, height: BASE, transform: "scale(var(--orbit-scale,1))" }}
+                    className="relative cursor-grab select-none active:cursor-grabbing origin-top-left w-full h-full"
+                    style={{ transform: "scale(var(--orbit-scale,1))" }}
                     onPointerDown={handlePointerDown}
                     onPointerMove={handlePointerMove}
                     onPointerUp={handlePointerUp}
                     onPointerLeave={handlePointerUp}
+                    aria-hidden="true"
                 >
                 {/* Orbital rings */}
                 {[140, 180, 225].map((r, i) => (
                     <div key={i} className="pointer-events-none absolute rounded-full border border-on-background/[0.06]" style={{
-                        width: r * 2, height: r * 2, left: cx - r, top: cy - r,
+                        width: `${(r * 2 / BASE) * 100}%`, 
+                        height: `${(r * 2 / BASE) * 100}%`, 
+                        left: `${((cx - r) / BASE) * 100}%`, 
+                        top: `${((cy - r) / BASE) * 100}%`,
                         ...(i === 2 ? { borderStyle: "dashed" } : {}),
                     }} />
                 ))}
 
                 {/* Glow */}
                 <div className="pointer-events-none absolute rounded-full bg-primary/5 blur-[60px]"
-                    style={{ width: 180, height: 180, left: cx - 90, top: cy - 90 }} />
+                    style={{ width: '35%', height: '35%', left: '32.5%', top: '32.5%' }} />
 
                 {/* Particles — Disabled on mobile for performance */}
                 {PARTICLES.map((p, i) => (
                     <motion.div key={i}
                         className="pointer-events-none absolute rounded-full bg-primary/40 hidden md:block"
-                        style={{ left: p.x, top: p.y, width: p.size, height: p.size }}
+                        style={{ left: `${(p.x / BASE) * 100}%`, top: `${(p.y / BASE) * 100}%`, width: p.size, height: p.size }}
                         animate={{ opacity: [0.2, 0.7, 0.2], scale: [1, 1.4, 1] }}
                         transition={{ duration: 3, repeat: Infinity, delay: p.delay, ease: "easeInOut" }}
                     />
@@ -187,7 +191,7 @@ const TechOrbit: React.FC<TechOrbitProps> = ({ profileImage, name, techStack }) 
 
                 {/* Profile image */}
                 <div className="absolute z-10 overflow-hidden rounded-2xl shadow-[0_15px_60px_rgba(0,0,0,0.15)] dark:shadow-[0_40px_120px_rgba(0,0,0,0.7)]"
-                    style={{ width: IMG_W, height: IMG_H, left: cx - IMG_W / 2, top: cy - IMG_H / 2 }}>
+                    style={{ width: '42.3%', height: '53.8%', left: '28.85%', top: '23.1%' }}>
                     <Image 
                         src={profileImage} 
                         alt={name} 
@@ -203,13 +207,13 @@ const TechOrbit: React.FC<TechOrbitProps> = ({ profileImage, name, techStack }) 
                 {/* Orbiting badges */}
                 {badges?.map((badge) => (
                     <OrbitBadge key={badge.label} badge={badge} angle={angle} cx={cx} cy={cy}
-                        radius={badge.ring === 0 ? ORBIT_R_INNER : ORBIT_R_OUTER} />
+                        radius={badge.ring === 0 ? ORBIT_R_INNER : ORBIT_R_OUTER} BASE={BASE} />
                 ))}
 
                 <motion.div initial={{ opacity: 0, y: 16, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{ delay: 1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     className="absolute z-30 rounded-xl border border-on-background/10 bg-[hsl(var(--surface-hsl)/0.85)] px-4 py-3 shadow-2xl shadow-black/20 backdrop-blur-xl"
-                    style={{ bottom: 8, right: -10 }}>
+                    style={{ bottom: '2%', right: '-2%' }}>
                     <div className="mb-1.5 flex items-center gap-2">
                         <span className="relative flex h-2 w-2">
                             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -234,9 +238,10 @@ interface OrbitBadgeProps {
     badge: TechBadge;
     angle: ReturnType<typeof useSpring>;
     cx: number; cy: number; radius: number;
+    BASE: number;
 }
 
-const OrbitBadge: React.FC<OrbitBadgeProps> = ({ badge, angle, cx, cy, radius }) => {
+const OrbitBadge: React.FC<OrbitBadgeProps> = ({ badge, angle, cx, cy, radius, BASE }) => {
     const ref = useRef<HTMLDivElement>(null);
 
     useAnimationFrame(() => {
@@ -257,10 +262,10 @@ const OrbitBadge: React.FC<OrbitBadgeProps> = ({ badge, angle, cx, cy, radius })
         const blurVal = isMobile ? 0 : (1 - t) * 2;        // 2px → 0px (No blur on mobile)
         const zIdx = Math.round(t * 30);    // 0 → 30
 
-        const xVal = (x - cx).toFixed(2);
-        const yVal = (y - cy).toFixed(2);
+        const xPct = (((x - cx) / BASE) * 100).toFixed(2);
+        const yPct = (((y - cy) / BASE) * 100).toFixed(2);
 
-        ref.current.style.transform = `translate(calc(-50% + ${xVal}px), calc(-50% + ${yVal}px)) scale(${scale.toFixed(3)})`;
+        ref.current.style.transform = `translate(calc(-50% + ${xPct}%), calc(-50% + ${yPct}%)) scale(${scale.toFixed(3)})`;
         ref.current.style.zIndex = `${zIdx}`;
         ref.current.style.opacity = `${opacity.toFixed(3)}`;
         if (!isMobile) {
@@ -274,7 +279,8 @@ const OrbitBadge: React.FC<OrbitBadgeProps> = ({ badge, angle, cx, cy, radius })
         <div 
             ref={ref} 
             className="pointer-events-none absolute will-change-transform"
-            style={{ left: cx, top: cy }}
+            style={{ left: '50%', top: '50%' }}
+            aria-hidden="true"
         >
             <div className={`flex items-center gap-2 whitespace-nowrap rounded-full border border-on-background/[0.08] ${badge.color} px-3 py-1.5 shadow-lg shadow-black/10 backdrop-blur-lg text-on-background`}>
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-on-background/10">{badge.icon}</span>

@@ -245,6 +245,24 @@ export const defaultContent: PortfolioContent = {
         },
         image: { url: "smart-inventory.png" },
         featured: true
+    },
+    {
+    id: 1,
+    title: "Elite AI Portfolio | High-Performance Web Architecture",
+    description: "A bleeding-edge, SEO-optimized professional portfolio featuring an integrated AI assistant, cinematic GSAP animations, and a perfect 100/100 Lighthouse performance record.",
+    descriptionList: [
+        "Conversational AI Intelligence: Developed a context-aware AI chat assistant using OpenAI and Vercel AI SDK to interactively present professional experience and skills.",
+        "Lighthouse Perfection: Achieved a flawless 100/100 score across all Lighthouse metrics through aggressive performance optimization and critical path rendering.",
+        "Immersive Motion UX: Engineered cinematic visual transitions and 3D orbital components using GSAP and Framer Motion for a premium, high-fidelity user experience.",
+        "Next-Gen Architecture: Leveraged Next.js 16 (App Router) and React 19 to build a highly scalable, data-driven system with sub-second LCP and zero CLS.",
+        "Accessibility & SEO: Implemented WCAG 2.1 AA standards and advanced JSON-LD structured data for elite search engine indexing and universal accessibility."
+    ],
+    technologies: ["Next.js 16", "React 19", "TypeScript", "GSAP", "Tailwind CSS v4", "OpenAI", "Framer Motion"],
+    links: {
+        github: "https://github.com/sazzad4677/myportfolio-sazzad.dev",
+        external: "https://sazzad.dev/"
+    },
+    image: { url: "portfolio-v3.png" },
     }
     ],
     

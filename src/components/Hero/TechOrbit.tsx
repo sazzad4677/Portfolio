@@ -183,7 +183,7 @@ const TechOrbit: React.FC<TechOrbitProps> = ({ profileImage, name, techStack }) 
                 {PARTICLES.map((p, i) => (
                     <motion.div key={i}
                         className="pointer-events-none absolute rounded-full bg-primary/40 hidden md:block"
-                        style={{ left: `${(p.x / BASE) * 100}%`, top: `${(p.y / BASE) * 100}%`, width: p.size, height: p.size }}
+                        style={{ left: p.x, top: p.y, width: p.size, height: p.size }}
                         animate={{ opacity: [0.2, 0.7, 0.2], scale: [1, 1.4, 1] }}
                         transition={{ duration: 3, repeat: Infinity, delay: p.delay, ease: "easeInOut" }}
                     />
@@ -262,10 +262,10 @@ const OrbitBadge: React.FC<OrbitBadgeProps> = ({ badge, angle, cx, cy, radius, B
         const blurVal = isMobile ? 0 : (1 - t) * 2;        // 2px → 0px (No blur on mobile)
         const zIdx = Math.round(t * 30);    // 0 → 30
 
-        const xPct = (((x - cx) / BASE) * 100).toFixed(2);
-        const yPct = (((y - cy) / BASE) * 100).toFixed(2);
+        const xVal = (x - cx).toFixed(2);
+        const yVal = (y - cy).toFixed(2);
 
-        ref.current.style.transform = `translate(calc(-50% + ${xPct}%), calc(-50% + ${yPct}%)) scale(${scale.toFixed(3)})`;
+        ref.current.style.transform = `translate(calc(-50% + ${xVal}px), calc(-50% + ${yVal}px)) scale(${scale.toFixed(3)})`;
         ref.current.style.zIndex = `${zIdx}`;
         ref.current.style.opacity = `${opacity.toFixed(3)}`;
         if (!isMobile) {

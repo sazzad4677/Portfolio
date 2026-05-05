@@ -117,7 +117,7 @@ const Header: React.FC = () => {
                         className="flex items-center justify-center rounded-lg border border-primary/40 px-3.5 h-11 font-mono text-[10px] font-bold text-primary transition-all hover:bg-primary/10 active:scale-95 whitespace-nowrap bg-primary/5"
                         aria-label="Download Resume (opens in a new tab)"
                     >
-                        Resume
+                        Download Resume
                     </a>
 
                     <div className="flex items-center">
@@ -199,7 +199,7 @@ const Header: React.FC = () => {
                                         className="rounded-xl border border-primary px-4 xl:px-5 py-2 font-mono text-xs text-primary transition-all hover:bg-primary/10 whitespace-nowrap"
                                         aria-label="Download Resume (opens in a new tab)"
                                     >
-                                        Resume
+                                        Download Resume
                                     </a>
                                     <ThemeSwitcher />
                                 </motion.li>

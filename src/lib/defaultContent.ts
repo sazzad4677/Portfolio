@@ -229,21 +229,40 @@ export const defaultContent: PortfolioContent = {
     projects: [
         {
             id: 0,
-            title: "Smart Inventory & Business Intelligence System",
-            description: "AI-powered inventory platform designed to solve real-time stock inconsistencies and enable predictive business insights.",
+            title: "Smart Inventory System | Full-Stack Enterprise Solution",
+            description: "A high-performance inventory management platform focused on operational excellence, featuring scalable architectures, real-time data streams, and production-ready security protocols.",
             descriptionList: [
-                "Implemented real-time state synchronization using Socket.io and Redis across distributed systems",
-                "Predictive insights driven by OpenAI",
-                "Secure, scalable Role-Based Access Control (RBAC)",
-                "High-performance MongoDB aggregations",
-                "Impact: Reduced data sync latency by 40% across global nodes"
+                "Real-time Synchronization Engine: Developed a bi-directional communication layer using Socket.io for live dashboard updates and global activity logs with Undo/Redo functionality.",
+                "Scalable Data Layer: Engineered a robust relational schema using PostgreSQL and Prisma, optimizing for complex transactions and high data integrity.",
+                "Intelligent Restock Queue: Built an automated logic layer that monitors stock thresholds and utilizes AI (LLM) to suggest proactive restock optimizations.",
+                "Security Architecture: Implemented Role-Based Access Control (RBAC), Admin session revocation tools, and Redis-based rate limiting to prevent API abuse.",
+                "Infrastructure: Fully containerized using Docker with multi-stage builds for optimized production images and a seamless CI/CD pipeline."
             ],
-            technologies: ["Next.js", "Node.js", "Redis", "Socket.io", "Open AI"],
+            technologies: ["Next.js 15", "Node.js", "PostgreSQL", "Prisma", "Redis", "Socket.io", "Docker"],
             links: {
                 github: "https://github.com/sazzad4677/Smart-Inventory-System",
                 external: "https://smart-inventory.sazzad.dev/"
             },
             image: { url: "smart-inventory.png" },
+            featured: true
+        },
+        {
+            id: 1,
+            title: "Elite AI Portfolio | High-Performance Web Architecture",
+            description: "A bleeding-edge, SEO-optimized professional portfolio featuring an integrated AI assistant, cinematic GSAP animations, and a perfect 100/100 Lighthouse performance record.",
+            descriptionList: [
+                "Conversational AI Intelligence: Developed a context-aware AI chat assistant using OpenAI and Vercel AI SDK to interactively present professional experience and skills.",
+                "Lighthouse Perfection: Achieved a flawless 100/100 score across all Lighthouse metrics through aggressive performance optimization and critical path rendering.",
+                "Immersive Motion UX: Engineered cinematic visual transitions and 3D orbital components using GSAP and Framer Motion for a premium, high-fidelity user experience.",
+                "Next-Gen Architecture: Leveraged Next.js 16 (App Router) and React 19 to build a highly scalable, data-driven system with sub-second LCP and zero CLS.",
+                "Accessibility & SEO: Implemented WCAG 2.1 AA standards and advanced JSON-LD structured data for elite search engine indexing and universal accessibility."
+            ],
+            technologies: ["Next.js 16", "React 19", "TypeScript", "GSAP", "Tailwind CSS v4", "OpenAI", "Framer Motion"],
+            links: {
+                github: "https://github.com/sazzad4677/myportfolio-sazzad.dev",
+                external: "https://sazzad.dev/"
+            },
+            image: { url: "portfolio-v3.png" },
             featured: true
         }
     ],
@@ -257,12 +276,16 @@ export const defaultContent: PortfolioContent = {
             range: "March 2024 - December 2025",
             website: "https://mymedicalhub.com/",
             description: [
-                "Built responsive patient & provider portals using Next.js and React, increasing engagement and reducing friction in healthcare workflows.",
-                "Engineered dynamic frontend components with complex API integrations, enabling real-time data visualization for healthcare workflows.",
-                "Improved application load time by ~30%, optimizing rendering performance across diverse devices and network conditions.",
-                "Led UI/UX modernization efforts with design teams, significantly elevating visual quality and user satisfaction."
+                "Led end-to-end development of a scalable telemedicine platform using Next.js, TypeScript, and Node.js.",
+                "Built real-time communication systems using WebRTC and Socket.io, achieving low-latency (~80ms) performance.",
+                "Engineered a custom telemedicine engine to replace expensive third-party tools, reducing operational costs while improving system flexibility.",
+                "Integrated MediaPipe Pose Landmarker to capture and stream objective clinical data, providing providers with real-time biomechanical insights.",
+                "Developed a real-time activity verification system with interactive instructions, ensuring accurate therapeutic exercise performance.",
+                "Designed and implemented scalable backend APIs supporting complex workflows and live data processing.",
+                "Optimized MongoDB database operations to improve performance and handle concurrent usage.",
+                "Collaborated with cross-functional teams to deliver production-ready features and improve system performance."
             ],
-            technologies: ["React", "JavaScript", "HTML/CSS", "Next.js", "Context API", "Responsive Design"]
+            technologies: ["Next.js", "MediaPipe", "Socket.io", "TypeScript", "Node.js", "PostgreSQL", "WebRTC"]
         },
         {
             id: 2,
@@ -272,12 +295,17 @@ export const defaultContent: PortfolioContent = {
             range: "April 2022 - March 2024",
             website: "https://www.buyoniasoft.com/",
             description: [
-                "Designed and implemented scalable full-stack applications with TypeScript, Next.js, and Express to optimize internal operations.",
-                "Reduced API response latency by orchestrating MongoDB architectures for complex enterprise data relationships.",
-                "Managed robust server infrastructure on AWS, ensuring high availability for mission-critical systems.",
-                "Mentored junior developers and led technical initiatives to foster a culture of high code quality."
+                "Led frontend development of ERP modules (Finance, Merchandising, User) using React and Next.js.",
+                "Architected full frontend project from scratch, including a reusable component library used across all modules.",
+                "Collaborated with backend teams to integrate .NET Core APIs for business modules, ensuring seamless data flow.",
+                "Contributed to .NET Core backend development, assisting in API design and debugging for complex logic.",
+                "Engineered high-precision calculation engines for financial data, ensuring seamless performance.",
+                "Worked with business analysts and stakeholders to translate requirements into technical solutions.",
+                "Designed and optimized RESTful APIs using Node.js and Express.js, improving response time by ~30%.",
+                "Automated CI/CD pipelines using GitHub Actions and AWS EC2, reducing deployment time by ~40%.",
+                "Mentored junior developers and conducted rigorous peer reviews to maintain high engineering standards."
             ],
-            technologies: ["TypeScript", "Next.js", "Express.js", "MongoDB", "AWS", "UI/UX"]
+            technologies: ["React", "Next.js", "TypeScript", ".NET Core", "Node.js", "MongoDB", "AWS", "CI/CD"]
         }
     ],
     education: [

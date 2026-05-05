@@ -282,9 +282,9 @@ const OrbitBadge: React.FC<OrbitBadgeProps> = ({ badge, angle, cx, cy, radius, B
             style={{ left: '50%', top: '50%' }}
             aria-hidden="true"
         >
-            <div className={`flex items-center gap-2 whitespace-nowrap rounded-full border border-on-background/[0.08] ${badge.color} px-3 py-1.5 shadow-lg shadow-black/10 backdrop-blur-lg text-on-background`}>
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-on-background/10">{badge.icon}</span>
-                <span className="text-xs font-medium text-on-background">{badge.label}</span>
+            <div className="flex items-center gap-2 whitespace-nowrap rounded-full border border-primary/30 bg-surface/90 px-3 py-1.5 shadow-xl shadow-black/20 backdrop-blur-md text-foreground transition-colors duration-300 group-hover:border-primary/50 group-hover:bg-surface">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-primary">{badge.icon}</span>
+                <span className="text-xs font-bold tracking-wide">{badge.label}</span>
             </div>
         </div>
     );

@@ -88,11 +88,12 @@ const Hero: React.FC = () => {
                                 <a
                                     href="#projects"
                                     className="group relative inline-flex cursor-pointer items-center gap-2 overflow-hidden rounded-xl bg-primary px-5 py-3 font-sans text-sm font-bold text-primary-foreground shadow-lg shadow-primary/25 transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/35 sm:gap-2.5 sm:px-6 sm:py-3.5"
+                                    aria-label="View my featured projects"
                                 >
-                                    <Code2 size={16} />
+                                    <Code2 size={16} aria-hidden="true" />
                                     {content.ctaText}
-                                    <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-0.5" />
-                                    <div className="absolute -inset-full z-[5] block h-full w-1/2 -skew-x-12 transform bg-gradient-to-r from-transparent via-on-background/20 to-transparent opacity-0 group-hover:animate-shine" />
+                                    <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true" />
+                                    <div className="absolute -inset-full z-[5] block h-full w-1/2 -skew-x-12 transform bg-gradient-to-r from-transparent via-on-background/20 to-transparent opacity-0 group-hover:animate-shine" aria-hidden="true" />
                                 </a>
                             </motion.div>
                             <motion.a
@@ -102,8 +103,9 @@ const Hero: React.FC = () => {
                                 whileHover={{ scale: 1.04, y: -2 }}
                                 whileTap={{ scale: 0.97 }}
                                 className="inline-flex items-center gap-2 rounded-xl border border-border/40 bg-surface/30 px-5 py-3 font-sans text-sm font-semibold text-on-background backdrop-blur-md transition-all duration-300 hover:border-primary/40 hover:bg-surface/50 sm:gap-2.5 sm:px-6 sm:py-3.5"
+                                aria-label="Download Resume (opens in a new tab)"
                             >
-                                <Download size={16} />
+                                <Download size={16} aria-hidden="true" />
                                 Download Resume
                             </motion.a>
                         </motion.div>

@@ -18,9 +18,10 @@ const Works: React.FC = () => {
                 <div className="site-container">
                     <div className="mb-12 sm:mb-16 md:mb-20 flex items-center gap-4">
                         <h2 className="whitespace-nowrap font-sans text-2xl font-bold tracking-tight text-foreground before:mr-2 before:font-mono before:text-base before:text-primary before:content-['05.'] md:text-3xl">
+                            <span className="sr-only">05. </span>
                             Some Things I&apos;ve Built
                         </h2>
-                        <div className="h-px min-w-[2rem] flex-1 bg-gradient-to-r from-border to-transparent" />
+                        <div className="h-px min-w-[2rem] flex-1 bg-gradient-to-r from-border to-transparent" aria-hidden="true" />
                     </div>
 
                     <div className="flex flex-col gap-10 sm:gap-16 md:gap-24 lg:gap-32">
@@ -148,8 +149,9 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="group flex items-center gap-2 rounded-lg bg-surface/60 px-4 py-2.5 text-xs font-mono text-foreground transition-all duration-300 hover:bg-primary/5 hover:text-primary hover:border-primary/30 border border-border/40 backdrop-blur-sm shadow-sm"
+                                aria-label={`View source code for ${project.title} on GitHub`}
                             >
-                                <GitHubIcon size={16} className="transition-transform group-hover:-translate-y-0.5 text-primary/80 group-hover:text-primary" />
+                                <GitHubIcon size={16} className="transition-transform group-hover:-translate-y-0.5 text-primary/80 group-hover:text-primary" aria-hidden="true" />
                                 <span className="font-semibold">Source Code</span>
                             </a>
                         )}
@@ -159,8 +161,9 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="group flex items-center gap-2 rounded-lg bg-primary/10 px-3 py-2 text-xs font-mono text-primary transition-all duration-300 hover:bg-primary/20 hover:scale-[1.02] border border-primary/20 shadow-md shadow-primary/5"
+                                aria-label={`View live demo of ${project.title}`}
                             >
-                                <ExternalLink size={16} className="transition-transform group-hover:-translate-y-0.5" />
+                                <ExternalLink size={16} className="transition-transform group-hover:-translate-y-0.5" aria-hidden="true" />
                                 <span className="font-bold">Live Demo</span>
                             </a>
                         )}

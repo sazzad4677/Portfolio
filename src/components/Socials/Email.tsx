@@ -32,6 +32,7 @@ const Email: React.FC = () => {
                             style={{
                                 writingMode: "vertical-rl",
                             }}
+                            aria-label="Send me an email"
                         >
                             sazzad4677@gmail.com
                         </a>

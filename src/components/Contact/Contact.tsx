@@ -79,7 +79,7 @@ const Contact: React.FC = () => {
 
                         {/* Header */}
                         <motion.div variants={itemVariants} className="text-center mb-16 md:mb-20">
-                            <span className="mb-4 flex items-center justify-center font-mono text-xs tracking-widest text-primary uppercase">
+                            <span className="mb-4 flex items-center justify-center font-mono text-xs tracking-widest text-primary uppercase" aria-hidden="true">
                                 <span className="mr-3 h-px w-6 bg-primary/30" />
                                 08. {content.preHeading}
                                 <span className="ml-3 h-px w-6 bg-primary/30" />
@@ -133,46 +133,54 @@ const Contact: React.FC = () => {
 
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                                 <div className="space-y-1.5">
-                                                    <label className="flex items-center gap-1.5 font-mono text-[10px] tracking-widest text-primary/80 uppercase">
-                                                        <User size={12} /> Name
+                                                    <label htmlFor="name" className="flex items-center gap-1.5 font-mono text-[10px] tracking-widest text-primary/80 uppercase">
+                                                        <User size={12} aria-hidden="true" /> Name <span className="text-primary/60 ml-1 lowercase text-[8px]">(required)</span>
                                                     </label>
                                                     <input
                                                         required
+                                                        id="name"
                                                         name="name"
                                                         type="text"
+                                                        autoComplete="name"
                                                         value={formState.name}
                                                         onChange={handleInput}
                                                         placeholder="Your Name"
+                                                        aria-describedby="form-error"
                                                         className="w-full bg-surface/20 border border-border/40 rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-secondary-foreground/30 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 transition-all"
                                                     />
                                                 </div>
                                                 <div className="space-y-1.5">
-                                                    <label className="flex items-center gap-1.5 font-mono text-[10px] tracking-widest text-primary/80 uppercase">
-                                                        <Mail size={12} /> Email
+                                                    <label htmlFor="email" className="flex items-center gap-1.5 font-mono text-[10px] tracking-widest text-primary/80 uppercase">
+                                                        <Mail size={12} aria-hidden="true" /> Email <span className="text-primary/60 ml-1 lowercase text-[8px]">(required)</span>
                                                     </label>
                                                     <input
                                                         required
+                                                        id="email"
                                                         name="email"
                                                         type="email"
+                                                        autoComplete="email"
                                                         value={formState.email}
                                                         onChange={handleInput}
                                                         placeholder="your@email.com"
+                                                        aria-describedby="form-error"
                                                         className="w-full bg-surface/20 border border-border/40 rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-secondary-foreground/30 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 transition-all"
                                                     />
                                                 </div>
                                             </div>
 
                                             <div className="space-y-1.5">
-                                                <label className="flex items-center gap-1.5 font-mono text-[10px] tracking-widest text-primary/80 uppercase">
-                                                    <MessageSquare size={12} /> Message
+                                                <label htmlFor="message" className="flex items-center gap-1.5 font-mono text-[10px] tracking-widest text-primary/80 uppercase">
+                                                    <MessageSquare size={12} aria-hidden="true" /> Message <span className="text-primary/60 ml-1 lowercase text-[8px]">(required)</span>
                                                 </label>
                                                 <textarea
                                                     required
+                                                    id="message"
                                                     name="message"
                                                     rows={5}
                                                     value={formState.message}
                                                     onChange={handleInput}
                                                     placeholder="Hello! I'm reaching out because..."
+                                                    aria-describedby="form-error"
                                                     className="w-full bg-surface/20 border border-border/40 rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-secondary-foreground/30 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 transition-all resize-none"
                                                 />
                                             </div>
@@ -196,11 +204,9 @@ const Contact: React.FC = () => {
                                                 />
                                             </motion.button>
 
-                                            {status === "error" && (
-                                                <p className="text-xs text-red-400 font-mono text-center">
-                                                    Oops! Something went wrong. Please try again or use the direct email.
-                                                </p>
-                                            )}
+                                            <div id="form-error" className={`text-xs text-red-400 font-mono text-center transition-opacity duration-300 ${status === "error" ? "opacity-100" : "opacity-0 h-0 overflow-hidden"}`} role="alert">
+                                                Oops! Something went wrong. Please try again or use the direct email.
+                                            </div>
                                         </motion.form>
                                     )}
                                 </AnimatePresence>
@@ -222,14 +228,14 @@ const Contact: React.FC = () => {
                                         </div>
                                         <div className="flex flex-col flex-1 min-w-0">
                                             <span className="text-[9px] uppercase tracking-widest text-primary/60 font-mono">Email me at</span>
-                                            <span className="text-xs sm:text-sm font-medium text-foreground truncate">{content.email}</span>
+                                            <span className="text-xs sm:text-sm font-medium text-foreground">{content.email}</span>
                                         </div>
                                         <button
                                             onClick={copyToClipboard}
                                             className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg hover:bg-primary/10 text-primary transition-colors"
-                                            title="Copy to clipboard"
+                                            aria-label={copied ? "Email copied to clipboard" : "Copy email address to clipboard"}
                                         >
-                                            {copied ? <Check size={14} /> : <Copy size={14} />}
+                                            {copied ? <Check size={14} aria-hidden="true" /> : <Copy size={14} aria-hidden="true" />}
                                         </button>
                                     </div>
 

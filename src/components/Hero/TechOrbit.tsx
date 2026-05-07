@@ -153,11 +153,11 @@ const TechOrbit: React.FC<TechOrbitProps> = ({ profileImage, name, techStack }) 
     return (
         /* Responsive wrapper: CSS scales the fixed-size orbit container */
         <div className="w-[320px] h-[320px] sm:w-[400px] sm:h-[400px] md:w-[460px] md:h-[460px] lg:w-[380px] lg:h-[380px] xl:w-[460px] xl:h-[460px] 2xl:w-[520px] 2xl:h-[520px]">
-            <motion.div style={{ x: mouseX, y: mouseY }} className="h-full w-full">
+            <motion.div style={{ x: mouseX, y: mouseY }} className="relative h-full w-full">
                 <div
                     ref={containerRef}
-                    className="relative cursor-grab select-none active:cursor-grabbing origin-top-left w-full h-full"
-                    style={{ transform: "scale(var(--orbit-scale,1))" }}
+                    className="absolute left-1/2 top-1/2 cursor-grab select-none active:cursor-grabbing origin-center w-[520px] h-[520px]"
+                    style={{ transform: "translate(-50%, -50%) scale(var(--orbit-scale,1))" }}
                     onPointerDown={handlePointerDown}
                     onPointerMove={handlePointerMove}
                     onPointerUp={handlePointerUp}
@@ -213,7 +213,7 @@ const TechOrbit: React.FC<TechOrbitProps> = ({ profileImage, name, techStack }) 
                 <motion.div initial={{ opacity: 0, y: 16, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }}
                     transition={{ delay: 1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                     className="absolute z-30 rounded-xl border border-on-background/10 bg-[hsl(var(--surface-hsl)/0.85)] px-4 py-3 shadow-2xl shadow-black/20 backdrop-blur-xl"
-                    style={{ bottom: '2%', right: '-2%' }}>
+                    style={{ bottom: '4%', right: '4%' }}>
                     <div className="mb-1.5 flex items-center gap-2">
                         <span className="relative flex h-2 w-2">
                             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />

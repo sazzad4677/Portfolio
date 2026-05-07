@@ -111,7 +111,7 @@ const Hero: React.FC = () => {
                         </motion.div>
 
                         {/* Social row */}
-                        <motion.div variants={item} className="mt-8 flex items-center gap-4 sm:mt-10 sm:gap-5">
+                        <motion.div variants={item} className="mt-8 flex items-center justify-center gap-4 sm:mt-10 sm:gap-5 lg:justify-start">
                             <span className="text-xs text-on-surface-variant/50 sm:text-sm">Let&apos;s connect</span>
                             <div className="flex items-center gap-2 sm:gap-3">
                                 {content.socials?.map((social) => {

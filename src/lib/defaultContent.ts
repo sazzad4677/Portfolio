@@ -276,16 +276,12 @@ export const defaultContent: PortfolioContent = {
             range: "March 2024 - December 2025",
             website: "https://mymedicalhub.com/",
             description: [
-                "Led end-to-end development of a scalable telemedicine platform using Next.js, TypeScript, and Node.js.",
-                "Built real-time communication systems using WebRTC and Socket.io, achieving low-latency (~80ms) performance.",
-                "Engineered a custom telemedicine engine to replace expensive third-party tools, reducing operational costs while improving system flexibility.",
-                "Integrated MediaPipe Pose Landmarker to capture and stream objective clinical data, providing providers with real-time biomechanical insights.",
-                "Developed a real-time activity verification system with interactive instructions, ensuring accurate therapeutic exercise performance.",
-                "Designed and implemented scalable backend APIs supporting complex workflows and live data processing.",
-                "Optimized MongoDB database operations to improve performance and handle concurrent usage.",
-                "Collaborated with cross-functional teams to deliver production-ready features and improve system performance."
+                "Built responsive patient & provider portals using Next.js and React, increasing engagement and reducing friction in healthcare workflows.",
+                "Engineered dynamic frontend components with complex API integrations, enabling real-time data visualization for healthcare workflows.",
+                "Improved application load time by ~30%, optimizing rendering performance across diverse devices and network conditions.",
+                "Led UI/UX modernization efforts with design teams, significantly elevating visual quality and user satisfaction."
             ],
-            technologies: ["Next.js", "MediaPipe", "Socket.io", "TypeScript", "Node.js", "PostgreSQL", "WebRTC"]
+            technologies: ["React", "JavaScript", "HTML/CSS", "Next.js", "Context API", "Responsive Design"]
         },
         {
             id: 2,
@@ -295,17 +291,12 @@ export const defaultContent: PortfolioContent = {
             range: "April 2022 - March 2024",
             website: "https://www.buyoniasoft.com/",
             description: [
-                "Led frontend development of ERP modules (Finance, Merchandising, User) using React and Next.js.",
-                "Architected full frontend project from scratch, including a reusable component library used across all modules.",
-                "Collaborated with backend teams to integrate .NET Core APIs for business modules, ensuring seamless data flow.",
-                "Contributed to .NET Core backend development, assisting in API design and debugging for complex logic.",
-                "Engineered high-precision calculation engines for financial data, ensuring seamless performance.",
-                "Worked with business analysts and stakeholders to translate requirements into technical solutions.",
-                "Designed and optimized RESTful APIs using Node.js and Express.js, improving response time by ~30%.",
-                "Automated CI/CD pipelines using GitHub Actions and AWS EC2, reducing deployment time by ~40%.",
-                "Mentored junior developers and conducted rigorous peer reviews to maintain high engineering standards."
+                "Designed and implemented scalable full-stack applications with TypeScript, Next.js, and Express to optimize internal operations.",
+                "Reduced API response latency by orchestrating MongoDB architectures for complex enterprise data relationships.",
+                "Managed robust server infrastructure on AWS, ensuring high availability for mission-critical systems.",
+                "Mentored junior developers and led technical initiatives to foster a culture of high code quality."
             ],
-            technologies: ["React", "Next.js", "TypeScript", ".NET Core", "Node.js", "MongoDB", "AWS", "CI/CD"]
+            technologies: ["TypeScript", "Next.js", "Express.js", "MongoDB", "AWS", "UI/UX"]
         }
     ],
     education: [

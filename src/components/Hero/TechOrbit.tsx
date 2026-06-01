@@ -113,7 +113,7 @@ const TechOrbit: React.FC<TechOrbitProps> = ({ profileImage, name, techStack }) 
         lastX.current = e.clientX;
         lastY.current = e.clientY;
         velocityRef.current = 0;
-        
+
         if (containerRef.current) {
             const rect = containerRef.current.getBoundingClientRect();
             centerX.current = rect.left + rect.width / 2;
@@ -125,22 +125,22 @@ const TechOrbit: React.FC<TechOrbitProps> = ({ profileImage, name, techStack }) 
 
     const handlePointerMove = useCallback((e: React.PointerEvent) => {
         if (!isDragging.current) return;
-        
+
         const dx = e.clientX - lastX.current;
         const dy = e.clientY - lastY.current;
-        
+
         const rx = e.clientX - centerX.current;
         const ry = e.clientY - centerY.current;
         const r2 = rx * rx + ry * ry;
-        
+
         if (r2 > 0) {
             const cross = rx * dy - ry * dx;
             const dAngle = (cross / Math.sqrt(r2)) * 0.4;
-            
+
             velocityRef.current = dAngle;
             rawAngle.set(rawAngle.get() + dAngle);
         }
-        
+
         lastX.current = e.clientX;
         lastY.current = e.clientY;
     }, [rawAngle]);
@@ -164,69 +164,72 @@ const TechOrbit: React.FC<TechOrbitProps> = ({ profileImage, name, techStack }) 
                     onPointerLeave={handlePointerUp}
                     aria-hidden="true"
                 >
-                {/* Orbital rings */}
-                {[140, 180, 225].map((r, i) => (
-                    <div key={i} className="pointer-events-none absolute rounded-full border border-on-background/[0.06]" style={{
-                        width: `${(r * 2 / BASE) * 100}%`, 
-                        height: `${(r * 2 / BASE) * 100}%`, 
-                        left: `${((cx - r) / BASE) * 100}%`, 
-                        top: `${((cy - r) / BASE) * 100}%`,
-                        ...(i === 2 ? { borderStyle: "dashed" } : {}),
-                    }} />
-                ))}
+                    {/* Orbital rings */}
+                    {[140, 180, 225].map((r, i) => (
+                        <div key={i} className="pointer-events-none absolute rounded-full border border-on-background/[0.06]" style={{
+                            width: `${(r * 2 / BASE) * 100}%`,
+                            height: `${(r * 2 / BASE) * 100}%`,
+                            left: `${((cx - r) / BASE) * 100}%`,
+                            top: `${((cy - r) / BASE) * 100}%`,
+                            ...(i === 2 ? { borderStyle: "dashed" } : {}),
+                        }} />
+                    ))}
 
-                {/* Glow */}
-                <div className="pointer-events-none absolute rounded-full bg-primary/5 blur-[60px]"
-                    style={{ width: '35%', height: '35%', left: '32.5%', top: '32.5%' }} />
+                    {/* Glow */}
+                    <div className="pointer-events-none absolute rounded-full bg-primary/5 blur-[60px]"
+                        style={{ width: '35%', height: '35%', left: '32.5%', top: '32.5%' }} />
 
-                {/* Particles — Disabled on mobile for performance */}
-                {PARTICLES.map((p, i) => (
-                    <motion.div key={i}
-                        className="pointer-events-none absolute rounded-full bg-primary/40 hidden md:block"
-                        style={{ left: p.x, top: p.y, width: p.size, height: p.size }}
-                        animate={{ opacity: [0.2, 0.7, 0.2], scale: [1, 1.4, 1] }}
-                        transition={{ duration: 3, repeat: Infinity, delay: p.delay, ease: "easeInOut" }}
-                    />
-                ))}
+                    {/* Particles — Disabled on mobile for performance */}
+                    {PARTICLES.map((p, i) => (
+                        <motion.div key={i}
+                            className="pointer-events-none absolute rounded-full bg-primary/40 hidden md:block"
+                            style={{ left: p.x, top: p.y, width: p.size, height: p.size }}
+                            animate={{ opacity: [0.2, 0.7, 0.2], scale: [1, 1.4, 1] }}
+                            transition={{ duration: 3, repeat: Infinity, delay: p.delay, ease: "easeInOut" }}
+                        />
+                    ))}
 
-                {/* Profile image */}
-                <div className="absolute z-10 overflow-hidden rounded-2xl shadow-[0_15px_60px_rgba(0,0,0,0.15)] dark:shadow-[0_40px_120px_rgba(0,0,0,0.7)]"
-                    style={{ width: '42.3%', height: '53.8%', left: '28.85%', top: '23.1%' }}>
-                    <Image 
-                        src={profileImage} 
-                        alt={name} 
-                        width={220} 
-                        height={280} 
-                        className="h-full w-full object-cover object-top" 
-                        draggable={false} 
-                        priority
-                        quality={85}
-                    />
-                </div>
-
-                {/* Orbiting badges */}
-                {badges?.map((badge) => (
-                    <OrbitBadge key={badge.label} badge={badge} angle={angle} cx={cx} cy={cy}
-                        radius={badge.ring === 0 ? ORBIT_R_INNER : ORBIT_R_OUTER} BASE={BASE} />
-                ))}
-
-                <motion.div initial={{ opacity: 0, y: 16, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ delay: 1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                    className="absolute z-30 rounded-xl border border-on-background/10 bg-[hsl(var(--surface-hsl)/0.85)] px-4 py-3 shadow-2xl shadow-black/20 backdrop-blur-xl"
-                    style={{ bottom: '4%', right: '4%' }}>
-                    <div className="mb-1.5 flex items-center gap-2">
-                        <span className="relative flex h-2 w-2">
-                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-                        </span>
-                        <span className="font-sans text-xs font-bold uppercase tracking-wider text-on-background">Open to Work</span>
+                    {/* Profile image */}
+                    <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+                        <Image
+                            src={profileImage}
+                            alt={name}
+                            width={280}
+                            height={280}
+                            className="object-cover object-top"
+                            style={{
+                                WebkitMaskImage: 'radial-gradient(circle at center, black 45%, transparent 70%)',
+                                maskImage: 'radial-gradient(circle at center, black 45%, transparent 70%)'
+                            }}
+                            draggable={false}
+                            priority
+                            quality={85}
+                        />
                     </div>
-                    <div className="flex items-center gap-3 text-[11px] text-on-surface-variant/60">
-                        <span className="flex items-center gap-1"><Globe size={11} />Remote</span>
-                        <span className="h-3 w-px bg-on-background/15" />
-                        <span className="flex items-center gap-1"><Briefcase size={11} />Full-time</span>
-                    </div>
-                </motion.div>
+
+                    {/* Orbiting badges */}
+                    {badges?.map((badge) => (
+                        <OrbitBadge key={badge.label} badge={badge} angle={angle} cx={cx} cy={cy}
+                            radius={badge.ring === 0 ? ORBIT_R_INNER : ORBIT_R_OUTER} BASE={BASE} />
+                    ))}
+
+                    <motion.div initial={{ opacity: 0, y: 16, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }}
+                        transition={{ delay: 1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                        className="absolute z-30 rounded-xl border border-on-background/10 bg-[hsl(var(--surface-hsl)/0.85)] px-4 py-3 shadow-2xl shadow-black/20 backdrop-blur-xl"
+                        style={{ bottom: '4%', right: '4%' }}>
+                        <div className="mb-1.5 flex items-center gap-2">
+                            <span className="relative flex h-2 w-2">
+                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+                            </span>
+                            <span className="font-sans text-xs font-bold uppercase tracking-wider text-on-background">Open to Work</span>
+                        </div>
+                        <div className="flex items-center gap-3 text-[11px] text-on-surface-variant/60">
+                            <span className="flex items-center gap-1"><Globe size={11} />Remote</span>
+                            <span className="h-3 w-px bg-on-background/15" />
+                            <span className="flex items-center gap-1"><Briefcase size={11} />Full-time</span>
+                        </div>
+                    </motion.div>
                 </div>
             </motion.div>
         </div>
@@ -250,7 +253,7 @@ const OrbitBadge: React.FC<OrbitBadgeProps> = ({ badge, angle, cx, cy, radius, B
         const x = cx + Math.cos(rad) * radius;
         // Use sin(rad) for depth since sin(rad) is 1 at the bottom (front) and -1 at the top (back)
         const z = Math.sin(rad);
-        
+
         // Base Y plus perspective offset
         const y = cy + Math.sin(rad) * radius * 0.82 + z * 12;
 
@@ -276,8 +279,8 @@ const OrbitBadge: React.FC<OrbitBadgeProps> = ({ badge, angle, cx, cy, radius, B
     });
 
     return (
-        <div 
-            ref={ref} 
+        <div
+            ref={ref}
             className="pointer-events-none absolute will-change-transform"
             style={{ left: '50%', top: '50%' }}
             aria-hidden="true"

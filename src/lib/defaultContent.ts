@@ -12,7 +12,7 @@ export const defaultContent: PortfolioContent = {
         ctaLink: "mailto:sazzad4677@gmail.com",
         cvLink: "https://drive.google.com/file/d/1ffycRhonZegQk2VJjfsa_g_AZAOj_5Xw/view?usp=drive_link",
         videoUrl: "",
-        profileImage: "/images/me.jpg",
+        profileImage: "/images/me.webp",
         socials: [
             { name: "GitHub", url: "https://github.com/sazzad4677/", type: "github" },
             { name: "LinkedIn", url: "https://www.linkedin.com/in/sazzad4673/", type: "linkedin" },
@@ -117,7 +117,7 @@ export const defaultContent: PortfolioContent = {
             "When I step away from the IDE, my ultimate way to disconnect is by <span class=\"text-primary\">traveling</span>. I love exploring new destinations and planning getaways with my friends. When we aren't on the road, my pursuit of 'perfecting the recipe' shifts to the kitchen, where I enjoy experimenting with local dishes. Beyond that, my time is spent setting intensive learning goals and exploring ways to contribute to the open-source community."
         ],
         skillsHeading: "Here is the core technical stack I leverage daily:",
-        profileImage: "/images/me.jpg"
+        profileImage: "/images/me.webp"
     },
 
     skills: [

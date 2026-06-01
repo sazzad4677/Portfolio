@@ -70,18 +70,18 @@ const Archive: React.FC = () => {
                                                     target="_blank" 
                                                     rel="noopener noreferrer" 
                                                     className="flex h-11 w-11 items-center justify-center rounded-lg border border-border/40 hover:text-primary hover:border-primary/30 transition-all"
-                                                    aria-label={`View source code for ${project.title}`}
+                                                    aria-label={`View source code for ${project.title} (opens in a new tab)`}
                                                 >
-                                                    <GitHubIcon size={18} className="sm:w-[22px] sm:h-[22px]" />
+                                                    <GitHubIcon size={18} className="sm:w-[22px] sm:h-[22px]" aria-hidden="true" />
                                                 </a>
                                                 <a 
                                                     href={project.links.liveLink} 
                                                     target="_blank" 
                                                     rel="noopener noreferrer" 
                                                     className="flex h-11 w-11 items-center justify-center rounded-lg border border-border/40 hover:text-primary hover:border-primary/30 transition-all"
-                                                    aria-label={`View live demo for ${project.title}`}
+                                                    aria-label={`View live demo for ${project.title} (opens in a new tab)`}
                                                 >
-                                                    <ExternalLink size={18} className="sm:w-[22px] sm:h-[22px]" />
+                                                    <ExternalLink size={18} className="sm:w-[22px] sm:h-[22px]" aria-hidden="true" />
                                                 </a>
                                             </div>
                                         </div>

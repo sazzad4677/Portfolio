@@ -50,7 +50,7 @@ export function CustomCursor() {
                 scale: hovering ? 2.8 : 1,
                 opacity: hovering ? 0.9 : 0.65,
                 borderWidth: hovering ? "1.5px" : "2px",
-                backgroundColor: hovering ? "hsla(var(--primary-hsl) / 0.05)" : "transparent",
+                backgroundColor: hovering ? "rgba(20, 184, 166, 0.05)" : "rgba(20, 184, 166, 0)",
                 duration: 0.4,
                 ease: "power3.out",
             });

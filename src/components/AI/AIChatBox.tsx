@@ -3,7 +3,7 @@
 import React, { useRef, useEffect, useCallback } from "react";
 import { useChat } from "ai/react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, Lock, User, AlertCircle } from "lucide-react";
+import { X, Send, Sparkles, User, AlertCircle } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { cn } from "@/lib/utils";
 
@@ -12,14 +12,14 @@ interface AIChatBoxProps {
     onClose: () => void;
 }
 
-const QUICK_CHIPS = ["Tech stack", "Latest project", "Open to work?"];
+const QUICK_CHIPS = ["Lighthouse score?", "Latest projects", "PostgreSQL migration", "Open to work?"];
 
 // ── Bouncing typing indicator ──────────────────────────────────────────────────
 function TypingDots() {
     return (
         <div className="flex items-end gap-2">
             <div className="h-7 w-7 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mb-0.5">
-                <Lock size={13} className="text-primary" />
+                <Sparkles size={13} className="text-primary" />
             </div>
             <div className="flex items-center gap-1 px-3 py-3 rounded-2xl rounded-bl-sm bg-muted border border-border/40">
                 {[0, 1, 2].map((i) => (
@@ -146,7 +146,7 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
                     <div className="flex items-center justify-between px-4 py-3 border-b border-border/40 bg-background shrink-0">
                         <div className="flex items-center gap-3">
                             <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                                <Lock size={16} className="text-primary" />
+                                <Sparkles size={16} className="text-primary" />
                             </div>
                             <div>
                                 <p className="text-sm font-medium text-foreground leading-none mb-1">
@@ -181,7 +181,7 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
                         {messages.length === 0 && !error && (
                             <div className="flex flex-col items-center justify-center h-full gap-3 text-center pb-4">
                                 <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center">
-                                    <Lock size={20} className="text-primary" />
+                                    <Sparkles size={20} className="text-primary" />
                                 </div>
                                 <div>
                                     <p className="text-sm font-medium text-foreground">
@@ -227,7 +227,7 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
                                     {m.role === "user" ? (
                                         <User size={13} className="text-primary-foreground" />
                                     ) : (
-                                        <Lock size={13} className="text-primary" />
+                                        <Sparkles size={13} className="text-primary" />
                                     )}
                                 </div>
 

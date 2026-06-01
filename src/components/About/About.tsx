@@ -63,9 +63,10 @@ const About: React.FC = () => {
                 <div className="site-container relative z-10">
                     <div className="mb-12 sm:mb-16 md:mb-20 flex items-center gap-4">
                         <h2 className="whitespace-nowrap font-sans text-2xl font-bold tracking-tight text-foreground before:mr-2 before:font-mono before:text-base before:text-primary before:content-['01.'] md:text-3xl">
+                            <span className="sr-only">01. </span>
                             About Me
                         </h2>
-                        <div className="h-px min-w-[2rem] flex-1 bg-gradient-to-r from-border to-transparent" />
+                        <div className="h-px min-w-[2rem] flex-1 bg-gradient-to-r from-border to-transparent" aria-hidden="true" />
                     </div>
 
                     <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
@@ -118,11 +119,13 @@ const About: React.FC = () => {
                                 <a
                                     href={content.cta.buttonLink}
                                     className="group inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-background transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(0,210,150,0.35)] w-full justify-center sm:w-auto"
+                                    aria-label={`${content.cta.buttonLabel} - ${content.cta.text}`}
                                 >
                                     {content.cta.buttonLabel}
                                     <ArrowRight
                                         size={14}
                                         className="transition-transform group-hover:translate-x-0.5"
+                                        aria-hidden="true"
                                     />
                                 </a>
                             </motion.div>

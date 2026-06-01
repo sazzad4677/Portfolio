@@ -52,10 +52,10 @@ const StatsBar: React.FC<StatsBarProps> = ({ stats }) => {
                                         <p className="text-2xl font-extrabold text-on-background sm:text-3xl md:text-[34px]">
                                             {stat.value}
                                         </p>
-                                        <p className="truncate text-[10px] font-medium text-on-surface-variant sm:text-xs md:text-sm">
+                                        <p className="text-[10px] font-medium text-on-surface-variant sm:text-xs md:text-sm">
                                             {stat.label}
                                         </p>
-                                        <p className="truncate text-[9px] text-on-surface-variant/70 sm:text-[10px] md:text-xs">
+                                        <p className="text-[9px] text-on-surface-variant/70 sm:text-[10px] md:text-xs">
                                             {stat.sublabel}
                                         </p>
                                     </div>

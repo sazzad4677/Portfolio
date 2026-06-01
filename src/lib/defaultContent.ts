@@ -12,7 +12,7 @@ export const defaultContent: PortfolioContent = {
         ctaLink: "mailto:sazzad4677@gmail.com",
         cvLink: "https://drive.google.com/file/d/1ffycRhonZegQk2VJjfsa_g_AZAOj_5Xw/view?usp=drive_link",
         videoUrl: "",
-        profileImage: "/images/me.jpg",
+        profileImage: "/images/me.webp",
         socials: [
             { name: "GitHub", url: "https://github.com/sazzad4677/", type: "github" },
             { name: "LinkedIn", url: "https://www.linkedin.com/in/sazzad4673/", type: "linkedin" },
@@ -117,7 +117,7 @@ export const defaultContent: PortfolioContent = {
             "When I step away from the IDE, my ultimate way to disconnect is by <span class=\"text-primary\">traveling</span>. I love exploring new destinations and planning getaways with my friends. When we aren't on the road, my pursuit of 'perfecting the recipe' shifts to the kitchen, where I enjoy experimenting with local dishes. Beyond that, my time is spent setting intensive learning goals and exploring ways to contribute to the open-source community."
         ],
         skillsHeading: "Here is the core technical stack I leverage daily:",
-        profileImage: "/images/me.jpg"
+        profileImage: "/images/me.webp"
     },
 
     skills: [
@@ -229,21 +229,40 @@ export const defaultContent: PortfolioContent = {
     projects: [
         {
             id: 0,
-            title: "Smart Inventory & Business Intelligence System",
-            description: "AI-powered inventory platform designed to solve real-time stock inconsistencies and enable predictive business insights.",
+            title: "Smart Inventory System | Full-Stack Enterprise Solution",
+            description: "A high-performance inventory management platform focused on operational excellence, featuring scalable architectures, real-time data streams, and production-ready security protocols.",
             descriptionList: [
-                "Implemented real-time state synchronization using Socket.io and Redis across distributed systems",
-                "Predictive insights driven by OpenAI",
-                "Secure, scalable Role-Based Access Control (RBAC)",
-                "High-performance MongoDB aggregations",
-                "Impact: Reduced data sync latency by 40% across global nodes"
+                "Real-time Synchronization Engine: Developed a bi-directional communication layer using Socket.io for live dashboard updates and global activity logs with Undo/Redo functionality.",
+                "Scalable Data Layer: Engineered a robust relational schema using PostgreSQL and Prisma, optimizing for complex transactions and high data integrity.",
+                "Intelligent Restock Queue: Built an automated logic layer that monitors stock thresholds and utilizes AI (LLM) to suggest proactive restock optimizations.",
+                "Security Architecture: Implemented Role-Based Access Control (RBAC), Admin session revocation tools, and Redis-based rate limiting to prevent API abuse.",
+                "Infrastructure: Fully containerized using Docker with multi-stage builds for optimized production images and a seamless CI/CD pipeline."
             ],
-            technologies: ["Next.js", "Node.js", "Redis", "Socket.io", "Open AI"],
+            technologies: ["Next.js 15", "Node.js", "PostgreSQL", "Prisma", "Redis", "Socket.io", "Docker"],
             links: {
                 github: "https://github.com/sazzad4677/Smart-Inventory-System",
                 external: "https://smart-inventory.sazzad.dev/"
             },
             image: { url: "smart-inventory.png" },
+            featured: true
+        },
+        {
+            id: 1,
+            title: "Elite AI Portfolio | High-Performance Web Architecture",
+            description: "A bleeding-edge, SEO-optimized professional portfolio featuring an integrated AI assistant, cinematic GSAP animations, and a perfect 100/100 Lighthouse performance record.",
+            descriptionList: [
+                "Conversational AI Intelligence: Developed a context-aware AI chat assistant using OpenAI and Vercel AI SDK to interactively present professional experience and skills.",
+                "Lighthouse Perfection: Achieved a flawless 100/100 score across all Lighthouse metrics through aggressive performance optimization and critical path rendering.",
+                "Immersive Motion UX: Engineered cinematic visual transitions and 3D orbital components using GSAP and Framer Motion for a premium, high-fidelity user experience.",
+                "Next-Gen Architecture: Leveraged Next.js 16 (App Router) and React 19 to build a highly scalable, data-driven system with sub-second LCP and zero CLS.",
+                "Accessibility & SEO: Implemented WCAG 2.1 AA standards and advanced JSON-LD structured data for elite search engine indexing and universal accessibility."
+            ],
+            technologies: ["Next.js 16", "React 19", "TypeScript", "GSAP", "Tailwind CSS v4", "OpenAI", "Framer Motion"],
+            links: {
+                github: "https://github.com/sazzad4677/myportfolio-sazzad.dev",
+                external: "https://sazzad.dev/"
+            },
+            image: { url: "portfolio-v3.png" },
             featured: true
         }
     ],

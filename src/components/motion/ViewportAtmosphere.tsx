@@ -15,8 +15,8 @@ export function ViewportAtmosphere() {
 
             const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-            el.style.setProperty("--atmosphere-x", "50vw");
-            el.style.setProperty("--atmosphere-y", "36vh");
+            el.style.setProperty("--atmosphere-x", `${window.innerWidth / 2}px`);
+            el.style.setProperty("--atmosphere-y", `${window.innerHeight * 0.36}px`);
 
             // Use quickTo for high-performance property updates (60fps+)
             const xTo = gsap.quickTo(el, "--atmosphere-x", { duration: 1, ease: "power3.out" });

@@ -14,7 +14,8 @@ interface RequestBody {
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const MODEL_NAME = process.env.OPENROUTER_MODEL ?? "openai/gpt-oss-120b:free";
+const MODEL_NAME = process.env.OPENROUTER_MODEL || process.env.AI_MODEL || "meta-llama/llama-3.3-70b-instruct:free";
+const BASE_URL = process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1";
 const MAX_HISTORY_TURNS = 20;
 
 // ─── Validation ───────────────────────────────────────────────────────────────
@@ -56,18 +57,18 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   // ── 3. Check API key ──
-  const apiKey = process.env.OPEN_AI_API_KEY;
+  const apiKey = process.env.OPENROUTER_API_KEY || process.env.OPENAI_API_KEY;
   if (!apiKey) {
-    console.error("[chat/route] OPEN_AI_API_KEY is not set.");
+    console.error("[chat/route] OPENROUTER_API_KEY is not set.");
     return errorResponse("Server configuration error.", 500);
   }
 
   // ── 4. Build OpenRouter client ──
   const openRouter = new OpenAI({
     apiKey,
-    baseURL: "https://openrouter.ai/api/v1",
+    baseURL: BASE_URL,
     defaultHeaders: {
-      "HTTP-Referer": "https://sazzad.dev",
+      "HTTP-Referer": process.env.NEXT_PUBLIC_SITE_URL || "https://sazzad.dev",
       "X-Title": "Sazzad's Portfolio",
     },
   });
@@ -83,53 +84,105 @@ export async function POST(req: Request): Promise<Response> {
     })),
   ];
 
-  // ── 6. Send to OpenRouter and stream back ──
-  try {
-    const result = await openRouter.chat.completions.create({
-      model: MODEL_NAME,
-      messages: openRouterMessages,
-      stream: true,
-      max_tokens: 512,
-      temperature: 0.4,
-    });
+  // ── 6. Send to OpenRouter with automatic model fallback and stream back ──
+  const candidateModels = Array.from(
+    new Set([
+      MODEL_NAME,
+      "qwen/qwen3.8-27b:free",
+      "google/gemma-4-31b-it:free",
+      "nvidia/nemotron-3.5-lightning:free"
+    ])
+  );
 
-    const stream = new ReadableStream({
-      async start(controller) {
-        const encoder = new TextEncoder();
-        try {
-          for await (const chunk of result) {
-            const text = chunk.choices?.[0]?.delta?.content ?? "";
-            if (text) {
-              controller.enqueue(encoder.encode(`0:${JSON.stringify(text)}\n`));
+  let lastError: unknown = null;
+
+  for (const model of candidateModels) {
+    try {
+      const result = await openRouter.chat.completions.create({
+        model,
+        messages: openRouterMessages,
+        stream: true,
+        max_tokens: 512,
+        temperature: 0.4,
+      });
+
+      const stream = new ReadableStream({
+        async start(controller) {
+          const encoder = new TextEncoder();
+          let accumulated = "";
+          let streamStarted = false;
+
+          try {
+            for await (const chunk of result) {
+              const text = chunk.choices?.[0]?.delta?.content ?? "";
+              if (!text) continue;
+
+              accumulated += text;
+
+              // Filter out leading reasoning/analysis steps if emitted by model
+              if (!streamStarted) {
+                if (
+                  accumulated.trim().startsWith("1. Analyze") ||
+                  accumulated.includes("Analyze User Input:") ||
+                  accumulated.includes("Here's a thinking process:")
+                ) {
+                  const parts = accumulated.split("\n\n");
+                  const contentPart = parts.find(
+                    (p) =>
+                      !p.includes("Analyze User Input") &&
+                      !p.includes("Identify Intent") &&
+                      !p.includes("Check Constraints") &&
+                      !p.includes("thinking process") &&
+                      p.trim().length > 0
+                  );
+                  if (contentPart) {
+                    streamStarted = true;
+                    const clean = contentPart.trim();
+                    controller.enqueue(encoder.encode(`0:${JSON.stringify(clean)}\n`));
+                  }
+                  continue;
+                }
+                streamStarted = true;
+              }
+
+              let cleanText = text;
+              if (cleanText.includes("<think>")) {
+                cleanText = cleanText.replace(/<think>[\s\S]*?<\/think>/g, "");
+              }
+
+              if (cleanText) {
+                controller.enqueue(encoder.encode(`0:${JSON.stringify(cleanText)}\n`));
+              }
             }
+          } catch (streamErr) {
+            console.error("[chat/route] Stream error:", streamErr);
+            controller.error(streamErr);
+          } finally {
+            controller.close();
           }
-        } catch (streamErr) {
-          console.error("[chat/route] Stream error:", streamErr);
-          controller.error(streamErr);
-        } finally {
-          controller.close();
-        }
-      },
-    });
+        },
+      });
 
-    return new Response(stream, {
-      headers: {
-        "Content-Type": "text/plain; charset=utf-8",
-        "x-vercel-ai-data-stream": "v1",
-        "Cache-Control": "no-cache, no-transform",
-        "X-Accel-Buffering": "no",
-      },
-    });
-
-  } catch (error: unknown) {
-    const message = error instanceof Error ? error.message : String(error);
-    console.error("[chat/route] OpenRouter API error:", message);
-
-    return errorResponse(
-      "Sorry, I'm having trouble connecting right now. Please try again in a moment.",
-      502
-    );
+      return new Response(stream, {
+        headers: {
+          "Content-Type": "text/plain; charset=utf-8",
+          "x-vercel-ai-data-stream": "v1",
+          "Cache-Control": "no-cache, no-transform",
+          "X-Accel-Buffering": "no",
+        },
+      });
+    } catch (error: unknown) {
+      lastError = error;
+      const message = error instanceof Error ? error.message : String(error);
+      console.warn(`[chat/route] Model ${model} failed: ${message}. Trying fallback if available...`);
+    }
   }
+
+  console.error("[chat/route] All candidate OpenRouter models failed:", lastError);
+  return errorResponse(
+    "Sorry, I'm having trouble connecting right now. Please try again in a moment.",
+    502
+  );
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────

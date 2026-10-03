@@ -4,10 +4,10 @@ export const defaultContent: PortfolioContent = {
     hero: {
         greeting: "Hi, my name is",
         name: "Sazzad Hossain.",
-        tagline: "Designing scalable systems, from backend logic to seamless user experiences.",
-        headline: "I build scalable,<br/>high-performance<br/><span class=\"text-gradient\">web applications.</span>",
+        tagline: "Full-Stack Engineer (AI Native) building scalable, high-performance web products.",
+        headline: "I build scalable,<br/>AI-native & real-time<br/><span class=\"text-gradient\">web applications.</span>",
         badgeText: "Available for new opportunities",
-        description: "Full-stack engineer with <span class=\"font-semibold text-primary\">4+ years</span> of experience building AI-driven and real-time systems that solve real-world business problems.",
+        description: "Full-stack engineer with <span class=\"font-semibold text-primary\">4+ years</span> of experience building production web applications with React, Next.js, and TypeScript. Modernized legacy .NET ERP frontends, engineered WebRTC telemedicine systems, and integrated AI capabilities using OpenRouter and the Vercel AI SDK.",
         ctaText: "View My Work",
         ctaLink: "mailto:sazzad4677@gmail.com",
         cvLink: "https://drive.google.com/file/d/1ffycRhonZegQk2VJjfsa_g_AZAOj_5Xw/view?usp=drive_link",
@@ -22,44 +22,45 @@ export const defaultContent: PortfolioContent = {
             { label: "Node.js", color: "bg-emerald-500/30" },
             { label: "React", color: "bg-cyan-500/30" },
             { label: "TypeScript", color: "bg-blue-500/30" },
+            { label: "Next.js", color: "bg-on-background/20" },
+            { label: "WebRTC", color: "bg-purple-500/30" },
             { label: "PostgreSQL", color: "bg-blue-700/30" },
             { label: "Prisma", color: "bg-indigo-500/30" },
-            { label: "Express.js", color: "bg-on-background/20" },
-            { label: "Next.js", color: "bg-on-background/20" },
-            { label: "Python", color: "bg-yellow-500/30" },
-            { label: "MongoDB", color: "bg-green-500/30" }
+            { label: "OpenRouter", color: "bg-amber-500/30" },
+            { label: "Vercel AI SDK", color: "bg-sky-500/30" },
+            { label: "Docker", color: "bg-blue-600/30" }
         ],
         stats: [
-            { value: "40+", label: "Projects Completed", sublabel: "Across industries", icon: "Code2", color: "text-primary" },
-            { value: "4+", label: "Years Experience", sublabel: "Building solutions", icon: "Users", color: "text-primary" },
-            { value: "10x", label: "Performance Boost", sublabel: "For key systems", icon: "Zap", color: "text-yellow-400" },
-            { value: "100%", label: "Client Satisfaction", sublabel: "Quality is priority", icon: "CheckCircle2", color: "text-emerald-400" }
+            { value: "4+", label: "Years Experience", sublabel: "Software engineering", icon: "Briefcase", color: "text-primary" },
+            { value: "3+", label: "Years in Production", sublabel: "Shipping real systems", icon: "Layers", color: "text-primary" },
+            { value: "5+", label: "Production Systems", sublabel: "Built & modernized", icon: "Cpu", color: "text-primary" },
+            { value: "AI", label: "Product Development", sublabel: "LLM & CV integration", icon: "Sparkles", color: "text-primary" }
         ]
     },
 
     about: {
         sectionNumber: "01.",
         sectionLabel: "ABOUT ME",
-        headline: "I build scalable,\nhigh-performance\n<span class=\"text-gradient\">web applications.</span>",
-        description: "Full-stack engineer with <span class=\"font-semibold text-primary\">4+ years</span> of experience building AI-driven and real-time applications that solve real-world problems.",
-        quote: "I don’t just build features—I design systems that scale, evolve, and stay maintainable.",
+        headline: "AI-native engineer building\nhigh-performance\n<span class=\"text-gradient\">scalable software.</span>",
+        description: "Full-stack engineer with <span class=\"font-semibold text-primary\">4+ years</span> of experience building React, Next.js, and TypeScript products. Specializing in AI integration, WebRTC real-time media, and modernizing legacy enterprise applications.",
+        quote: "I build with modern AI tooling (Cursor, Claude, Codex) every day and design systems that scale seamlessly.",
         infoCards: [
             {
                 icon: "Compass",
                 title: "My Journey",
-                description: "Over the last <span class=\"text-primary\">four years</span>, my software engineering journey has evolved from building basic web components to engineering full-scale, AI-integrated enterprise systems. Anchored firmly in the modern JavaScript ecosystem, I focus on building solutions that are scalable, testable, and highly performant.",
+                description: "Over the last <span class=\"text-primary\">four years</span>, my software engineering journey has evolved from building web applications to modernizing enterprise legacy system frontends (.NET Core to React/Next.js) and shipping AI-native workflows.",
                 variant: "normal"
             },
             {
                 icon: "Code2",
                 title: "What I Do Best",
-                description: "I solve complex architectural challenges—whether it's orchestrating real-time data with Socket.io, containerizing systems with Docker, or managing large-scale server state with Tanstack Query.",
+                description: "I solve complex engineering challenges—whether replacing third-party services with in-house <span class=\"text-primary\">WebRTC</span> solutions, building pose assessment workflows with <span class=\"text-primary\">MediaPipe</span>, or integrating LLMs via OpenRouter and Vercel AI SDK.",
                 variant: "highlight"
             },
             {
                 icon: "Heart",
-                title: "Beyond the Code",
-                description: "When I'm not in the IDE, you'll find me <span class=\"text-primary\">traveling</span>, exploring new cuisines, and planning getaways. I believe the best ideas come when you step away, get inspired, and experience the world.",
+                title: "Beyond Engineering",
+                description: "Exploring <span class=\"text-primary\">distributed systems</span>, AI/ML, developer tooling, and new technologies outside my day-to-day stack.",
                 variant: "minimal"
             }
         ],
@@ -72,114 +73,116 @@ export const defaultContent: PortfolioContent = {
         coreWorkItems: [
             {
                 icon: "Code2",
-                title: "Clean & Scalable Code",
-                description: "I write maintainable, scalable, and performance-focused code."
+                title: "AI-Native Development",
+                description: "Leveraging Cursor, Claude, and Codex daily to rapidly ship robust, production-ready software."
             },
             {
                 icon: "Radio",
-                title: "Real-time & Backend Systems",
-                description: "Building robust APIs, real-time features, and distributed systems."
+                title: "Real-Time & WebRTC Systems",
+                description: "Building low-latency video consultation & bidirectional WebSocket signaling infrastructures."
             },
             {
                 icon: "Container",
-                title: "DevOps & Deployment",
-                description: "Docker, AWS, CI/CD, and modern workflows for reliable deployments."
+                title: "Enterprise Modernization",
+                description: "Modernizing legacy enterprise ERP frontends with React, Next.js, TypeScript, and reusable component architectures."
             },
             {
                 icon: "Puzzle",
-                title: "Problem Solving",
-                description: "I break down complex problems and design simple, effective solutions."
+                title: "AI & ML Workflows",
+                description: "Integrating LLMs, OpenRouter, MediaPipe pose tracking, and automated restock decision engines."
             }
         ],
         techStackLabel: "MY CORE TECHNICAL STACK",
         techStack: [
-            { icon: "nodejs", label: "Node.js" },
-            { icon: "express", label: "Express.js" },
-            { icon: "mongodb", label: "MongoDB" },
-            { icon: "postgresql", label: "PostgreSQL" },
             { icon: "nextjs", label: "Next.js" },
             { icon: "react", label: "React" },
             { icon: "typescript", label: "TypeScript" },
+            { icon: "nodejs", label: "Node.js" },
+            { icon: "express", label: "Express.js" },
+            { icon: "webrtc", label: "WebRTC" },
             { icon: "socketio", label: "Socket.io" },
+            { icon: "mongodb", label: "MongoDB" },
+            { icon: "postgresql", label: "PostgreSQL" },
+            { icon: "prisma", label: "Prisma" },
+            { icon: "redis", label: "Redis" },
             { icon: "docker", label: "Docker" },
             { icon: "aws", label: "AWS" },
-            { icon: "tailwind", label: "Tailwind CSS" },
-            { icon: "tanstack", label: "Tanstack Query" },
-            { icon: "redis", label: "Redis" },
-            { icon: "zustand", label: "Zustand" },
-            { icon: "webrtc", label: "WebRTC" },
-            { icon: "llm", label: "LLM Integration" }
+            { icon: "llm", label: "OpenRouter & AI SDK" }
         ],
         paragraphs: [
-            "<em>“I spend 90% of my time architecting scalable backend logic, and the remaining 10% wondering why a `&lt;div&gt;` won't center.”</em>",
-            "Jokes aside, over the last <span class=\"text-primary\">four years</span>, my software engineering journey has evolved from building basic web components to engineering full-scale, AI-integrated enterprise systems. Anchored firmly in the modern JavaScript ecosystem, I focus on the bigger picture: designing solutions that are scalable, testable, and highly performant.",
-            "I am at my best when solving complex architectural puzzles—whether that involves orchestrating real-time data with <span class=\"text-primary\">Socket.io</span>, containerizing applications with <span class=\"text-primary\">Docker</span>, or managing complex server state with <span class=\"text-primary\">Tanstack Query</span>. I genuinely enjoy the craft of engineering, right down to perfecting my own Ubuntu Linux environment with a highly customized terminal setup.",
-            "When I step away from the IDE, my ultimate way to disconnect is by <span class=\"text-primary\">traveling</span>. I love exploring new destinations and planning getaways with my friends. When we aren't on the road, my pursuit of 'perfecting the recipe' shifts to the kitchen, where I enjoy experimenting with local dishes. Beyond that, my time is spent setting intensive learning goals and exploring ways to contribute to the open-source community."
+            "<em>“I build with modern AI tooling (Cursor, Claude, Codex) every day, combining rapid development velocity with rock-solid architectural patterns.”</em>",
+            "Over the last <span class=\"text-primary\">four years</span>, my software engineering career has spanned full-stack web development, real-time media engineering, and AI product development. From replacing Vonage/OpenTok with custom WebRTC video consultation architecture at MyMedicalHub to modernizing legacy .NET ERP frontends at Buyonia Bangladesh, I focus on delivering tangible business value.",
+            "I am at home building full-stack applications with <span class=\"text-primary\">React, Next.js, TypeScript, Node.js</span>, and integrating state-of-the-art AI capabilities through <span class=\"text-primary\">OpenRouter, Vercel AI SDK</span>, and computer vision tools like <span class=\"text-primary\">MediaPipe</span>."
         ],
         skillsHeading: "Here is the core technical stack I leverage daily:",
         profileImage: "/images/me.webp"
     },
 
     skills: [
-        { id: 1, name: "Node.js & Express 5" },
-        { id: 2, name: "MongoDB & Redis" },
-        { id: 3, name: "Next.js 16 & React 19" },
-        { id: 4, name: "TypeScript" },
-        { id: 5, name: "Socket.io & WebRTC" },
-        { id: 6, name: "Docker & AWS" },
-        { id: 7, name: "Tailwind CSS 4" },
-        { id: 8, name: "Tanstack Query & Zustand" },
-        { id: 9, name: "LLM Integration" }
+        { id: 1, name: "React.js & Next.js 16" },
+        { id: 2, name: "TypeScript & Node.js" },
+        { id: 3, name: "WebRTC & Socket.io" },
+        { id: 4, name: "OpenRouter & Vercel AI SDK" },
+        { id: 5, name: "MongoDB & PostgreSQL (Prisma)" },
+        { id: 6, name: "Redis & Docker" },
+        { id: 7, name: "GitHub Actions & AWS" },
+        { id: 8, name: "Tailwind CSS & Component Libraries" },
+        { id: 9, name: "Jest & Automated Testing" }
     ],
 
     detailedSkills: [
         {
-            category: "Frontend Ecosystem",
-            context: "Building fast, interactive, and accessible UIs",
+            category: "Core Stack",
+            context: "Building robust full-stack applications",
             items: [
+                { name: "JavaScript (ES6+)", level: "primary" },
+                { name: "TypeScript", level: "primary" },
                 { name: "React.js", level: "primary" },
                 { name: "Next.js", level: "primary" },
-                { name: "TypeScript", level: "primary" },
-                { name: "Tailwind CSS", level: "secondary" },
-                { name: "Zustand", level: "secondary" },
-                { name: "Tanstack Query", level: "secondary" },
-                { name: "Framer Motion", level: "familiar" }
-            ]
-        },
-        {
-            category: "Backend & APIs",
-            context: "Designing scalable, real-time, and distributed systems",
-            items: [
                 { name: "Node.js", level: "primary" },
                 { name: "Express.js", level: "primary" },
-                { name: "RESTful APIs", level: "secondary" },
-                { name: "Socket.io", level: "secondary" },
-                { name: "WebRTC", level: "familiar" },
-                { name: "GraphQL", level: "familiar" }
+                { name: "MongoDB & Mongoose", level: "primary" },
+                { name: "Redis", level: "primary" },
+                { name: "Docker", level: "primary" },
+                { name: "WebRTC", level: "primary" },
+                { name: "Socket.io", level: "primary" },
+                { name: "GitHub Actions", level: "primary" },
+                { name: "AWS", level: "primary" },
+                { name: "Jest", level: "primary" }
             ]
         },
         {
-            category: "Database & Cloud",
-            context: "Architecting resilient data layers and deployments",
+            category: "Familiar & Secondary",
+            context: "Supporting technologies and framework experience",
             items: [
-                { name: "PostgreSQL", level: "primary" },
-                { name: "MongoDB", level: "primary" },
-                { name: "Redis", level: "secondary" },
-                { name: "AWS (EC2, S3)", level: "secondary" },
-                { name: "Docker", level: "secondary" },
-                { name: "Nginx", level: "familiar" }
+                { name: "PostgreSQL", level: "secondary" },
+                { name: "Prisma", level: "secondary" },
+                { name: "GraphQL", level: "secondary" },
+                { name: "OpenAPI (Swagger)", level: "secondary" },
+                { name: "Redux Toolkit", level: "secondary" },
+                { name: "Zustand", level: "secondary" },
+                { name: "Vite", level: "secondary" },
+                { name: "Python", level: "secondary" },
+                { name: "Linux", level: "secondary" }
             ]
         },
         {
-            category: "Tools & Architecture",
-            context: "Ensuring code quality, performance, and maintainability",
+            category: "AI Engineering",
+            context: "LLM integration, computer vision, and local models",
             items: [
-                { name: "System Design", level: "primary" },
-                { name: "Scalable Architecture", level: "primary" },
-                { name: "CI/CD", level: "secondary" },
-                { name: "Git/Github", level: "secondary" },
-                { name: "Jest", level: "familiar" },
-                { name: "Agile methodologies", level: "familiar" }
+                { name: "OpenRouter", level: "primary" },
+                { name: "Vercel AI SDK", level: "primary" },
+                { name: "Ollama", level: "secondary" },
+                { name: "MediaPipe", level: "secondary" }
+            ]
+        },
+        {
+            category: "AI Development Workflow",
+            context: "AI-native tools and intelligent pair-programming",
+            items: [
+                { name: "Cursor", level: "primary" },
+                { name: "Claude", level: "primary" },
+                { name: "Codex", level: "primary" }
             ]
         }
     ],
@@ -187,41 +190,38 @@ export const defaultContent: PortfolioContent = {
     services: [
         {
             id: 1,
-            title: "Frontend Engineering",
-            description: "Building high-performance frontend systems focused on speed, scalability, and real user engagement.",
+            title: "AI-Native Full-Stack Applications",
+            description: "Building scalable web applications with React, Next.js, and Node.js, integrating AI capabilities and modern development workflows.",
             icon: "LayoutTemplate",
             modalDetails: [
-                "Pixel-perfect translation of Figma/UI designs to responsive code.",
-                "Optimized state management using Redux, Zustand, or Tanstack Query.",
-                "High-performance SEO and Server-Side Rendering with Next.js.",
-                "Rich interactive animations using Framer Motion and GSAP.",
-                "Strict accessibility (a11y) standard compliance."
+                "Full-stack web application development with Next.js App Router, React, and Node.js.",
+                "Integration of OpenRouter, Vercel AI SDK, and custom LLM workflows.",
+                "High-performance Server-Side Rendering (SSR) and SEO strategies.",
+                "Modern UI design using Tailwind CSS and reusable component libraries."
             ]
         },
         {
             id: 2,
-            title: "Backend & APIs",
-            description: "Designing scalable backend systems with real-time capabilities and high reliability under load.",
+            title: "Real-Time & WebRTC Systems",
+            description: "Building real-time video consultation, messaging, signaling, and low-latency communication systems with WebRTC and Socket.io.",
             icon: "Server",
             modalDetails: [
-                "Scalable RESTful and GraphQL API architectures.",
-                "Database design and optimization with MongoDB and PostgreSQL.",
-                "Real-time bidirectional communication using Socket.io and WebRTC.",
-                "High-concurrency caching mechanisms with Redis.",
-                "Secure authentication and authorization (JWT, OAuth)."
+                "In-house WebRTC video consultation architecture replacing third-party services.",
+                "Socket.io signaling server implementation for peer-to-peer video sessions.",
+                "Real-time bidirectional data synchronization with WebSockets & Redis.",
+                "Camera-based pose estimation & landmark tracking integration."
             ]
         },
         {
             id: 3,
-            title: "End-to-End Product Engineering",
-            description: "Taking products from concept to production-ready, scalable systems.",
+            title: "Enterprise Web Applications",
+            description: "Modernizing legacy enterprise systems with React, Next.js, TypeScript, reusable components, and automated CI/CD pipelines.",
             icon: "Layers",
             modalDetails: [
-                "Complete architecture design outlining client-server data flow.",
-                "Seamless integration of complex backend business logic with frontend state.",
-                "Containerization and deployment pipelines using Docker and CI/CD.",
-                "Integration of third-party APIs and Cloud services (AWS, Stripe, LLMs).",
-                "Comprehensive end-to-end functional and unit testing."
+                "Modernizing legacy .NET ERP frontends into React, Next.js, and TypeScript.",
+                "Designing standardized, reusable component libraries across enterprise modules.",
+                "Automated testing with Jest (>95% coverage) and CI/CD via GitHub Actions.",
+                "Containerization with Docker and cloud deployment on AWS."
             ]
         }
     ],
@@ -229,41 +229,117 @@ export const defaultContent: PortfolioContent = {
     projects: [
         {
             id: 0,
-            title: "Smart Inventory System | Full-Stack Enterprise Solution",
-            description: "A high-performance inventory management platform focused on operational excellence, featuring scalable architectures, real-time data streams, and production-ready security protocols.",
+            title: "Smart Inventory & Business Intelligence System",
+            description: "An enterprise inventory platform with real-time stock monitoring, OpenRouter AI restocking recommendations, and Docker containerization.",
             descriptionList: [
-                "Real-time Synchronization Engine: Developed a bi-directional communication layer using Socket.io for live dashboard updates and global activity logs with Undo/Redo functionality.",
-                "Scalable Data Layer: Engineered a robust relational schema using PostgreSQL and Prisma, optimizing for complex transactions and high data integrity.",
-                "Intelligent Restock Queue: Built an automated logic layer that monitors stock thresholds and utilizes AI (LLM) to suggest proactive restock optimizations.",
-                "Security Architecture: Implemented Role-Based Access Control (RBAC), Admin session revocation tools, and Redis-based rate limiting to prevent API abuse.",
-                "Infrastructure: Fully containerized using Docker with multi-stage builds for optimized production images and a seamless CI/CD pipeline."
+                "AI Restocking Assistant: Integrated OpenRouter (openai/gpt-oss-120b:free model) to generate proactive restocking insights and inventory decisions.",
+                "Real-time Updates: Socket.io bidirectional sync for live inventory status and activity logs.",
+                "High Test Coverage: Built a comprehensive Jest suite achieving >95% statement coverage across auth and business logic.",
+                "Enterprise Security: NextAuth.js v5, JWT rotation, role-based access control, and Redis rate limiting."
             ],
-            technologies: ["Next.js 15", "Node.js", "PostgreSQL", "Prisma", "Redis", "Socket.io", "Docker"],
+            technologies: ["Next.js 16", "TypeScript", "Node.js", "Express.js", "MongoDB", "Redis", "Socket.io", "OpenRouter", "Docker", "Jest"],
             links: {
                 github: "https://github.com/sazzad4677/Smart-Inventory-System",
                 external: "https://smart-inventory.sazzad.dev/"
             },
             image: { url: "smart-inventory.png" },
-            featured: true
+            featured: true,
+            isCompanyProject: false,
+            category: "Personal Project"
         },
         {
             id: 1,
-            title: "Elite AI Portfolio | High-Performance Web Architecture",
-            description: "A bleeding-edge, SEO-optimized professional portfolio featuring an integrated AI assistant, cinematic GSAP animations, and a perfect 100/100 Lighthouse performance record.",
+            title: "AI-Powered Developer Portfolio & Chat Assistant",
+            description: "A production-ready developer portfolio featuring an integrated real-time AI assistant, 100/100 Lighthouse performance, and structured context streaming.",
             descriptionList: [
-                "Conversational AI Intelligence: Developed a context-aware AI chat assistant using OpenAI and Vercel AI SDK to interactively present professional experience and skills.",
-                "Lighthouse Perfection: Achieved a flawless 100/100 score across all Lighthouse metrics through aggressive performance optimization and critical path rendering.",
-                "Immersive Motion UX: Engineered cinematic visual transitions and 3D orbital components using GSAP and Framer Motion for a premium, high-fidelity user experience.",
-                "Next-Gen Architecture: Leveraged Next.js 16 (App Router) and React 19 to build a highly scalable, data-driven system with sub-second LCP and zero CLS.",
-                "Accessibility & SEO: Implemented WCAG 2.1 AA standards and advanced JSON-LD structured data for elite search engine indexing and universal accessibility."
+                "Vercel AI SDK Integration: Built a context-aware AI chat assistant powered by OpenRouter and Vercel AI SDK.",
+                "Lighthouse Perfection: Achieved 100/100 scores across Lighthouse Performance, Accessibility, Best Practices, and SEO.",
+                "Modern UX: Cinematic motion transitions with GSAP and Framer Motion."
             ],
-            technologies: ["Next.js 16", "React 19", "TypeScript", "GSAP", "Tailwind CSS v4", "OpenAI", "Framer Motion"],
+            technologies: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4.2", "OpenRouter", "Vercel AI SDK"],
             links: {
-                github: "https://github.com/sazzad4677/myportfolio-sazzad.dev",
+                github: "https://github.com/sazzad4677/Portfolio",
                 external: "https://sazzad.dev/"
             },
             image: { url: "portfolio-v3.png" },
-            featured: true
+            featured: true,
+            isCompanyProject: false,
+            category: "Personal Project"
+        },
+        {
+            id: 2,
+            title: "WebRTC Video Consultation Module",
+            description: "An in-house peer-to-peer video consultation platform built for MyMedicalHub International to replace legacy Vonage/OpenTok video infrastructure.",
+            descriptionList: [
+                "In-House WebRTC Migration: Designed real-time consultation flows between patient and provider portals using WebRTC, replacing Vonage/OpenTok and cutting third-party licensing costs.",
+                "Socket.io Signaling: Implemented low-latency Socket.io signaling to coordinate peer-to-peer video session establishment.",
+                "Performance Optimization: Applied Next.js SSR strategies and code-splitting to optimize video page load speeds."
+            ],
+            technologies: ["Next.js", "TypeScript", "Node.js", "WebRTC", "Socket.io"],
+            links: {
+                external: "https://mymedicalhub.com/"
+            },
+            image: { url: "" },
+            featured: true,
+            isCompanyProject: true,
+            companyName: "MyMedicalHub International",
+            category: "Professional Project"
+        },
+        {
+            id: 3,
+            title: "AI-Assisted Physical Assessment Module",
+            description: "A camera-based pose estimation workflow that tracks patient body positions in real-time during guided healthcare assessments.",
+            descriptionList: [
+                "MediaPipe Pose Tracking: Built an automated pose landmark detection system using MediaPipe to track patient body positioning.",
+                "Pose Matching Logic: Matched detected body landmarks against predefined assessment poses to detect incorrect positioning instantly.",
+                "Step-by-Step Pose Guidance: Delivered dynamic, real-time posture feedback and notifications to healthcare users."
+            ],
+            technologies: ["MediaPipe", "JavaScript", "TypeScript", "React", "Computer Vision"],
+            links: {
+                external: "https://mymedicalhub.com/"
+            },
+            image: { url: "" },
+            featured: true,
+            isCompanyProject: true,
+            companyName: "MyMedicalHub International",
+            category: "Professional Project"
+        },
+        {
+            id: 4,
+            title: "ERP Modernization",
+            description: "Rebuilding legacy .NET enterprise ERP frontend modules across Finance, Merchandising, and User Management into a modern React/Next.js stack.",
+            descriptionList: [
+                "Legacy .NET Refactor: Rebuilt legacy .NET ERP frontend across Finance, Merchandising, and User Management using React, Next.js, and TypeScript.",
+                ".NET Core API Integration: Integrated .NET Core APIs and established component-based data flows to replace legacy full-page reloads.",
+                "GitHub Actions CI/CD: Configured automated testing with GitHub Actions and automated deployments to AWS."
+            ],
+            technologies: ["React", "Next.js", "TypeScript", ".NET Core", "GitHub Actions", "AWS"],
+            links: {
+                external: "https://www.buyoniasoft.com/"
+            },
+            image: { url: "" },
+            featured: true,
+            isCompanyProject: true,
+            companyName: "Buyonia Bangladesh Limited",
+            category: "Professional Project"
+        },
+        {
+            id: 5,
+            title: "ERP Component Library",
+            description: "A standardized, reusable Figma-based UI component library developed across the ERP application to standardize UI patterns.",
+            descriptionList: [
+                "Figma-Based Design System: Built a reusable component library used across the ERP application to standardize UI patterns.",
+                "Accelerated Frontend Velocity: Standardized reusable components to improve UI consistency and maintainability across team workflows."
+            ],
+            technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+            links: {
+                external: "https://www.buyoniasoft.com/"
+            },
+            image: { url: "" },
+            featured: true,
+            isCompanyProject: true,
+            companyName: "Buyonia Bangladesh Limited",
+            category: "Professional Project"
         }
     ],
 
@@ -271,32 +347,32 @@ export const defaultContent: PortfolioContent = {
         {
             id: 1,
             company: "MMHI",
-            name: "MyMedical Hub International",
+            name: "MyMedicalHub International",
             position: "Software Engineer",
-            range: "March 2024 - December 2025",
+            range: "Mar 2024 – Dec 2025",
             website: "https://mymedicalhub.com/",
             description: [
-                "Built responsive patient & provider portals using Next.js and React, increasing engagement and reducing friction in healthcare workflows.",
-                "Engineered dynamic frontend components with complex API integrations, enabling real-time data visualization for healthcare workflows.",
-                "Improved application load time by ~30%, optimizing rendering performance across diverse devices and network conditions.",
-                "Led UI/UX modernization efforts with design teams, significantly elevating visual quality and user satisfaction."
+                "Owned the modernization of the patient-doctor video consultation experience, replacing Vonage/OpenTok with an in-house WebRTC solution.",
+                "Improved application performance through frontend optimization, code-splitting, and Next.js SSR strategies.",
+                "Engineered camera-based physical assessment module with MediaPipe landmark tracking for real-time posture feedback.",
+                "Built responsive patient & provider portals using Next.js, React, and TypeScript."
             ],
-            technologies: ["React", "JavaScript", "HTML/CSS", "Next.js", "Context API", "Responsive Design"]
+            technologies: ["Next.js", "React", "TypeScript", "WebRTC", "Socket.io", "MediaPipe", "Node.js"]
         },
         {
             id: 2,
             company: "Buyonia Bangladesh Limited",
-            name: "Buyonia",
+            name: "Buyonia Bangladesh Limited",
             position: "Software Engineer",
-            range: "April 2022 - March 2024",
+            range: "Apr 2022 – Mar 2024",
             website: "https://www.buyoniasoft.com/",
             description: [
-                "Designed and implemented scalable full-stack applications with TypeScript, Next.js, and Express to optimize internal operations.",
-                "Reduced API response latency by orchestrating MongoDB architectures for complex enterprise data relationships.",
-                "Managed robust server infrastructure on AWS, ensuring high availability for mission-critical systems.",
-                "Mentored junior developers and led technical initiatives to foster a culture of high code quality."
+                "Rebuilt a legacy .NET ERP frontend using React, Next.js, and TypeScript across Finance, Merchandising, and User Management.",
+                "Worked directly with client users to translate reported problems and business requirements into features and reusable components.",
+                "Built a reusable Figma-based component library to standardize UI patterns across the enterprise application.",
+                "Set up GitHub Actions CI/CD for automated testing and production deployments to AWS."
             ],
-            technologies: ["TypeScript", "Next.js", "Express.js", "MongoDB", "AWS", "UI/UX"]
+            technologies: ["React", "Next.js", "TypeScript", ".NET Core", "Tailwind CSS", "GitHub Actions", "AWS"]
         }
     ],
     education: [
@@ -431,6 +507,33 @@ export const defaultContent: PortfolioContent = {
                 liveLink: "https://omnifoodbd.netlify.app/",
             },
         },
+    ],
+
+    awards: [
+        {
+            id: 1,
+            title: "Employee of the Month",
+            organization: "Buyonia Bangladesh Limited",
+            dates: "Aug 2023, Sep 2023",
+            description: "Awarded Employee of the Month twice for outstanding engineering contribution in modernizing the legacy .NET ERP frontend and driving component library adoption."
+        }
+    ],
+
+    professionalDevelopment: [
+        {
+            id: 1,
+            title: "Phitron AI/ML Course",
+            provider: "Phitron",
+            range: "Oct 2026 – Present",
+            focus: "Python for AI/ML, Machine Learning, Deep Learning, and AI/ML projects"
+        },
+        {
+            id: 2,
+            title: "Forward Deployed Engineering Career Track",
+            provider: "Poridhi",
+            range: "May 2026 – Present",
+            focus: "Agentic & Software Engineering, Platform Engineering, System Design, and AI-driven engineering workflows"
+        }
     ],
 
     contact: {

@@ -69,7 +69,7 @@ const Contact: React.FC = () => {
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
                 variants={revealVariants}
-                className="relative pt-24 sm:pt-28 md:pt-32 pb-24 sm:pb-28 md:pb-32 overflow-hidden"
+                className="relative pt-16 sm:pt-20 md:pt-24 pb-20 sm:pb-24 md:pb-28 overflow-hidden"
             >
                 {/* Atmospheric Glow */}
                 <div aria-hidden="true" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none z-0" />
@@ -78,7 +78,7 @@ const Contact: React.FC = () => {
                     <div className="mx-auto max-w-[960px]">
 
                         {/* Header */}
-                        <motion.div variants={itemVariants} className="text-center mb-16 md:mb-20">
+                        <motion.div variants={itemVariants} className="text-center mb-10 md:mb-14">
                             <span className="mb-4 flex items-center justify-center font-mono text-xs tracking-widest text-primary uppercase" aria-hidden="true">
                                 <span className="mr-3 h-px w-6 bg-primary/30" />
                                 08. {content.preHeading}

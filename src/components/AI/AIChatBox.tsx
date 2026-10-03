@@ -1,9 +1,7 @@
-"use client";
-
-import React, { useRef, useEffect, useCallback } from "react";
+import React, { useRef, useEffect, useCallback, useState } from "react";
 import { useChat } from "ai/react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, Sparkles, User, AlertCircle } from "lucide-react";
+import { X, Send, Sparkles, User, AlertCircle, RotateCw, Square } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { cn } from "@/lib/utils";
 
@@ -12,23 +10,121 @@ interface AIChatBoxProps {
     onClose: () => void;
 }
 
-const QUICK_CHIPS = ["Lighthouse score?", "Latest projects", "PostgreSQL migration", "Open to work?"];
+const PRESET_QUESTION_POOL = [
+    "AI Native & WebRTC?",
+    "Open to work & Stack?",
+    "How does Sazzad use Cursor & Claude?",
+    "Tell me about the WebRTC video engine",
+    "How does MediaPipe posture tracking work?",
+    "How did he refactor the legacy .NET ERP?",
+    "Tell me about the Figma component library",
+    "What is the Smart Inventory System?",
+    "What awards did Sazzad win at Buyonia?",
+    "What ongoing courses is Sazzad taking?",
+    "Is Sazzad open for full-time roles?",
+    "What is Sazzad's preferred tech stack?"
+];
 
-// ── Bouncing typing indicator ──────────────────────────────────────────────────
+function getRandomPresetQuestions(count = 4): string[] {
+    const shuffled = [...PRESET_QUESTION_POOL].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+}
+
+// ── Follow-up suggestions generator ─────────────────────────────────────────
+function getFollowUpSuggestions(lastAssistantText: string, lastUserText: string): string[] {
+    const text = (lastAssistantText + " " + lastUserText).toLowerCase();
+
+    if (text.includes("webrtc") || text.includes("mymedicalhub") || text.includes("video")) {
+        return [
+            "Tell me about MediaPipe AI pose tracking",
+            "What tech stack was used at MMHI?",
+            "Is Sazzad available for new roles?"
+        ];
+    }
+    if (text.includes("mediapipe") || text.includes("pose") || text.includes("assessment")) {
+        return [
+            "How does the WebRTC video system work?",
+            "Tell me about Sazzad's AI projects",
+            "What awards has Sazzad won?"
+        ];
+    }
+    if (text.includes("erp") || text.includes("buyonia") || text.includes(".net")) {
+        return [
+            "Tell me about the Figma component library",
+            "What awards did he win at Buyonia?",
+            "What is Sazzad's preferred stack?"
+        ];
+    }
+    if (text.includes("inventory") || text.includes("smart inventory")) {
+        return [
+            "How does Sazzad use LLMs & OpenRouter?",
+            "Tell me about his professional experience",
+            "What are his core skills?"
+        ];
+    }
+    if (text.includes("available") || text.includes("hire") || text.includes("contact") || text.includes("work")) {
+        return [
+            "What are Sazzad's flagship projects?",
+            "How does he use AI in daily workflows?",
+            "What certifications does he hold?"
+        ];
+    }
+
+    return [
+        "Tell me about his WebRTC & MediaPipe work",
+        "How did he modernize the legacy .NET ERP?",
+        "Is Sazzad available for full-time roles?"
+    ];
+}
+
+// ── Fancy Thinking Indicator ──────────────────────────────────────────────────
+const FANCY_THINKING_LINES = [
+    "Thinking...",
+    "Just a sec...",
+    "Connecting to Sazzad's brain...",
+    "Analyzing your question...",
+    "Searching portfolio knowledge...",
+    "Synthesizing answer...",
+    "Formulating response..."
+];
+
 function TypingDots() {
+    const [lineIndex, setLineIndex] = useState(0);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setLineIndex((prev) => (prev + 1) % FANCY_THINKING_LINES.length);
+        }, 2200);
+        return () => clearInterval(timer);
+    }, []);
+
     return (
         <div className="flex items-end gap-2">
-            <div className="h-7 w-7 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mb-0.5">
+            <div className="h-7 w-7 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mb-0.5 animate-pulse">
                 <Sparkles size={13} className="text-primary" />
             </div>
-            <div className="flex items-center gap-1 px-3 py-3 rounded-2xl rounded-bl-sm bg-muted border border-border/40">
-                {[0, 1, 2].map((i) => (
-                    <span
-                        key={i}
-                        className="h-1.5 w-1.5 rounded-full bg-primary/60 animate-bounce"
-                        style={{ animationDelay: `${i * 0.15}s` }}
-                    />
-                ))}
+            <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-2xl rounded-bl-sm bg-muted border border-border/40 shadow-sm">
+                <div className="flex items-center gap-1">
+                    {[0, 1, 2].map((i) => (
+                        <span
+                            key={i}
+                            className="h-1.5 w-1.5 rounded-full bg-primary/70 animate-bounce"
+                            style={{ animationDelay: `${i * 0.15}s` }}
+                        />
+                    ))}
+                </div>
+                <AnimatePresence mode="wait">
+                    <motion.span
+                        key={lineIndex}
+                        initial={{ opacity: 0, y: 3 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -3 }}
+                        transition={{ duration: 0.2 }}
+                        className="text-xs text-muted-foreground font-mono font-medium pl-1"
+                    >
+                        {FANCY_THINKING_LINES[lineIndex]}
+                    </motion.span>
+                </AnimatePresence>
             </div>
         </div>
     );
@@ -81,6 +177,7 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
         isLoading,
         error,
         append,
+        stop,
     } = useChat({
         api: "/api/chat",
         onError: (err) => console.error("[AIChatBox]", err),
@@ -88,6 +185,16 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
 
     const scrollRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
+
+    const [presetQuestions, setPresetQuestions] = useState<string[]>([]);
+
+    const refreshPresetQuestions = useCallback(() => {
+        setPresetQuestions(getRandomPresetQuestions(4));
+    }, []);
+
+    useEffect(() => {
+        refreshPresetQuestions();
+    }, [refreshPresetQuestions]);
 
     // Auto-scroll to bottom
     useEffect(() => {
@@ -179,7 +286,7 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
                     >
                         {/* Empty state */}
                         {messages.length === 0 && !error && (
-                            <div className="flex flex-col items-center justify-center h-full gap-3 text-center pb-4">
+                            <div className="flex flex-col items-center justify-center h-full gap-3 text-center pb-2">
                                 <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center">
                                     <Sparkles size={20} className="text-primary" />
                                 </div>
@@ -187,22 +294,39 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
                                     <p className="text-sm font-medium text-foreground">
                                         Sazzad's Assistant
                                     </p>
-                                    <p className="text-xs text-muted-foreground mt-1 max-w-[180px]">
+                                    <p className="text-xs text-muted-foreground mt-1 max-w-[200px]">
                                         Ask me about his skills, projects, or experience.
                                     </p>
                                 </div>
-                                {/* Quick prompt chips */}
-                                <div className="flex flex-wrap gap-2 justify-center mt-1">
-                                    {QUICK_CHIPS.map((chip) => (
+
+                                {/* Dynamic Preset Prompt Chips */}
+                                <div className="w-full max-w-[320px] space-y-2 mt-1">
+                                    <div className="flex items-center justify-between px-1">
+                                        <span className="text-[10px] font-mono text-muted-foreground/80 uppercase tracking-wider">
+                                            Preset Questions
+                                        </span>
                                         <button
-                                            key={chip}
-                                            onClick={() => handleChipClick(chip)}
-                                            disabled={isLoading}
-                                            className="px-3 py-1.5 rounded-full text-xs border border-border/50 text-muted-foreground hover:text-foreground hover:border-primary/40 hover:bg-primary/5 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                                            onClick={refreshPresetQuestions}
+                                            className="flex items-center gap-1 text-[10px] font-mono text-primary/80 hover:text-primary transition-colors py-0.5 px-1.5 rounded hover:bg-primary/10"
+                                            title="Shuffle preset questions"
+                                            type="button"
                                         >
-                                            {chip}
+                                            <RotateCw size={10} className="shrink-0" />
+                                            <span>Shuffle</span>
                                         </button>
-                                    ))}
+                                    </div>
+                                    <div className="flex flex-wrap gap-1.5 justify-center">
+                                        {presetQuestions.map((chip) => (
+                                            <button
+                                                key={chip}
+                                                onClick={() => handleChipClick(chip)}
+                                                disabled={isLoading}
+                                                className="px-3 py-1.5 rounded-xl text-xs border border-border/60 bg-muted/40 text-muted-foreground hover:text-foreground hover:border-primary/40 hover:bg-primary/5 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed transition-all text-left"
+                                            >
+                                                {chip}
+                                            </button>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         )}
@@ -266,9 +390,6 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
                                                         {children}
                                                     </ol>
                                                 ),
-                                                // All links go through MarkdownLink —
-                                                // mailto → _self (opens mail client)
-                                                // https  → _blank (new tab)
                                                 a: ({ href, children }) => (
                                                     <MarkdownLink href={href}>
                                                         {children}
@@ -287,6 +408,29 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
 
                         {/* Typing indicator */}
                         {isLoading && <TypingDots />}
+
+                        {/* Interactive Follow-Up Suggestions */}
+                        {!isLoading && messages.length > 0 && messages[messages.length - 1].role === "assistant" && (
+                            <div className="pl-9 pr-2 pt-1 pb-2 space-y-2">
+                                <p className="text-[11px] font-mono text-primary/90 flex items-center gap-1 font-semibold">
+                                    <Sparkles size={11} className="text-primary" /> Suggested follow-ups:
+                                </p>
+                                <div className="flex flex-wrap gap-1.5">
+                                    {getFollowUpSuggestions(
+                                        messages[messages.length - 1].content,
+                                        messages.length > 1 ? messages[messages.length - 2].content : ""
+                                    ).map((suggestion, idx) => (
+                                        <button
+                                            key={idx}
+                                            onClick={() => handleChipClick(suggestion)}
+                                            className="text-left px-3 py-1.5 rounded-xl text-xs border border-primary/25 bg-primary/5 text-foreground hover:text-primary hover:border-primary/50 hover:bg-primary/10 active:scale-95 transition-all shadow-sm"
+                                        >
+                                            {suggestion}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
 
                         {/* Error bubble */}
                         {error && (
@@ -311,24 +455,35 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
                                 ref={inputRef}
                                 value={input}
                                 onChange={handleInputChange}
-                                disabled={isLoading}
                                 maxLength={4000}
                                 placeholder={
                                     isLoading
-                                        ? "Assistant is thinking..."
+                                        ? "AI is responding... (type anytime)"
                                         : "Ask about skills, projects..."
                                 }
                                 aria-label="Chat message input"
-                                className="flex-1 h-10 bg-muted border border-border/40 rounded-xl px-3.5 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="flex-1 h-10 bg-muted border border-border/40 rounded-xl px-3.5 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/40 transition-all"
                             />
-                            <button
-                                type="submit"
-                                disabled={!input.trim() || isLoading}
-                                aria-label="Send message"
-                                className="h-10 w-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center shrink-0 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-primary/90 active:scale-95 transition-all"
-                            >
-                                <Send size={15} />
-                            </button>
+                            {isLoading ? (
+                                <button
+                                    type="button"
+                                    onClick={stop}
+                                    aria-label="Stop AI generation"
+                                    title="Stop AI generation"
+                                    className="h-10 w-10 rounded-xl bg-destructive text-destructive-foreground flex items-center justify-center shrink-0 hover:bg-destructive/90 active:scale-95 transition-all shadow-sm"
+                                >
+                                    <Square size={13} className="fill-current" />
+                                </button>
+                            ) : (
+                                <button
+                                    type="submit"
+                                    disabled={!input.trim()}
+                                    aria-label="Send message"
+                                    className="h-10 w-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center shrink-0 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-primary/90 active:scale-95 transition-all"
+                                >
+                                    <Send size={15} />
+                                </button>
+                            )}
                         </div>
                     </form>
                 </motion.div>

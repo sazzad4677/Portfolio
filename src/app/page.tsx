@@ -5,9 +5,10 @@ import Skills from "@/components/Skills/Skills";
 import Services from "@/components/Services/Services";
 import Experience from "@/components/Experience/Experience";
 import Works from "@/components/Works/Works";
-import Archive from "@/components/Archive/Archive";
 import Education from "@/components/Education/Education";
 import Certifications from "@/components/Certifications/Certifications";
+import Awards from "@/components/Awards/Awards";
+import ProfessionalDevelopment from "@/components/ProfessionalDevelopment/ProfessionalDevelopment";
 import Contact from "@/components/Contact/Contact";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
@@ -40,9 +41,10 @@ export default function Page() {
                     <Services />
                     <Experience />
                     <Works />
-                    <Archive />
                     <Education />
                     <Certifications />
+                    <Awards />
+                    <ProfessionalDevelopment />
                     <Contact />
                 </div>
             </div>

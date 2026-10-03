@@ -49,8 +49,17 @@ const Services = () => {
                             className="text-3xl md:text-4xl font-bold tracking-tight text-foreground relative z-10"
                         >
                             <span className="text-primary font-mono text-xl mr-2 absolute -left-10 top-2 opacity-50 hidden sm:inline-block">03.</span>
-                            Services
+                            What I Build
                         </motion.h2>
+                        <motion.p
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.15 }}
+                            className="text-xs sm:text-sm font-mono text-secondary-foreground/75 italic text-center max-w-md"
+                        >
+                            The kinds of products and systems I enjoy building.
+                        </motion.p>
                         <motion.div 
                             initial={{ opacity: 0, width: 0 }}
                             whileInView={{ opacity: 1, width: "60px" }}

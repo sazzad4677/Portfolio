@@ -3,7 +3,7 @@
 import React, { useRef, useCallback, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useAnimationFrame } from "framer-motion";
 import Image from "next/image";
-import { Globe, Briefcase } from "lucide-react";
+import { Globe, Briefcase, Building2 } from "lucide-react";
 import type { HeroTechItem } from "@/lib/types";
 
 /* ─── SVG icon registry (keyed by label) ─── */
@@ -224,8 +224,10 @@ const TechOrbit: React.FC<TechOrbitProps> = ({ profileImage, name, techStack }) 
                             </span>
                             <span className="font-sans text-xs font-bold uppercase tracking-wider text-on-background">Open to Work</span>
                         </div>
-                        <div className="flex items-center gap-3 text-[11px] text-on-surface-variant/60">
+                        <div className="flex items-center gap-2.5 text-[11px] text-on-surface-variant/60">
                             <span className="flex items-center gap-1"><Globe size={11} />Remote</span>
+                            <span className="h-3 w-px bg-on-background/15" />
+                            <span className="flex items-center gap-1"><Building2 size={11} />Office</span>
                             <span className="h-3 w-px bg-on-background/15" />
                             <span className="flex items-center gap-1"><Briefcase size={11} />Full-time</span>
                         </div>

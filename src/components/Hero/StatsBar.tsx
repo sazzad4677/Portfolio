@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion, Variants } from "framer-motion";
-import { Code2, Users, Zap, CheckCircle2 } from "lucide-react";
+import { Code2, Users, Zap, CheckCircle2, Sparkles, Cpu, Layers, Briefcase, Bot } from "lucide-react";
 import type { HeroStat } from "@/lib/types";
 
 const ICON_MAP: Record<string, React.FC<{ size: number }>> = {
@@ -10,6 +10,11 @@ const ICON_MAP: Record<string, React.FC<{ size: number }>> = {
     Users: ({ size }) => <Users size={size} />,
     Zap: ({ size }) => <Zap size={size} />,
     CheckCircle2: ({ size }) => <CheckCircle2 size={size} />,
+    Sparkles: ({ size }) => <Sparkles size={size} />,
+    Cpu: ({ size }) => <Cpu size={size} />,
+    Layers: ({ size }) => <Layers size={size} />,
+    Briefcase: ({ size }) => <Briefcase size={size} />,
+    Bot: ({ size }) => <Bot size={size} />,
 };
 
 const barVariant: Variants = {

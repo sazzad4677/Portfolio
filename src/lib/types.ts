@@ -125,6 +125,9 @@ export interface Project {
         url: string;
     };
     featured: boolean;
+    isCompanyProject?: boolean;
+    companyName?: string;
+    category?: string;
 }
 
 export interface ArchiveProject {
@@ -173,6 +176,22 @@ export interface SeoContent {
     linkedin: string;
 }
 
+export interface Award {
+    id: number;
+    title: string;
+    organization: string;
+    dates: string;
+    description?: string;
+}
+
+export interface ProfessionalDevelopment {
+    id: number;
+    title: string;
+    provider: string;
+    range: string;
+    focus: string;
+}
+
 export interface PortfolioContent {
     hero: HeroContent;
     about: AboutContent;
@@ -184,6 +203,8 @@ export interface PortfolioContent {
     experience: Experience[];
     education: Education[];
     certifications: Certification[];
+    awards?: Award[];
+    professionalDevelopment?: ProfessionalDevelopment[];
     contact: ContactContent;
     seo?: SeoContent;
 }

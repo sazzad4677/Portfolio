@@ -19,11 +19,11 @@ const Certifications = () => {
 
     return (
         <Element name="certifications" className="scroll-anchor">
-            <section id="certifications" className="pt-24 sm:pt-28 md:pt-32 pb-24 sm:pb-28 md:pb-32 overflow-hidden relative">
+            <section id="certifications" className="pt-16 sm:pt-20 md:pt-24 pb-14 sm:pb-16 md:pb-20 overflow-hidden relative">
                 <div className="absolute top-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
 
                 <div className="site-container">
-                    <div className="flex flex-col items-center mb-12 sm:mb-16 md:mb-20 space-y-4 sm:space-y-6">
+                    <div className="flex flex-col items-center mb-8 sm:mb-10 md:mb-12 space-y-3 sm:space-y-4">
                         <motion.h2
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}

@@ -84,6 +84,11 @@ export async function POST(req: Request): Promise<Response> {
     })),
   ];
 
+  // Append strict reminder to the final user message to override any CoT tendencies
+  if (openRouterMessages.length > 0 && openRouterMessages[openRouterMessages.length - 1].role === "user") {
+    openRouterMessages[openRouterMessages.length - 1].content += "\n\n(CRITICAL REMINDER: You MUST NOT output any of your internal thinking, reasoning, or analysis. Provide ONLY your final direct response to the user. If you must think, wrap it in <think> tags.)";
+  }
+
   // ── 6. Send to OpenRouter with automatic model fallback and stream back ──
   const candidateModels = Array.from(
     new Set([
@@ -109,50 +114,59 @@ export async function POST(req: Request): Promise<Response> {
       const stream = new ReadableStream({
         async start(controller) {
           const encoder = new TextEncoder();
-          let accumulated = "";
-          let streamStarted = false;
+          let buffer = "";
+          let inThinkBlock = false;
 
           try {
             for await (const chunk of result) {
               const text = chunk.choices?.[0]?.delta?.content ?? "";
               if (!text) continue;
 
-              accumulated += text;
+              buffer += text;
 
-              // Filter out leading reasoning/analysis steps if emitted by model
-              if (!streamStarted) {
-                if (
-                  accumulated.trim().startsWith("1. Analyze") ||
-                  accumulated.includes("Analyze User Input:") ||
-                  accumulated.includes("Here's a thinking process:")
-                ) {
-                  const parts = accumulated.split("\n\n");
-                  const contentPart = parts.find(
-                    (p) =>
-                      !p.includes("Analyze User Input") &&
-                      !p.includes("Identify Intent") &&
-                      !p.includes("Check Constraints") &&
-                      !p.includes("thinking process") &&
-                      p.trim().length > 0
-                  );
-                  if (contentPart) {
-                    streamStarted = true;
-                    const clean = contentPart.trim();
-                    controller.enqueue(encoder.encode(`0:${JSON.stringify(clean)}\n`));
+              if (inThinkBlock) {
+                const endIndex = buffer.indexOf("</think>");
+                if (endIndex !== -1) {
+                  inThinkBlock = false;
+                  buffer = buffer.slice(endIndex + 8);
+                } else {
+                  if (buffer.length > 7) {
+                    buffer = buffer.slice(-7);
                   }
                   continue;
                 }
-                streamStarted = true;
               }
 
-              let cleanText = text;
-              if (cleanText.includes("<think>")) {
-                cleanText = cleanText.replace(/<think>[\s\S]*?<\/think>/g, "");
-              }
+              while (true) {
+                const startIndex = buffer.indexOf("<think>");
+                if (startIndex !== -1) {
+                  const beforeThink = buffer.slice(0, startIndex);
+                  if (beforeThink) {
+                    controller.enqueue(encoder.encode(`0:${JSON.stringify(beforeThink)}\n`));
+                  }
 
-              if (cleanText) {
-                controller.enqueue(encoder.encode(`0:${JSON.stringify(cleanText)}\n`));
+                  const endIndex = buffer.indexOf("</think>", startIndex + 7);
+                  if (endIndex !== -1) {
+                    buffer = buffer.slice(endIndex + 8);
+                    continue;
+                  } else {
+                    inThinkBlock = true;
+                    buffer = buffer.slice(startIndex + 7);
+                    break;
+                  }
+                } else {
+                  if (buffer.length > 6) {
+                    const safeToFlush = buffer.slice(0, -6);
+                    controller.enqueue(encoder.encode(`0:${JSON.stringify(safeToFlush)}\n`));
+                    buffer = buffer.slice(-6);
+                  }
+                  break;
+                }
               }
+            }
+            
+            if (!inThinkBlock && buffer.length > 0) {
+              controller.enqueue(encoder.encode(`0:${JSON.stringify(buffer)}\n`));
             }
           } catch (streamErr) {
             console.error("[chat/route] Stream error:", streamErr);

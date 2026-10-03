@@ -10,7 +10,7 @@ export const defaultContent: PortfolioContent = {
         description: "Full-stack engineer with <span class=\"font-semibold text-primary\">4+ years</span> of experience building production web applications with React, Next.js, and TypeScript. Modernized legacy .NET ERP frontends, engineered WebRTC telemedicine systems, and integrated AI capabilities using OpenRouter and the Vercel AI SDK.",
         ctaText: "View My Work",
         ctaLink: "mailto:sazzad4677@gmail.com",
-        cvLink: "https://drive.google.com/file/d/1ffycRhonZegQk2VJjfsa_g_AZAOj_5Xw/view?usp=drive_link",
+        cvLink: "https://drive.google.com/file/d/1Yj3LGwTHXSul0GbOS-XTQwKI-XsNumcT/view?usp=sharing",
         videoUrl: "",
         profileImage: "/images/me.webp",
         socials: [

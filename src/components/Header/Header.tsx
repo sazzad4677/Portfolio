@@ -193,7 +193,7 @@ const Header: React.FC = () => {
                                     className="hidden lg:flex flex-row items-center justify-end gap-3 xl:gap-4 lg:ml-4 xl:ml-6"
                                 >
                                     <a
-                                        href="https://drive.google.com/file/d/1ffycRhonZegQk2VJjfsa_g_AZAOj_5Xw/view"
+                                        href="https://drive.google.com/file/d/1Yj3LGwTHXSul0GbOS-XTQwKI-XsNumcT/view?usp=sharing"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="rounded-xl border border-primary px-4 xl:px-5 py-2 font-mono text-xs text-primary transition-all hover:bg-primary/10 whitespace-nowrap"

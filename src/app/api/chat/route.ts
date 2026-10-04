@@ -86,7 +86,7 @@ export async function POST(req: Request): Promise<Response> {
 
   // Append strict reminder to the final user message to override any CoT tendencies
   if (openRouterMessages.length > 0 && openRouterMessages[openRouterMessages.length - 1].role === "user") {
-    openRouterMessages[openRouterMessages.length - 1].content += "\n\n(CRITICAL REMINDER: You MUST NOT output any of your internal thinking, reasoning, or analysis. Provide ONLY your final direct response to the user. If you must think, wrap it in <think> tags.)";
+    openRouterMessages[openRouterMessages.length - 1].content += "\n\n(CRITICAL REMINDER: DO NOT output any of your internal thinking, reasoning, or analysis steps. Provide ONLY your final direct response to the user. Start your response immediately with the final answer.)";
   }
 
   // ── 6. Send to OpenRouter with automatic model fallback and stream back ──

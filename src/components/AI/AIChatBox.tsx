@@ -1,19 +1,16 @@
 import React, { useRef, useEffect, useCallback, useState, useMemo } from "react";
-import { useChat } from "ai/react";
+import { useChat } from "@ai-sdk/react";
+import { DefaultChatTransport, type UIMessage } from "ai";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Send, Sparkles, User, AlertCircle, RotateCw, Square, Copy, Check } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { cn } from "@/lib/utils";
 import type { OpenChatDetail } from "@/lib/aiChatEvents";
 
-/**
- * Sentinel returned by the server when a streaming response aborts before any
- * usable content. The chat client detects this and silently re-POSTs the
- * same history to the next (provider, model) candidate. Capped at
- * `MAX_RETRY_COUNT` to bound latency.
- */
-const RETRY_SENTINEL = "__retry__";
-const MAX_RETRY_COUNT = 2;
+/** Concatenated text parts of a UI message. */
+function messageText(m: UIMessage): string {
+    return m.parts.map((p) => (p.type === "text" ? p.text : "")).join("");
+}
 
 interface AIChatBoxProps {
     isOpen: boolean;
@@ -202,59 +199,29 @@ export default function AIChatBox({
     pendingDetail,
     onPendingConsumed,
 }: AIChatBoxProps) {
-    // Pass the projectSlug to the chat route on every request — including append().
-    const chatBody = useMemo(
-        () => (pendingDetail?.projectSlug ? { projectSlug: pendingDetail.projectSlug } : undefined),
-        [pendingDetail?.projectSlug]
+    // The project this conversation is scoped to. Captured when a seeded
+    // prompt is consumed (the parent clears pendingDetail right after), so
+    // follow-up questions stay scoped until the conversation is reset.
+    const [activeSlug, setActiveSlug] = useState<string | undefined>(undefined);
+    const requestOptions = useMemo(
+        () => (activeSlug ? { body: { projectSlug: activeSlug } } : undefined),
+        [activeSlug]
     );
 
-    const {
-        messages,
-        input,
-        handleInputChange,
-        handleSubmit,
-        isLoading,
-        error,
-        append,
-        stop,
-        setMessages,
-    } = useChat({
-        api: "/api/chat",
-        body: chatBody,
+    const transport = useMemo(() => new DefaultChatTransport({ api: "/api/chat" }), []);
+    const { messages, sendMessage, status, error, stop, setMessages, regenerate, clearError } = useChat({
+        transport,
         onError: (err) => console.error("[AIChatBox]", err),
-        onFinish: (message) => {
-            // Server closed the stream with the retry sentinel — strip the
-            // empty assistant turn and silently re-POST the same user prompt
-            // so the route can try the next (provider, model) candidate.
-            if (
-                message.role === "assistant" &&
-                message.content === RETRY_SENTINEL &&
-                retryCountRef.current < MAX_RETRY_COUNT
-            ) {
-                retryCountRef.current += 1;
-                // Find the most recent user message to re-send.
-                const lastUser = [...messages].reverse().find((m) => m.role === "user");
-                if (!lastUser) return;
-                // Drop the empty assistant turn so the timeline stays clean.
-                setMessages((prev) => prev.filter((m) => !(m.role === "assistant" && m.content === RETRY_SENTINEL)));
-                // Re-append the same prompt. useChat will POST again.
-                append({ role: "user", content: lastUser.content });
-            }
-        },
     });
+    const isLoading = status === "submitted" || status === "streaming";
+    const [input, setInput] = useState("");
 
-    // Reset the retry counter whenever a real new user message lands.
-    // We detect this by watching the last user message id change.
-    const lastUserIdRef = useRef<string | null>(null);
-    const retryCountRef = useRef(0);
-    useEffect(() => {
-        const lastUser = [...messages].reverse().find((m) => m.role === "user");
-        const id = lastUser?.id ?? null;
-        if (id && id !== lastUserIdRef.current) {
-            lastUserIdRef.current = id;
-            retryCountRef.current = 0;
-        }
-    }, [messages]);
+    const send = useCallback(
+        (text: string, slug: string | undefined = activeSlug) => {
+            sendMessage({ text }, slug ? { body: { projectSlug: slug } } : undefined);
+        },
+        [sendMessage, activeSlug]
+    );
 
     const scrollRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -278,10 +245,15 @@ export default function AIChatBox({
     // Consume pendingDetail by appending the prompt once the chat is open.
     useEffect(() => {
         if (!isOpen || !pendingDetail || hasConsumedPending || isLoading) return;
-        append({ role: "user", content: pendingDetail.prompt });
+        // A project-scoped prompt starts a fresh conversation about that project.
+        if (pendingDetail.projectSlug && pendingDetail.projectSlug !== activeSlug) {
+            setMessages([]);
+        }
+        setActiveSlug(pendingDetail.projectSlug ?? activeSlug);
+        send(pendingDetail.prompt, pendingDetail.projectSlug ?? activeSlug);
         setHasConsumedPending(true);
         onPendingConsumed?.();
-    }, [isOpen, pendingDetail, hasConsumedPending, isLoading, append, onPendingConsumed]);
+    }, [isOpen, pendingDetail, hasConsumedPending, isLoading, send, activeSlug, setMessages, onPendingConsumed]);
 
     // Auto-scroll to bottom
     useEffect(() => {
@@ -311,18 +283,24 @@ export default function AIChatBox({
         (e: React.SyntheticEvent<HTMLFormElement>) => {
             e.preventDefault();
             if (!input.trim() || isLoading) return;
-            handleSubmit(e);
+            send(input.trim());
+            setInput("");
         },
-        [input, isLoading, handleSubmit]
+        [input, isLoading, send]
     );
 
     const handleChipClick = useCallback(
         (text: string) => {
             if (isLoading) return;
-            append({ role: "user", content: text });
+            send(text);
         },
-        [isLoading, append]
+        [isLoading, send]
     );
+
+    const retry = useCallback(() => {
+        clearError();
+        regenerate(requestOptions);
+    }, [clearError, regenerate, requestOptions]);
 
     const lastAssistant = [...messages].reverse().find((m) => m.role === "assistant");
 
@@ -345,7 +323,7 @@ export default function AIChatBox({
                             </div>
                             <div>
                                 <p className="text-sm font-medium text-foreground leading-none mb-1">
-                                    {pendingDetail?.projectSlug ? "Project Q&A" : "Sazzad's Assistant"}
+                                    {activeSlug ? "Project Q&A" : "Sazzad's Assistant"}
                                 </p>
                                 <div className="flex items-center gap-1.5">
                                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -359,7 +337,10 @@ export default function AIChatBox({
                             {messages.length > 0 && (
                                 <button
                                     onClick={() => {
+                                        stop();
                                         setMessages([]);
+                                        clearError();
+                                        setActiveSlug(undefined);
                                         setPresetQuestions(getRandomPresetQuestions(4));
                                     }}
                                     aria-label="Reset conversation"
@@ -432,13 +413,11 @@ export default function AIChatBox({
                             </div>
                         )}
 
-                        {messages?.map((m) => {
-                            // Hide the retry sentinel from the user — it
-                            // would otherwise show as a literal "__retry__"
-                            // bubble while the silent re-POST is in flight.
-                            if (m.role === "assistant" && m.content === RETRY_SENTINEL) {
-                                return null;
-                            }
+                        {messages.map((m) => {
+                            const text = messageText(m);
+                            // The assistant turn is created on the first stream
+                            // chunk, before any text — TypingDots covers that gap.
+                            if (m.role === "assistant" && !text) return null;
                             return (
                             <div
                                 key={m.id}
@@ -503,15 +482,15 @@ export default function AIChatBox({
                                                     ),
                                                 }}
                                             >
-                                                {m.content}
+                                                {text}
                                             </ReactMarkdown>
                                         ) : (
-                                            m.content
+                                            text
                                         )}
                                     </div>
                                     {m.role === "assistant" && m === lastAssistant && (
                                         <div className="px-1 self-start">
-                                            <CopyButton text={m.content} />
+                                            <CopyButton text={text} />
                                         </div>
                                     )}
                                 </div>
@@ -519,7 +498,9 @@ export default function AIChatBox({
                         );
                             })}
 
-                        {isLoading && <TypingDots />}
+                        {isLoading && !(lastAssistant && messages[messages.length - 1] === lastAssistant && messageText(lastAssistant)) && (
+                            <TypingDots />
+                        )}
 
                         {!isLoading && messages.length > 0 && messages[messages.length - 1].role === "assistant" && (
                             <div className="pl-9 pr-2 pt-1 pb-2 space-y-2">
@@ -528,8 +509,8 @@ export default function AIChatBox({
                                 </p>
                                 <div className="flex flex-wrap gap-1.5">
                                     {getFollowUpSuggestions(
-                                        messages[messages.length - 1].content,
-                                        messages.length > 1 ? messages[messages.length - 2].content : ""
+                                        messageText(messages[messages.length - 1]),
+                                        messages.length > 1 ? messageText(messages[messages.length - 2]) : ""
                                     ).map((suggestion, idx) => (
                                         <button
                                             key={idx}
@@ -550,6 +531,13 @@ export default function AIChatBox({
                                 </div>
                                 <div className="max-w-[78%] px-3.5 py-2.5 rounded-2xl rounded-bl-sm bg-destructive/10 border border-destructive/20 text-destructive text-sm">
                                     {parseErrorMessage(error)}
+                                    <button
+                                        type="button"
+                                        onClick={retry}
+                                        className="mt-2 flex items-center gap-1 text-[11px] font-mono uppercase tracking-widest opacity-80 hover:opacity-100 transition-opacity"
+                                    >
+                                        <RotateCw size={11} /> Try again
+                                    </button>
                                 </div>
                             </div>
                         )}
@@ -564,12 +552,12 @@ export default function AIChatBox({
                             <input
                                 ref={inputRef}
                                 value={input}
-                                onChange={handleInputChange}
+                                onChange={(e) => setInput(e.target.value)}
                                 maxLength={4000}
                                 placeholder={
                                     isLoading
                                         ? "AI is responding... (type anytime)"
-                                        : pendingDetail?.projectSlug
+                                        : activeSlug
                                         ? "Ask anything about this project..."
                                         : "Ask about skills, projects, AI workflow..."
                                 }

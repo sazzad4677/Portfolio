@@ -2,8 +2,8 @@
  * Provider × model descriptors for the AI chat.
  *
  * The chat is hosted on Vercel Edge (runtime = "edge"). Each provider below
- * exposes the same OpenAI-compatible Chat Completions API, so a single
- * `new OpenAI({ baseURL, apiKey, defaultHeaders })` client works for both.
+ * exposes the same OpenAI-compatible Chat Completions API, so
+ * `languageModelFor()` builds an AI SDK model for either one.
  *
  * Order matters: `getEnabledProviders()` returns the array as-is, and the
  * route iterates providers in order. Vercel AI Gateway is primary because
@@ -21,6 +21,8 @@
  * The probe is fail-open: any network or parse failure leaves the static
  * list in place and logs a single warning.
  */
+
+import { createOpenAICompatible } from "@ai-sdk/openai-compatible";
 
 export interface Provider {
   /** Stable identifier used in log lines. */
@@ -115,7 +117,14 @@ export function getEnabledProviders(): Provider[] {
  * exhausted). The route uses this to break out of the provider's model
  * loop early instead of burning the rest of the candidate list.
  */
+/** AI SDK's APICallError carries the HTTP status separately from the message. */
+function statusOf(err: unknown): number | undefined {
+  const status = (err as { statusCode?: unknown } | null)?.statusCode;
+  return typeof status === "number" ? status : undefined;
+}
+
 export function isCreditExhausted(err: unknown): boolean {
+  if (statusOf(err) === 402) return true;
   const msg = err instanceof Error ? err.message : String(err);
   // Only match a *real* credit/billing exhaustion — not "credit card" or
   // "requires credit on file". A 403 from the gateway for "add a credit
@@ -134,6 +143,8 @@ export function isCreditExhausted(err: unknown): boolean {
  * model loop and move to the next provider.
  */
 export function isConfigError(err: unknown): boolean {
+  const status = statusOf(err);
+  if (status === 401 || status === 403) return true;
   const msg = err instanceof Error ? err.message : String(err);
   return (
     /\b(401|403)\b/.test(msg) ||
@@ -268,7 +279,10 @@ function getProviderFreeModels(provider: Provider): Promise<string[]> {
   // callers await the same promise; on next call after resolution,
   // the `ts > 0` branch above will short-circuit.
   probeCache[provider.name] = { promise, ts: 0, fallback: staticList };
-  return Promise.resolve(staticList);
+  // With no pinned model (OpenRouter's default) the static list is empty, so
+  // returning it would silently disable the provider for this request. Wait
+  // for the probe instead.
+  return staticList.length > 0 ? Promise.resolve(staticList) : promise;
 }
 
 /**
@@ -286,4 +300,14 @@ export async function getEnabledProvidersWithProbedModels(): Promise<Provider[]>
     })
   );
   return probed;
+}
+
+/** Build an AI SDK language model for one (provider, model) candidate. */
+export function languageModelFor(provider: Provider, modelId: string) {
+  return createOpenAICompatible({
+    name: provider.name,
+    baseURL: provider.baseURL,
+    apiKey: provider.apiKey,
+    headers: provider.defaultHeaders,
+  }).chatModel(modelId);
 }

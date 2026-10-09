@@ -116,8 +116,13 @@ export interface Service {
 export interface Project {
     id: number;
     /** Stable slug used by the AI chat to scope a question to a single project. */
-    slug?: string;
+    slug: string;
     title: string;
+    period?: string;
+    /** Two- to three-sentence walkthrough the AI uses for "tell me about this project". */
+    deepDive: string;
+    /** Prompts the AI is well-equipped to answer about this project. */
+    sampleQuestions?: string[];
     description: string;
     descriptionList?: string[];
     technologies: string[];

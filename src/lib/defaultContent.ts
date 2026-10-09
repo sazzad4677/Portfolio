@@ -231,6 +231,14 @@ export const defaultContent: PortfolioContent = {
     projects: [
         {
             id: 0,
+            slug: "smart-inventory",
+            period: "2024",
+            deepDive: "End-to-end inventory platform with live stock monitoring, RBAC, and an LLM-powered restocking recommender. Sazzad wired OpenRouter (openai/gpt-oss-120b:free) into a recommendations pipeline, kept auth tight with NextAuth.js v5 + JWT rotation, and used Redis for rate limiting. Test coverage is >95% on auth and inventory flows.",
+            sampleQuestions: [
+                "How does the OpenRouter recommendation work end-to-end?",
+                "Why NextAuth.js v5 and what did the JWT rotation solve?",
+                "How do you keep >95% test coverage on a feature this large?"
+            ],
             title: "Smart Inventory & Business Intelligence System",
             description: "An enterprise inventory platform with real-time stock monitoring, OpenRouter AI restocking recommendations, and Docker containerization.",
             descriptionList: [
@@ -251,11 +259,19 @@ export const defaultContent: PortfolioContent = {
         },
         {
             id: 1,
+            slug: "ai-portfolio",
+            period: "2024 – Present",
+            deepDive: "This site. A streaming AI assistant with provider fallback (Vercel AI Gateway, then OpenRouter), a system prompt generated from the same content that renders the page, per-visitor rate limiting, and a project-scoped Q&A mode behind every project card.",
+            sampleQuestions: [
+                "How is the assistant built?",
+                "What's the model fallback story?",
+                "How do you stop the assistant from being abused?"
+            ],
             title: "AI-Powered Developer Portfolio & Chat Assistant",
-            description: "A production-ready developer portfolio featuring an integrated real-time AI assistant, 100/100 Lighthouse performance, and structured context streaming.",
+            description: "A production-ready developer portfolio featuring an integrated real-time AI assistant with provider fallback, rate limiting, and project-scoped answers.",
             descriptionList: [
                 "Vercel AI SDK Integration: Built a context-aware AI chat assistant powered by OpenRouter and Vercel AI SDK.",
-                "Lighthouse Perfection: Achieved 100/100 scores across Lighthouse Performance, Accessibility, Best Practices, and SEO.",
+                "Single Source of Truth: The AI's knowledge base is generated from the same typed content that renders the page.",
                 "Modern UX: Cinematic motion transitions with GSAP and Framer Motion."
             ],
             technologies: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4.2", "OpenRouter", "Vercel AI SDK"],
@@ -270,6 +286,14 @@ export const defaultContent: PortfolioContent = {
         },
         {
             id: 2,
+            slug: "webrtc-consultation",
+            period: "Mar 2024 – Dec 2025",
+            deepDive: "In-house WebRTC video consultation engine that replaced a paid Vonage/OpenTok integration. Sazzad designed the signaling flow with Socket.io, negotiated peer connections, and tuned Next.js SSR to keep the consultation page fast on slow hospital networks. Outcome: lower per-session cost and full control over the media pipeline.",
+            sampleQuestions: [
+                "Why did you replace Vonage with your own WebRTC stack?",
+                "How does the Socket.io signaling flow work?",
+                "What was the hardest part of the migration?"
+            ],
             title: "WebRTC Video Consultation Module",
             description: "An in-house peer-to-peer video consultation platform built for MyMedicalHub International to replace legacy Vonage/OpenTok video infrastructure.",
             descriptionList: [
@@ -289,6 +313,14 @@ export const defaultContent: PortfolioContent = {
         },
         {
             id: 3,
+            slug: "mediapipe-assessment",
+            period: "Mar 2024 – Dec 2025",
+            deepDive: "A camera-only physical assessment workflow: MediaPipe Pose runs in the browser, emits body landmark coordinates per frame, and Sazzad's logic compares them against clinician-defined reference poses to give real-time posture feedback. No server-side video processing — the AI runs entirely on-device for privacy and latency.",
+            sampleQuestions: [
+                "How accurate is the pose matching?",
+                "Why run MediaPipe in the browser instead of on a server?",
+                "How do you define the reference poses?"
+            ],
             title: "AI-Assisted Physical Assessment Module",
             description: "A camera-based pose estimation workflow that tracks patient body positions in real-time during guided healthcare assessments.",
             descriptionList: [
@@ -308,6 +340,14 @@ export const defaultContent: PortfolioContent = {
         },
         {
             id: 4,
+            slug: "erp-modernization",
+            period: "Apr 2022 – Mar 2024",
+            deepDive: "Multi-quarter modernization of a legacy .NET ERP: Finance, Merchandising, and User Management modules were rebuilt as a React/Next.js/TypeScript SPA. Sazzad collaborated with end users to translate pain points into features, set up GitHub Actions CI/CD for AWS, and shipped a reusable component library so the wider team could move faster.",
+            sampleQuestions: [
+                "How did you migrate from .NET pages to React?",
+                "What CI/CD pipeline did you set up?",
+                "How did you keep business users happy during the rebuild?"
+            ],
             title: "ERP Modernization",
             description: "Rebuilding legacy .NET enterprise ERP frontend modules across Finance, Merchandising, and User Management into a modern React/Next.js stack.",
             descriptionList: [
@@ -328,6 +368,12 @@ export const defaultContent: PortfolioContent = {
         {
             id: 5,
             slug: "erp-component-library",
+            period: "Apr 2022 – Mar 2024",
+            deepDive: "A Figma-first design system that turned into the shared React component library used across the modernized ERP. Components were versioned with the Figma source of truth so design and code never drifted.",
+            sampleQuestions: [
+                "How do you keep Figma and code in sync?",
+                "What components shipped first?"
+            ],
             title: "ERP Component Library",
             description: "A standardized, reusable Figma-based UI component library developed across the ERP application to standardize UI patterns.",
             descriptionList: [

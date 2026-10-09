@@ -48,7 +48,6 @@ ${focusedBlock}
 - **Computer Vision**: Camera-based physical assessment using **MediaPipe** pose landmarks — runs on-device for privacy and latency.
 - **Enterprise Modernization**: Rebuilt legacy **.NET ERP** frontends (Finance, Merchandising, User Management) with **React / Next.js / TypeScript** and a Figma-based component library. Set up **GitHub Actions** CI/CD to **AWS**.
 - **AI in Production**: Smart Inventory & BI System uses **OpenRouter (openai/gpt-oss-120b:free)** for restocking recommendations, **NextAuth.js v5** with JWT rotation, **Redis** rate limiting, and **Jest** with >95% coverage.
-- **Performance**: This portfolio is 100/100 across Performance, Accessibility, Best Practices, and SEO.
 
 ## RESPONSE RULES
 ### DO

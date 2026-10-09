@@ -217,7 +217,7 @@ const TechOrbit: React.FC<TechOrbitProps> = ({ profileImage, name, techStack }) 
                     <motion.div initial={{ opacity: 0, y: 16, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }}
                         transition={{ delay: 1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                         className="absolute z-30 rounded-xl border border-on-background/10 bg-[hsl(var(--surface-hsl)/0.85)] px-3 py-2.5 shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-4 sm:py-3"
-                        style={{ top: '1%', right: '1%', bottom: 'auto' }}>
+                        style={{ bottom: '2%', right: '1%', left: 'auto', top: 'auto' }}>
                         <div className="mb-1.5 flex items-center gap-2">
                             <span className="relative flex h-2 w-2">
                                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />

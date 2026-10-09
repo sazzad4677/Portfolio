@@ -80,15 +80,19 @@ const Hero: React.FC = () => {
                             dangerouslySetInnerHTML={{ __html: content.description }}
                         />
 
-                        {/* CTA buttons */}
-                        <motion.div variants={item} className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:mt-10 sm:gap-4 lg:justify-start">
+                        {/* CTA buttons — stacked full-width on xs to avoid overflow, side-by-side from sm+ */}
+                        <motion.div
+                            variants={item}
+                            className="mt-8 flex w-full flex-col items-stretch gap-3 sm:mt-10 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:justify-center sm:gap-3 lg:justify-start"
+                        >
                             <motion.div
                                 whileHover={{ scale: 1.04, y: -2 }}
                                 whileTap={{ scale: 0.97 }}
+                                className="w-full sm:w-auto"
                             >
                                 <a
                                     href="#projects"
-                                    className="group relative inline-flex cursor-pointer items-center gap-2 overflow-hidden rounded-xl bg-primary px-5 py-3 font-sans text-sm font-bold text-primary-foreground shadow-lg shadow-primary/25 transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/35 sm:gap-2.5 sm:px-6 sm:py-3.5"
+                                    className="group relative inline-flex w-full cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-xl bg-primary px-5 py-3 font-sans text-sm font-bold text-primary-foreground shadow-lg shadow-primary/25 transition-shadow duration-300 hover:shadow-xl hover:shadow-primary/35 sm:w-auto sm:gap-2.5 sm:px-6 sm:py-3.5"
                                     aria-label="View my featured projects"
                                 >
                                     <Code2 size={16} aria-hidden="true" />
@@ -111,7 +115,7 @@ const Hero: React.FC = () => {
                                     }}
                                     whileHover={{ scale: 1.04, y: -2 }}
                                     whileTap={{ scale: 0.97 }}
-                                    className="group inline-flex items-center gap-2 rounded-xl border border-primary/40 bg-primary/[0.08] px-5 py-3 font-sans text-sm font-semibold text-primary backdrop-blur-md transition-all duration-300 hover:border-primary/60 hover:bg-primary/15 sm:gap-2.5 sm:px-6 sm:py-3.5"
+                                    className="group inline-flex w-full items-center justify-center gap-2 rounded-xl border border-primary/40 bg-primary/[0.08] px-5 py-3 font-sans text-sm font-semibold text-primary backdrop-blur-md transition-all duration-300 hover:border-primary/60 hover:bg-primary/15 sm:w-auto sm:gap-2.5 sm:px-6 sm:py-3.5"
                                     aria-label="Open the AI assistant pre-seeded with a question"
                                 >
                                     <Sparkles size={15} aria-hidden="true" className="transition-transform group-hover:rotate-12" />
@@ -124,11 +128,12 @@ const Hero: React.FC = () => {
                                 rel="noopener noreferrer"
                                 whileHover={{ scale: 1.04, y: -2 }}
                                 whileTap={{ scale: 0.97 }}
-                                className="inline-flex items-center gap-2 rounded-xl border border-border/40 bg-surface/30 px-5 py-3 font-sans text-sm font-semibold text-on-background backdrop-blur-md transition-all duration-300 hover:border-primary/40 hover:bg-surface/50 sm:gap-2.5 sm:px-6 sm:py-3.5"
+                                className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-border/40 bg-surface/30 px-5 py-3 font-sans text-sm font-semibold text-on-background backdrop-blur-md transition-all duration-300 hover:border-primary/40 hover:bg-surface/50 sm:w-auto sm:gap-2.5 sm:px-6 sm:py-3.5"
                                 aria-label="Download Resume (opens in a new tab)"
                             >
                                 <Download size={16} aria-hidden="true" />
-                                Download Resume
+                                <span className="sm:hidden">Resume</span>
+                                <span className="hidden sm:inline">Download Resume</span>
                             </motion.a>
                         </motion.div>
 

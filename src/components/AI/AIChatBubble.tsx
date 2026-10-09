@@ -51,7 +51,8 @@ export default function AIChatBubble() {
 
     return (
         <>
-            <div className="fixed bottom-8 right-6 lg:right-12 z-[100] flex flex-col items-end gap-3">
+            {/* Bubble: tucks in tighter on phones so it doesn't crowd the viewport edge */}
+            <div className="fixed bottom-8 right-4 sm:right-6 lg:right-12 z-[100] flex flex-col items-end gap-3">
 
                 {/* ── Greeting Toast ── */}
                 <AnimatePresence>

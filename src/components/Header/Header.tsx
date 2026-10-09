@@ -114,10 +114,11 @@ const Header: React.FC = () => {
                         href="https://drive.google.com/file/d/1ffycRhonZegQk2VJjfsa_g_AZAOj_5Xw/view"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center rounded-lg border border-primary/40 px-3.5 h-11 font-mono text-[10px] font-bold text-primary transition-all hover:bg-primary/10 active:scale-95 whitespace-nowrap bg-primary/5"
+                        className="flex items-center justify-center rounded-lg border border-primary/40 px-2.5 h-11 font-mono text-[10px] font-bold text-primary transition-all hover:bg-primary/10 active:scale-95 whitespace-nowrap bg-primary/5 sm:px-3.5"
                         aria-label="Download Resume (opens in a new tab)"
                     >
-                        Download Resume
+                        <span className="sm:hidden">CV</span>
+                        <span className="hidden sm:inline">Resume</span>
                     </a>
 
                     <div className="flex items-center">

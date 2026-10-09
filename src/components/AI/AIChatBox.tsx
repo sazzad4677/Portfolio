@@ -294,7 +294,7 @@ export default function AIChatBox({
                     exit={{ opacity: 0, scale: 0.94, y: 16 }}
                     transition={{ type: "spring", stiffness: 300, damping: 26 }}
                     onClick={(e) => e.stopPropagation()}
-                    className="fixed bottom-28 right-4 lg:right-[calc(8rem+1rem)] z-[100] w-[calc(100vw-2rem)] sm:w-[380px] h-[520px] rounded-2xl border border-border/50 bg-background shadow-2xl flex flex-col overflow-hidden"
+                    className="fixed bottom-28 right-4 left-4 lg:left-auto lg:right-[calc(8rem+1rem)] z-[100] w-auto lg:w-[min(380px,calc(100vw-2rem))] h-[min(520px,calc(100dvh-9rem))] max-h-[70vh] rounded-2xl border border-border/50 bg-background shadow-2xl flex flex-col overflow-hidden"
                 >
                     {/* Header */}
                     <div className="flex items-center justify-between px-4 py-3 border-b border-border/40 bg-background shrink-0">

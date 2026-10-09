@@ -4,9 +4,10 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import { motion, Variants, useMotionValue } from "framer-motion";
 import { Element } from "react-scroll";
-import { ExternalLink, Building2, Video, Activity, Palette, Lock, Cpu } from "lucide-react";
+import { ExternalLink, Building2, Video, Activity, Palette, Lock, Cpu, Sparkles } from "lucide-react";
 import { GitHubIcon } from "@/components/ui/brand-icons";
 import contentManager from "@/lib/contentManager";
+import { openAIChat } from "@/lib/aiChatEvents";
 import { Project } from "@/lib/types";
 
 import { TechnicalVisual } from "./TechnicalVisual";
@@ -183,13 +184,14 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
                             ))}
                         </ul>
 
-                        <div className="flex flex-wrap items-center gap-2 sm:gap-4 pt-4 border-t border-border/20">
+                        {/* Footer chips: stacked on xs, inline from sm+ */}
+                        <div className="flex flex-col items-stretch gap-2 pt-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-2 lg:gap-3 border-t border-border/20">
                             {project.links.github && (
                                 <a
                                     href={project.links.github}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="group flex items-center gap-2 rounded-lg bg-surface/60 px-4 py-2.5 text-xs font-mono text-foreground transition-all duration-300 hover:bg-primary/5 hover:text-primary hover:border-primary/30 border border-border/40 backdrop-blur-sm shadow-sm"
+                                    className="group inline-flex w-full items-center justify-center gap-2 rounded-lg bg-surface/60 px-4 py-2.5 text-xs font-mono text-foreground transition-all duration-300 hover:bg-primary/5 hover:text-primary hover:border-primary/30 border border-border/40 backdrop-blur-sm shadow-sm sm:w-auto sm:justify-start"
                                     aria-label={`View source code for ${project.title} on GitHub`}
                                 >
                                     <GitHubIcon size={16} className="transition-transform group-hover:-translate-y-0.5 text-primary/80 group-hover:text-primary" aria-hidden="true" />
@@ -201,7 +203,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
                                     href={project.links.external}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="group flex items-center gap-2 rounded-lg bg-primary/10 px-3 py-2 text-xs font-mono text-primary transition-all duration-300 hover:bg-primary/20 hover:scale-[1.02] border border-primary/20 shadow-md shadow-primary/5"
+                                    className="group inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary/10 px-3 py-2 text-xs font-mono text-primary transition-all duration-300 hover:bg-primary/20 hover:scale-[1.02] border border-primary/20 shadow-md shadow-primary/5 sm:w-auto sm:justify-start"
                                     aria-label={project.isCompanyProject ? `Visit ${project.companyName || 'Company'} website` : `View live demo of ${project.title}`}
                                 >
                                     <ExternalLink size={16} className="transition-transform group-hover:-translate-y-0.5" aria-hidden="true" />
@@ -209,6 +211,23 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
                                         {project.isCompanyProject ? "Company Website" : "Live Demo"}
                                     </span>
                                 </a>
+                            )}
+                            {project.slug && (
+                                <button
+                                    type="button"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        openAIChat({
+                                            prompt: `Tell me more about ${project.title}`,
+                                            projectSlug: project.slug,
+                                        });
+                                    }}
+                                    className="group inline-flex w-full items-center justify-center gap-2 rounded-lg border border-amber-400/30 bg-amber-400/[0.08] px-3 py-2 text-xs font-mono text-amber-300 transition-all duration-300 hover:border-amber-400/60 hover:bg-amber-400/15 hover:scale-[1.02] shadow-sm sm:ml-auto sm:w-auto sm:justify-start"
+                                    aria-label={`Ask the AI about ${project.title}`}
+                                >
+                                    <Sparkles size={14} className="transition-transform group-hover:rotate-12" aria-hidden="true" />
+                                    <span className="font-semibold">Ask AI about this</span>
+                                </button>
                             )}
                         </div>
                     </div>

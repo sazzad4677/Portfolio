@@ -5,10 +5,30 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquareText, Sparkles, X } from "lucide-react";
 import AIChatBox from "./AIChatBox";
 import { cn } from "@/lib/utils";
+import { OPEN_AI_CHAT_EVENT, type OpenChatDetail } from "@/lib/aiChatEvents";
+
+const GREETING_TIPS: { text: string; prompt: string }[] = [
+    { text: "Try: How does Sazzad use Cursor & Claude daily?", prompt: "How does Sazzad use Cursor & Claude in his daily workflow?" },
+    { text: "Try: What's the WebRTC video engine?", prompt: "Tell me about the WebRTC video consultation engine" },
+    { text: "Try: How does MediaPipe posture tracking work?", prompt: "How does the MediaPipe physical assessment work?" },
+    { text: "Try: Is Sazzad open for full-time roles?", prompt: "Is Sazzad open for full-time roles?" },
+    { text: "Try: How did the .NET ERP refactor go?", prompt: "How did Sazzad refactor the legacy .NET ERP?" },
+    { text: "Try: What's the Smart Inventory & BI stack?", prompt: "What is the Smart Inventory & BI System?" },
+];
+
+function pickTip(): { text: string; prompt: string } {
+    return GREETING_TIPS[Math.floor(Math.random() * GREETING_TIPS.length)];
+}
 
 export default function AIChatBubble() {
     const [isOpen, setIsOpen] = useState(false);
     const [showGreeting, setShowGreeting] = useState(false);
+    const [tip, setTip] = useState<{ text: string; prompt: string } | null>(null);
+    const [pendingDetail, setPendingDetail] = useState<OpenChatDetail | null>(null);
+
+    useEffect(() => {
+        setTip(pickTip());
+    }, []);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -17,13 +37,26 @@ export default function AIChatBubble() {
         return () => clearTimeout(timer);
     }, [isOpen]);
 
+    // External entry points (hero "Ask the AI", project "Ask AI about this", etc.)
+    useEffect(() => {
+        const handler = (e: Event) => {
+            const detail = (e as CustomEvent<OpenChatDetail>).detail;
+            setPendingDetail(detail);
+            setIsOpen(true);
+            setShowGreeting(false);
+        };
+        window.addEventListener(OPEN_AI_CHAT_EVENT, handler);
+        return () => window.removeEventListener(OPEN_AI_CHAT_EVENT, handler);
+    }, []);
+
     return (
         <>
-            <div className="fixed bottom-8 right-6 lg:right-12 z-[100] flex flex-col items-end gap-3">
+            {/* Bubble: tucks in tighter on phones so it doesn't crowd the viewport edge */}
+            <div className="fixed bottom-8 right-4 sm:right-6 lg:right-12 z-[100] flex flex-col items-end gap-3">
 
                 {/* ── Greeting Toast ── */}
                 <AnimatePresence>
-                    {showGreeting && !isOpen && (
+                    {showGreeting && !isOpen && tip && (
                         <motion.div
                             initial={{ opacity: 0, x: 16, scale: 0.92 }}
                             animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -34,15 +67,11 @@ export default function AIChatBubble() {
                             onKeyDown={(e) => {
                                 if (e.key === "Enter" || e.key === " ") {
                                     e.preventDefault();
-                                    setIsOpen(true);
-                                    setShowGreeting(false);
+                                    openAIChatDirectly(tip.prompt);
                                 }
                             }}
-                            className="relative mb-2 bg-background border border-border/50 rounded-2xl py-3 px-4 shadow-lg max-w-[220px] cursor-pointer"
-                            onClick={() => {
-                                setIsOpen(true);
-                                setShowGreeting(false);
-                            }}
+                            className="relative mb-2 bg-background border border-border/50 rounded-2xl py-3 px-4 shadow-lg max-w-[260px] cursor-pointer"
+                            onClick={() => openAIChatDirectly(tip.prompt)}
                         >
                             {/* Dismiss button */}
                             <button
@@ -59,7 +88,7 @@ export default function AIChatBubble() {
                             <div className="flex items-center gap-2.5">
                                 <span className="h-2 w-2 rounded-full bg-primary animate-pulse shrink-0" />
                                 <p className="text-xs text-foreground leading-relaxed">
-                                    Hi! Ask me anything about Sazzad's work.
+                                    {tip.text}
                                 </p>
                             </div>
                         </motion.div>
@@ -77,7 +106,7 @@ export default function AIChatBubble() {
                         setIsOpen(!isOpen);
                         setShowGreeting(false);
                     }}
-                    aria-label={isOpen ? "Close assistant" : "Open assistant"}
+                    aria-label={isOpen ? "Close AI assistant" : "Ask the AI about Sazzad"}
                     className={cn(
                         "relative h-14 w-14 rounded-full flex items-center justify-center shadow-xl transition-colors duration-300",
                         isOpen
@@ -124,7 +153,16 @@ export default function AIChatBubble() {
             <AIChatBox
                 isOpen={isOpen}
                 onClose={() => setIsOpen(false)}
+                pendingDetail={pendingDetail}
+                onPendingConsumed={() => setPendingDetail(null)}
             />
         </>
     );
+
+    // Helper: forward a pre-seeded prompt to the chat box when the greeting toast is clicked.
+    function openAIChatDirectly(prompt: string) {
+        setPendingDetail({ prompt });
+        setIsOpen(true);
+        setShowGreeting(false);
+    }
 }

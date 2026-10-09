@@ -26,6 +26,9 @@ export interface HeroContent {
     description: string;
     ctaText: string;
     ctaLink: string;
+    /** Optional secondary CTA — 'ai-chat' opens the in-page AI assistant pre-seeded. */
+    ctaLinkSecondary?: string;
+    secondaryCtaText?: string;
     cvLink?: string;
     videoUrl?: string;
     profileImage: string;
@@ -112,6 +115,8 @@ export interface Service {
 
 export interface Project {
     id: number;
+    /** Stable slug used by the AI chat to scope a question to a single project. */
+    slug?: string;
     title: string;
     description: string;
     descriptionList?: string[];

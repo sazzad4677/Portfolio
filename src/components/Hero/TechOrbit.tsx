@@ -151,8 +151,9 @@ const TechOrbit: React.FC<TechOrbitProps> = ({ profileImage, name, techStack }) 
     const cy = BASE / 2;
 
     return (
-        /* Responsive wrapper: CSS scales the fixed-size orbit container */
-        <div className="w-[320px] h-[320px] sm:w-[400px] sm:h-[400px] md:w-[460px] md:h-[460px] lg:w-[380px] lg:h-[380px] xl:w-[460px] xl:h-[460px] 2xl:w-[520px] 2xl:h-[520px]">
+        /* Responsive wrapper: --orbit-scale matches wrapper/inner ratio so the 520px
+           inner container fits the wrapper exactly at every breakpoint (no clipping). */
+        <div className="w-[320px] h-[320px] [--orbit-scale:0.62] sm:w-[400px] sm:h-[400px] sm:[--orbit-scale:0.77] md:w-[460px] md:h-[460px] md:[--orbit-scale:0.88] lg:w-[380px] lg:h-[380px] lg:[--orbit-scale:0.73] xl:w-[460px] xl:h-[460px] xl:[--orbit-scale:0.88] 2xl:w-[520px] 2xl:h-[520px] 2xl:[--orbit-scale:1]">
             <motion.div style={{ x: mouseX, y: mouseY }} className="relative h-full w-full">
                 <div
                     ref={containerRef}
@@ -215,8 +216,8 @@ const TechOrbit: React.FC<TechOrbitProps> = ({ profileImage, name, techStack }) 
 
                     <motion.div initial={{ opacity: 0, y: 16, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }}
                         transition={{ delay: 1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                        className="absolute z-30 rounded-xl border border-on-background/10 bg-[hsl(var(--surface-hsl)/0.85)] px-4 py-3 shadow-2xl shadow-black/20 backdrop-blur-xl"
-                        style={{ bottom: '4%', right: '4%' }}>
+                        className="absolute z-30 rounded-xl border border-on-background/10 bg-[hsl(var(--surface-hsl)/0.85)] px-3 py-2.5 shadow-2xl shadow-black/20 backdrop-blur-xl sm:px-4 sm:py-3"
+                        style={{ top: '1%', right: '1%', bottom: 'auto' }}>
                         <div className="mb-1.5 flex items-center gap-2">
                             <span className="relative flex h-2 w-2">
                                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />

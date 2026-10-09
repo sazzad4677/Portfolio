@@ -107,7 +107,7 @@ const Hero: React.FC = () => {
                                     onClick={() => {
                                         if (content.ctaLinkSecondary === "ai-chat" || !content.ctaLinkSecondary) {
                                             openAIChat({
-                                                prompt: "Tell me about Sazzad's most impressive AI-native project",
+                                                prompt: "Tell me more about Sazzad, including his background, personality, interests, skills, professional experience, and achievements.",
                                             });
                                         } else if (content.ctaLinkSecondary.startsWith("#")) {
                                             window.location.hash = content.ctaLinkSecondary.slice(1);

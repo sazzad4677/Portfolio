@@ -82,7 +82,7 @@ npm install
 
 # 3. Configure Environment
 cp .env.local.example .env.local
-# Add your OPENAI_API_KEY to .env.local
+# Add your AI_GATEWAY_API_KEY (preferred) and/or OPENROUTER_API_KEY to .env.local
 ```
 
 ### Development
@@ -91,6 +91,15 @@ cp .env.local.example .env.local
 npm run dev
 ``` 
 Navigate to [http://localhost:3000](http://localhost:3000).
+
+### 🤖 AI Model Hosting
+
+The chat uses **Vercel AI Gateway** as its primary model host, with **OpenRouter** as a secondary fallback. The route in `src/app/api/chat/route.ts` iterates a cost-ordered list of (provider, model) pairs, with a 30s in-memory LRU cache for repeat questions and a silent client-side retry on mid-stream dropouts. To set it up:
+
+1. **Vercel AI Gateway** (preferred) — `vercel.com/dashboard → AI Gateway → API Keys → Create`. Paste the key as `AI_GATEWAY_API_KEY` in `.env.local`. Free tier ships with **$5/month of credits** and no card required. Eligibility per model is dynamic, so check the live **Free Tier** list at `vercel.com/dashboard → AI Gateway → Models` before pinning `AI_GATEWAY_MODEL` — the default in `.env.local.example` is `openai/gpt-4o-mini` (reliably free-tier eligible), but you can swap it to any currently-eligible model without redeploying.
+2. **OpenRouter** (fallback) — only used if the gateway 429s, 5xx's, or returns **402** (credits exhausted, which short-circuits the rest of the gateway list). Get a free key at `openrouter.ai/keys` and set `OPENROUTER_API_KEY`. The route also runs a live probe of each provider's `GET /v1/models` once per hour to auto-discover current free models and drop dead ones.
+
+**Set a $5 budget cap** under the Vercel dashboard so a traffic spike can't burn past the free tier — the route will detect 402 and silently fall through to OpenRouter, but the cap is the real safety net.
 
 ---
 

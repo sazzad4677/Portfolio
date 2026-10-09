@@ -6,6 +6,15 @@ import ReactMarkdown from "react-markdown";
 import { cn } from "@/lib/utils";
 import type { OpenChatDetail } from "@/lib/aiChatEvents";
 
+/**
+ * Sentinel returned by the server when a streaming response aborts before any
+ * usable content. The chat client detects this and silently re-POSTs the
+ * same history to the next (provider, model) candidate. Capped at
+ * `MAX_RETRY_COUNT` to bound latency.
+ */
+const RETRY_SENTINEL = "__retry__";
+const MAX_RETRY_COUNT = 2;
+
 interface AIChatBoxProps {
     isOpen: boolean;
     onClose: () => void;
@@ -213,7 +222,39 @@ export default function AIChatBox({
         api: "/api/chat",
         body: chatBody,
         onError: (err) => console.error("[AIChatBox]", err),
+        onFinish: (message) => {
+            // Server closed the stream with the retry sentinel — strip the
+            // empty assistant turn and silently re-POST the same user prompt
+            // so the route can try the next (provider, model) candidate.
+            if (
+                message.role === "assistant" &&
+                message.content === RETRY_SENTINEL &&
+                retryCountRef.current < MAX_RETRY_COUNT
+            ) {
+                retryCountRef.current += 1;
+                // Find the most recent user message to re-send.
+                const lastUser = [...messages].reverse().find((m) => m.role === "user");
+                if (!lastUser) return;
+                // Drop the empty assistant turn so the timeline stays clean.
+                setMessages((prev) => prev.filter((m) => !(m.role === "assistant" && m.content === RETRY_SENTINEL)));
+                // Re-append the same prompt. useChat will POST again.
+                append({ role: "user", content: lastUser.content });
+            }
+        },
     });
+
+    // Reset the retry counter whenever a real new user message lands.
+    // We detect this by watching the last user message id change.
+    const lastUserIdRef = useRef<string | null>(null);
+    const retryCountRef = useRef(0);
+    useEffect(() => {
+        const lastUser = [...messages].reverse().find((m) => m.role === "user");
+        const id = lastUser?.id ?? null;
+        if (id && id !== lastUserIdRef.current) {
+            lastUserIdRef.current = id;
+            retryCountRef.current = 0;
+        }
+    }, [messages]);
 
     const scrollRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -391,7 +432,14 @@ export default function AIChatBox({
                             </div>
                         )}
 
-                        {messages?.map((m) => (
+                        {messages?.map((m) => {
+                            // Hide the retry sentinel from the user — it
+                            // would otherwise show as a literal "__retry__"
+                            // bubble while the silent re-POST is in flight.
+                            if (m.role === "assistant" && m.content === RETRY_SENTINEL) {
+                                return null;
+                            }
+                            return (
                             <div
                                 key={m.id}
                                 className={cn(
@@ -468,7 +516,8 @@ export default function AIChatBox({
                                     )}
                                 </div>
                             </div>
-                        ))}
+                        );
+                            })}
 
                         {isLoading && <TypingDots />}
 

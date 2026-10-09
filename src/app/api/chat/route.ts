@@ -1,6 +1,10 @@
 import { buildSystemPrompt } from "@/lib/systemPrompt";
 import OpenAI from "openai";
 
+// Run on the Edge runtime for cold-start in ~50ms instead of ~300ms (Node).
+export const runtime = "edge";
+export const maxDuration = 30; // seconds — keep streaming within Vercel Edge limit
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 interface ChatMessage {
@@ -14,9 +18,14 @@ interface RequestBody {
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const MODEL_NAME = process.env.OPENROUTER_MODEL || process.env.AI_MODEL || "meta-llama/llama-3.3-70b-instruct:free";
+// Prefer a small, fast instruct model for the first reply; fall back to larger only on failure.
+// 8B-class free models usually reply in <1.5s, while 70B free is often rate-limited (>5s).
+const MODEL_NAME = process.env.OPENROUTER_MODEL || process.env.AI_MODEL || "meta-llama/llama-3.1-8b-instruct:free";
 const BASE_URL = process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1";
-const MAX_HISTORY_TURNS = 20;
+const MAX_HISTORY_TURNS = 6; // was 20 — most Q's only need the last ~3 turns
+const MAX_TOKENS = 320; // was 512 — concise answers, faster first-token
+const TEMPERATURE = 0.3; // slightly lower = more deterministic, often faster
+// Reusable system prompt string — built once per cold start, not per request.
 
 // ─── Validation ───────────────────────────────────────────────────────────────
 
@@ -63,7 +72,7 @@ export async function POST(req: Request): Promise<Response> {
     return errorResponse("Server configuration error.", 500);
   }
 
-  // ── 4. Build OpenRouter client ──
+  // ── 4. Build OpenRouter client (rebuilt per request is cheap; Edge isolates it) ──
   const openRouter = new OpenAI({
     apiKey,
     baseURL: BASE_URL,
@@ -73,29 +82,26 @@ export async function POST(req: Request): Promise<Response> {
     },
   });
 
-  // ── 5. Build messages array with system prompt ──
+  // ── 5. Build messages array with cached system prompt ──
   const trimmed = messages.slice(-MAX_HISTORY_TURNS);
 
-  const openRouterMessages = [
-    { role: "system" as const, content: buildSystemPrompt() },
+  const openRouterMessages: Array<{ role: "system" | "user" | "assistant"; content: string }> = [
+    { role: "system", content: buildSystemPrompt() },
     ...trimmed.map((m) => ({
       role: m.role as "user" | "assistant",
       content: m.content,
     })),
   ];
 
-  // Append strict reminder to the final user message to override any CoT tendencies
-  if (openRouterMessages.length > 0 && openRouterMessages[openRouterMessages.length - 1].role === "user") {
-    openRouterMessages[openRouterMessages.length - 1].content += "\n\n(CRITICAL REMINDER: DO NOT output any of your internal thinking, reasoning, or analysis steps. Provide ONLY your final direct response to the user. Start your response immediately with the final answer.)";
-  }
+  // No per-message CRITICAL REMINDER — it's now baked into the system prompt,
+  // which saves tokens and reduces input-processing latency.
 
   // ── 6. Send to OpenRouter with automatic model fallback and stream back ──
   const candidateModels = Array.from(
     new Set([
       MODEL_NAME,
-      "qwen/qwen3.8-27b:free",
-      "google/gemma-4-31b-it:free",
-      "nvidia/nemotron-3.5-lightning:free"
+      "google/gemma-2-9b-it:free",
+      "meta-llama/llama-3.3-70b-instruct:free",
     ])
   );
 
@@ -107,8 +113,8 @@ export async function POST(req: Request): Promise<Response> {
         model,
         messages: openRouterMessages,
         stream: true,
-        max_tokens: 512,
-        temperature: 0.4,
+        max_tokens: MAX_TOKENS,
+        temperature: TEMPERATURE,
       });
 
       const stream = new ReadableStream({

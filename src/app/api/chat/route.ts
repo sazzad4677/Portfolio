@@ -14,6 +14,8 @@ interface ChatMessage {
 
 interface RequestBody {
   messages: ChatMessage[];
+  /** Optional — scopes the system prompt to a single project deep-dive. */
+  projectSlug?: string;
 }
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -57,12 +59,20 @@ export async function POST(req: Request): Promise<Response> {
     return errorResponse("Invalid JSON body.", 400);
   }
 
-  const { messages } = body;
+  const { messages, projectSlug } = body;
 
   // ── 2. Validate ──
   const validationError = validateMessages(messages);
   if (validationError) {
     return errorResponse(validationError, 400);
+  }
+
+  // projectSlug is optional; validated downstream by getProjectBySlug.
+  if (projectSlug !== undefined && typeof projectSlug !== "string") {
+    return errorResponse("projectSlug must be a string when provided.", 400);
+  }
+  if (projectSlug && projectSlug.length > 64) {
+    return errorResponse("projectSlug is too long.", 400);
   }
 
   // ── 3. Check API key ──
@@ -86,7 +96,7 @@ export async function POST(req: Request): Promise<Response> {
   const trimmed = messages.slice(-MAX_HISTORY_TURNS);
 
   const openRouterMessages: Array<{ role: "system" | "user" | "assistant"; content: string }> = [
-    { role: "system", content: buildSystemPrompt() },
+    { role: "system", content: buildSystemPrompt({ projectSlug }) },
     ...trimmed.map((m) => ({
       role: m.role as "user" | "assistant",
       content: m.content,

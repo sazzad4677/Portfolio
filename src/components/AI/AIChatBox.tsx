@@ -1,28 +1,28 @@
-import React, { useRef, useEffect, useCallback, useState } from "react";
+import React, { useRef, useEffect, useCallback, useState, useMemo } from "react";
 import { useChat } from "ai/react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, Sparkles, User, AlertCircle, RotateCw, Square } from "lucide-react";
+import { X, Send, Sparkles, User, AlertCircle, RotateCw, Square, Copy, Check } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { cn } from "@/lib/utils";
+import type { OpenChatDetail } from "@/lib/aiChatEvents";
 
 interface AIChatBoxProps {
     isOpen: boolean;
     onClose: () => void;
+    pendingDetail?: OpenChatDetail | null;
+    onPendingConsumed?: () => void;
 }
 
 const PRESET_QUESTION_POOL = [
-    "AI Native & WebRTC?",
-    "Open to work & Stack?",
     "How does Sazzad use Cursor & Claude?",
+    "Is Sazzad open for full-time roles?",
     "Tell me about the WebRTC video engine",
     "How does MediaPipe posture tracking work?",
     "How did he refactor the legacy .NET ERP?",
-    "Tell me about the Figma component library",
     "What is the Smart Inventory System?",
     "What awards did Sazzad win at Buyonia?",
     "What ongoing courses is Sazzad taking?",
-    "Is Sazzad open for full-time roles?",
-    "What is Sazzad's preferred tech stack?"
+    "What is Sazzad's preferred tech stack?",
 ];
 
 function getRandomPresetQuestions(count = 4): string[] {
@@ -30,7 +30,6 @@ function getRandomPresetQuestions(count = 4): string[] {
     return shuffled.slice(0, count);
 }
 
-// ── Follow-up suggestions generator ─────────────────────────────────────────
 function getFollowUpSuggestions(lastAssistantText: string, lastUserText: string): string[] {
     const text = (lastAssistantText + " " + lastUserText).toLowerCase();
 
@@ -38,46 +37,45 @@ function getFollowUpSuggestions(lastAssistantText: string, lastUserText: string)
         return [
             "Tell me about MediaPipe AI pose tracking",
             "What tech stack was used at MMHI?",
-            "Is Sazzad available for new roles?"
+            "Is Sazzad available for new roles?",
         ];
     }
     if (text.includes("mediapipe") || text.includes("pose") || text.includes("assessment")) {
         return [
             "How does the WebRTC video system work?",
             "Tell me about Sazzad's AI projects",
-            "What awards has Sazzad won?"
+            "What awards has Sazzad won?",
         ];
     }
     if (text.includes("erp") || text.includes("buyonia") || text.includes(".net")) {
         return [
             "Tell me about the Figma component library",
             "What awards did he win at Buyonia?",
-            "What is Sazzad's preferred stack?"
+            "What is Sazzad's preferred stack?",
         ];
     }
     if (text.includes("inventory") || text.includes("smart inventory")) {
         return [
             "How does Sazzad use LLMs & OpenRouter?",
             "Tell me about his professional experience",
-            "What are his core skills?"
+            "What are his core skills?",
         ];
     }
     if (text.includes("available") || text.includes("hire") || text.includes("contact") || text.includes("work")) {
         return [
             "What are Sazzad's flagship projects?",
             "How does he use AI in daily workflows?",
-            "What certifications does he hold?"
+            "What certifications does he hold?",
         ];
     }
 
     return [
         "Tell me about his WebRTC & MediaPipe work",
         "How did he modernize the legacy .NET ERP?",
-        "Is Sazzad available for full-time roles?"
+        "Is Sazzad available for full-time roles?",
     ];
 }
 
-// ── Fancy Thinking Indicator ──────────────────────────────────────────────────
 const FANCY_THINKING_LINES = [
     "Thinking...",
     "Just a sec...",
@@ -85,7 +83,7 @@ const FANCY_THINKING_LINES = [
     "Analyzing your question...",
     "Searching portfolio knowledge...",
     "Synthesizing answer...",
-    "Formulating response..."
+    "Formulating response...",
 ];
 
 function TypingDots() {
@@ -130,7 +128,6 @@ function TypingDots() {
     );
 }
 
-// ── Error message parser ───────────────────────────────────────────────────────
 function parseErrorMessage(error: Error): string {
     const msg = error.message ?? "";
     if (msg.includes("fetch") || msg.includes("NetworkError")) {
@@ -146,7 +143,6 @@ function parseErrorMessage(error: Error): string {
     return msg || "Something went wrong. Please try again.";
 }
 
-// ── Markdown link component ────────────────────────────────────────────────────
 function MarkdownLink({
     href,
     children,
@@ -167,8 +163,42 @@ function MarkdownLink({
     );
 }
 
-// ── Main component ─────────────────────────────────────────────────────────────
-export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
+function CopyButton({ text }: { text: string }) {
+    const [copied, setCopied] = useState(false);
+    return (
+        <button
+            type="button"
+            aria-label="Copy response"
+            title="Copy response"
+            onClick={async () => {
+                try {
+                    await navigator.clipboard.writeText(text);
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 1500);
+                } catch {
+                    /* no-op */
+                }
+            }}
+            className="opacity-60 hover:opacity-100 transition-opacity inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-widest text-muted-foreground"
+        >
+            {copied ? <Check size={11} /> : <Copy size={11} />}
+            {copied ? "Copied" : "Copy"}
+        </button>
+    );
+}
+
+export default function AIChatBox({
+    isOpen,
+    onClose,
+    pendingDetail,
+    onPendingConsumed,
+}: AIChatBoxProps) {
+    // Pass the projectSlug to the chat route on every request — including append().
+    const chatBody = useMemo(
+        () => (pendingDetail?.projectSlug ? { projectSlug: pendingDetail.projectSlug } : undefined),
+        [pendingDetail?.projectSlug]
+    );
+
     const {
         messages,
         input,
@@ -178,8 +208,10 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
         error,
         append,
         stop,
+        setMessages,
     } = useChat({
         api: "/api/chat",
+        body: chatBody,
         onError: (err) => console.error("[AIChatBox]", err),
     });
 
@@ -187,6 +219,7 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
     const inputRef = useRef<HTMLInputElement>(null);
 
     const [presetQuestions, setPresetQuestions] = useState<string[]>([]);
+    const [hasConsumedPending, setHasConsumedPending] = useState(false);
 
     const refreshPresetQuestions = useCallback(() => {
         setPresetQuestions(getRandomPresetQuestions(4));
@@ -195,6 +228,19 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
     useEffect(() => {
         refreshPresetQuestions();
     }, [refreshPresetQuestions]);
+
+    // Reset consumption flag when pendingDetail changes so a new seeded prompt can fire.
+    useEffect(() => {
+        setHasConsumedPending(false);
+    }, [pendingDetail]);
+
+    // Consume pendingDetail by appending the prompt once the chat is open.
+    useEffect(() => {
+        if (!isOpen || !pendingDetail || hasConsumedPending || isLoading) return;
+        append({ role: "user", content: pendingDetail.prompt });
+        setHasConsumedPending(true);
+        onPendingConsumed?.();
+    }, [isOpen, pendingDetail, hasConsumedPending, isLoading, append, onPendingConsumed]);
 
     // Auto-scroll to bottom
     useEffect(() => {
@@ -229,7 +275,6 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
         [input, isLoading, handleSubmit]
     );
 
-    // Chip click — directly appends and sends without needing to fill input first
     const handleChipClick = useCallback(
         (text: string) => {
             if (isLoading) return;
@@ -237,6 +282,8 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
         },
         [isLoading, append]
     );
+
+    const lastAssistant = [...messages].reverse().find((m) => m.role === "assistant");
 
     return (
         <AnimatePresence>
@@ -249,7 +296,7 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
                     onClick={(e) => e.stopPropagation()}
                     className="fixed bottom-28 right-4 lg:right-[calc(8rem+1rem)] z-[100] w-[calc(100vw-2rem)] sm:w-[380px] h-[520px] rounded-2xl border border-border/50 bg-background shadow-2xl flex flex-col overflow-hidden"
                 >
-                    {/* ── Header ─────────────────────────────────────────────── */}
+                    {/* Header */}
                     <div className="flex items-center justify-between px-4 py-3 border-b border-border/40 bg-background shrink-0">
                         <div className="flex items-center gap-3">
                             <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
@@ -257,7 +304,7 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
                             </div>
                             <div>
                                 <p className="text-sm font-medium text-foreground leading-none mb-1">
-                                    Sazzad's Assistant
+                                    {pendingDetail?.projectSlug ? "Project Q&A" : "Sazzad's Assistant"}
                                 </p>
                                 <div className="flex items-center gap-1.5">
                                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -267,16 +314,31 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
                                 </div>
                             </div>
                         </div>
-                        <button
-                            onClick={onClose}
-                            aria-label="Close chat"
-                            className="h-8 w-8 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-                        >
-                            <X size={16} />
-                        </button>
+                        <div className="flex items-center gap-1">
+                            {messages.length > 0 && (
+                                <button
+                                    onClick={() => {
+                                        setMessages([]);
+                                        setPresetQuestions(getRandomPresetQuestions(4));
+                                    }}
+                                    aria-label="Reset conversation"
+                                    title="Reset conversation"
+                                    className="h-8 w-8 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                                >
+                                    <RotateCw size={14} />
+                                </button>
+                            )}
+                            <button
+                                onClick={onClose}
+                                aria-label="Close chat"
+                                className="h-8 w-8 rounded-lg flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                            >
+                                <X size={16} />
+                            </button>
+                        </div>
                     </div>
 
-                    {/* ── Messages ───────────────────────────────────────────── */}
+                    {/* Messages */}
                     <div
                         ref={scrollRef}
                         data-lenis-prevent
@@ -284,7 +346,6 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
                         aria-label="Chat messages"
                         className="flex-1 overflow-y-auto px-4 py-4 space-y-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-border hover:scrollbar-thumb-border/80"
                     >
-                        {/* Empty state */}
                         {messages.length === 0 && !error && (
                             <div className="flex flex-col items-center justify-center h-full gap-3 text-center pb-2">
                                 <div className="h-12 w-12 rounded-2xl bg-primary/10 flex items-center justify-center">
@@ -294,12 +355,11 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
                                     <p className="text-sm font-medium text-foreground">
                                         Sazzad's Assistant
                                     </p>
-                                    <p className="text-xs text-muted-foreground mt-1 max-w-[200px]">
-                                        Ask me about his skills, projects, or experience.
+                                    <p className="text-xs text-muted-foreground mt-1 max-w-[220px]">
+                                        Ask me about his skills, projects, AI workflow, or availability.
                                     </p>
                                 </div>
 
-                                {/* Dynamic Preset Prompt Chips */}
                                 <div className="w-full max-w-[320px] space-y-2 mt-1">
                                     <div className="flex items-center justify-between px-1">
                                         <span className="text-[10px] font-mono text-muted-foreground/80 uppercase tracking-wider">
@@ -331,7 +391,6 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
                             </div>
                         )}
 
-                        {/* Message bubbles */}
                         {messages?.map((m) => (
                             <div
                                 key={m.id}
@@ -340,7 +399,6 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
                                     m.role === "user" ? "flex-row-reverse" : "flex-row"
                                 )}
                             >
-                                {/* Avatar */}
                                 <div
                                     aria-hidden="true"
                                     className={cn(
@@ -355,61 +413,65 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
                                     )}
                                 </div>
 
-                                {/* Bubble */}
-                                <div
-                                    className={cn(
-                                        "max-w-[78%] px-3.5 py-2.5 text-sm leading-relaxed break-words",
-                                        m.role === "user"
-                                            ? "bg-primary text-primary-foreground rounded-2xl rounded-br-sm"
-                                            : "bg-muted border border-border/40 text-foreground rounded-2xl rounded-bl-sm"
-                                    )}
-                                >
-                                    {m.role === "assistant" ? (
-                                        <ReactMarkdown
-                                            components={{
-                                                p: ({ children }) => (
-                                                    <p className="mb-2 last:mb-0">{children}</p>
-                                                ),
-                                                strong: ({ children }) => (
-                                                    <strong className="font-semibold text-foreground">
-                                                        {children}
-                                                    </strong>
-                                                ),
-                                                code: ({ children }) => (
-                                                    <code className="px-1 py-0.5 rounded bg-background/60 font-mono text-xs text-primary border border-border/40">
-                                                        {children}
-                                                    </code>
-                                                ),
-                                                ul: ({ children }) => (
-                                                    <ul className="list-disc list-inside space-y-0.5 mb-2 last:mb-0">
-                                                        {children}
-                                                    </ul>
-                                                ),
-                                                ol: ({ children }) => (
-                                                    <ol className="list-decimal list-inside space-y-0.5 mb-2 last:mb-0">
-                                                        {children}
-                                                    </ol>
-                                                ),
-                                                a: ({ href, children }) => (
-                                                    <MarkdownLink href={href}>
-                                                        {children}
-                                                    </MarkdownLink>
-                                                ),
-                                            }}
-                                        >
-                                            {m.content}
-                                        </ReactMarkdown>
-                                    ) : (
-                                        m.content
+                                <div className="flex flex-col gap-1 max-w-[78%]">
+                                    <div
+                                        className={cn(
+                                            "px-3.5 py-2.5 text-sm leading-relaxed break-words",
+                                            m.role === "user"
+                                                ? "bg-primary text-primary-foreground rounded-2xl rounded-br-sm"
+                                                : "bg-muted border border-border/40 text-foreground rounded-2xl rounded-bl-sm"
+                                        )}
+                                    >
+                                        {m.role === "assistant" ? (
+                                            <ReactMarkdown
+                                                components={{
+                                                    p: ({ children }) => (
+                                                        <p className="mb-2 last:mb-0">{children}</p>
+                                                    ),
+                                                    strong: ({ children }) => (
+                                                        <strong className="font-semibold text-foreground">
+                                                            {children}
+                                                        </strong>
+                                                    ),
+                                                    code: ({ children }) => (
+                                                        <code className="px-1 py-0.5 rounded bg-background/60 font-mono text-xs text-primary border border-border/40">
+                                                            {children}
+                                                        </code>
+                                                    ),
+                                                    ul: ({ children }) => (
+                                                        <ul className="list-disc list-inside space-y-0.5 mb-2 last:mb-0">
+                                                            {children}
+                                                        </ul>
+                                                    ),
+                                                    ol: ({ children }) => (
+                                                        <ol className="list-decimal list-inside space-y-0.5 mb-2 last:mb-0">
+                                                            {children}
+                                                        </ol>
+                                                    ),
+                                                    a: ({ href, children }) => (
+                                                        <MarkdownLink href={href}>
+                                                            {children}
+                                                        </MarkdownLink>
+                                                    ),
+                                                }}
+                                            >
+                                                {m.content}
+                                            </ReactMarkdown>
+                                        ) : (
+                                            m.content
+                                        )}
+                                    </div>
+                                    {m.role === "assistant" && m === lastAssistant && (
+                                        <div className="px-1 self-start">
+                                            <CopyButton text={m.content} />
+                                        </div>
                                     )}
                                 </div>
                             </div>
                         ))}
 
-                        {/* Typing indicator */}
                         {isLoading && <TypingDots />}
 
-                        {/* Interactive Follow-Up Suggestions */}
                         {!isLoading && messages.length > 0 && messages[messages.length - 1].role === "assistant" && (
                             <div className="pl-9 pr-2 pt-1 pb-2 space-y-2">
                                 <p className="text-[11px] font-mono text-primary/90 flex items-center gap-1 font-semibold">
@@ -432,7 +494,6 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
                             </div>
                         )}
 
-                        {/* Error bubble */}
                         {error && (
                             <div className="flex items-end gap-2">
                                 <div className="h-7 w-7 rounded-full bg-destructive/10 flex items-center justify-center shrink-0 mb-0.5">
@@ -445,7 +506,7 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
                         )}
                     </div>
 
-                    {/* ── Input ──────────────────────────────────────────────── */}
+                    {/* Input */}
                     <form
                         onSubmit={onSubmit}
                         className="px-3 py-3 border-t border-border/40 bg-background shrink-0"
@@ -459,7 +520,9 @@ export default function AIChatBox({ isOpen, onClose }: AIChatBoxProps) {
                                 placeholder={
                                     isLoading
                                         ? "AI is responding... (type anytime)"
-                                        : "Ask about skills, projects..."
+                                        : pendingDetail?.projectSlug
+                                        ? "Ask anything about this project..."
+                                        : "Ask about skills, projects, AI workflow..."
                                 }
                                 aria-label="Chat message input"
                                 className="flex-1 h-10 bg-muted border border-border/40 rounded-xl px-3.5 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/40 transition-all"

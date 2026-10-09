@@ -4,9 +4,10 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import { motion, Variants, useMotionValue } from "framer-motion";
 import { Element } from "react-scroll";
-import { ExternalLink, Building2, Video, Activity, Palette, Lock, Cpu } from "lucide-react";
+import { ExternalLink, Building2, Video, Activity, Palette, Lock, Cpu, Sparkles } from "lucide-react";
 import { GitHubIcon } from "@/components/ui/brand-icons";
 import contentManager from "@/lib/contentManager";
+import { openAIChat } from "@/lib/aiChatEvents";
 import { Project } from "@/lib/types";
 
 import { TechnicalVisual } from "./TechnicalVisual";
@@ -209,6 +210,23 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
                                         {project.isCompanyProject ? "Company Website" : "Live Demo"}
                                     </span>
                                 </a>
+                            )}
+                            {project.slug && (
+                                <button
+                                    type="button"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        openAIChat({
+                                            prompt: `Tell me more about ${project.title}`,
+                                            projectSlug: project.slug,
+                                        });
+                                    }}
+                                    className="group flex items-center gap-2 rounded-lg border border-amber-400/30 bg-amber-400/[0.08] px-3 py-2 text-xs font-mono text-amber-300 transition-all duration-300 hover:border-amber-400/60 hover:bg-amber-400/15 hover:scale-[1.02] shadow-sm ml-auto"
+                                    aria-label={`Ask the AI about ${project.title}`}
+                                >
+                                    <Sparkles size={14} className="transition-transform group-hover:rotate-12" aria-hidden="true" />
+                                    <span className="font-semibold">Ask AI about this</span>
+                                </button>
                             )}
                         </div>
                     </div>

@@ -4,12 +4,14 @@ export const defaultContent: PortfolioContent = {
     hero: {
         greeting: "Hi, my name is",
         name: "Sazzad Hossain.",
-        tagline: "Full-Stack Engineer (AI Native) building scalable, high-performance web products.",
-        headline: "I build scalable,<br/>AI-native & real-time<br/><span class=\"text-gradient\">web applications.</span>",
+        tagline: "AI-Native Full-Stack Engineer shipping LLM, WebRTC, and real-time systems.",
+        headline: "I build AI-native,<br/>real-time & scalable<br/><span class=\"text-gradient\">web applications.</span>",
         badgeText: "Available for new opportunities",
-        description: "Full-stack engineer with <span class=\"font-semibold text-primary\">4+ years</span> of experience building production web applications with React, Next.js, and TypeScript. Modernized legacy .NET ERP frontends, engineered WebRTC telemedicine systems, and integrated AI capabilities using OpenRouter and the Vercel AI SDK.",
+        description: "AI-native full-stack engineer with <span class=\"font-semibold text-primary\">4+ years</span> building production React, Next.js, and TypeScript products. I ship LLM features with <span class=\"font-semibold text-primary\">OpenRouter & Vercel AI SDK</span>, real-time video with custom <span class=\"font-semibold text-primary\">WebRTC</span>, computer-vision workflows with <span class=\"font-semibold text-primary\">MediaPipe</span>, and modernized legacy .NET ERP frontends.",
         ctaText: "View My Work",
         ctaLink: "mailto:sazzad4677@gmail.com",
+        ctaLinkSecondary: "ai-chat",
+        secondaryCtaText: "Ask the AI",
         cvLink: "https://drive.google.com/file/d/1Yj3LGwTHXSul0GbOS-XTQwKI-XsNumcT/view?usp=sharing",
         videoUrl: "",
         profileImage: "/images/me.webp",
@@ -19,22 +21,22 @@ export const defaultContent: PortfolioContent = {
             { name: "Email", url: "mailto:sazzad4677@gmail.com", type: "email" }
         ],
         techStack: [
-            { label: "Node.js", color: "bg-emerald-500/30" },
-            { label: "React", color: "bg-cyan-500/30" },
-            { label: "TypeScript", color: "bg-blue-500/30" },
-            { label: "Next.js", color: "bg-on-background/20" },
-            { label: "WebRTC", color: "bg-purple-500/30" },
-            { label: "PostgreSQL", color: "bg-blue-700/30" },
-            { label: "Prisma", color: "bg-indigo-500/30" },
             { label: "OpenRouter", color: "bg-amber-500/30" },
             { label: "Vercel AI SDK", color: "bg-sky-500/30" },
+            { label: "TypeScript", color: "bg-blue-500/30" },
+            { label: "Next.js", color: "bg-on-background/20" },
+            { label: "React", color: "bg-cyan-500/30" },
+            { label: "Node.js", color: "bg-emerald-500/30" },
+            { label: "WebRTC", color: "bg-purple-500/30" },
+            { label: "MediaPipe", color: "bg-rose-500/30" },
+            { label: "PostgreSQL", color: "bg-blue-700/30" },
             { label: "Docker", color: "bg-blue-600/30" }
         ],
         stats: [
+            { value: "AI", label: "Native Workflow", sublabel: "Cursor, Claude, Codex", icon: "Sparkles", color: "text-primary" },
             { value: "4+", label: "Years Experience", sublabel: "Software engineering", icon: "Briefcase", color: "text-primary" },
-            { value: "3+", label: "Years in Production", sublabel: "Shipping real systems", icon: "Layers", color: "text-primary" },
             { value: "5+", label: "Production Systems", sublabel: "Built & modernized", icon: "Cpu", color: "text-primary" },
-            { value: "AI", label: "Product Development", sublabel: "LLM & CV integration", icon: "Sparkles", color: "text-primary" }
+            { value: "100", label: "Lighthouse Score", sublabel: "Perf · A11y · SEO · BP", icon: "Gauge", color: "text-primary" }
         ]
     },
 
@@ -325,6 +327,7 @@ export const defaultContent: PortfolioContent = {
         },
         {
             id: 5,
+            slug: "erp-component-library",
             title: "ERP Component Library",
             description: "A standardized, reusable Figma-based UI component library developed across the ERP application to standardize UI patterns.",
             descriptionList: [

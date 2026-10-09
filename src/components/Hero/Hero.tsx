@@ -2,9 +2,10 @@
 
 import { motion, Variants } from "framer-motion";
 import React from "react";
-import { ArrowRight, Download, Mail, Code2 } from "lucide-react";
+import { ArrowRight, Download, Mail, Code2, Sparkles } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/brand-icons";
 import contentManager from "@/lib/contentManager";
+import { openAIChat } from "@/lib/aiChatEvents";
 import TechOrbit from "./TechOrbit";
 import StatsBar from "./StatsBar";
 
@@ -96,6 +97,27 @@ const Hero: React.FC = () => {
                                     <div className="absolute -inset-full z-[5] block h-full w-1/2 -skew-x-12 transform bg-gradient-to-r from-transparent via-on-background/20 to-transparent opacity-0 group-hover:animate-shine" aria-hidden="true" />
                                 </a>
                             </motion.div>
+                            {content.secondaryCtaText && (
+                                <motion.button
+                                    type="button"
+                                    onClick={() => {
+                                        if (content.ctaLinkSecondary === "ai-chat" || !content.ctaLinkSecondary) {
+                                            openAIChat({
+                                                prompt: "Tell me about Sazzad's most impressive AI-native project",
+                                            });
+                                        } else if (content.ctaLinkSecondary.startsWith("#")) {
+                                            window.location.hash = content.ctaLinkSecondary.slice(1);
+                                        }
+                                    }}
+                                    whileHover={{ scale: 1.04, y: -2 }}
+                                    whileTap={{ scale: 0.97 }}
+                                    className="group inline-flex items-center gap-2 rounded-xl border border-primary/40 bg-primary/[0.08] px-5 py-3 font-sans text-sm font-semibold text-primary backdrop-blur-md transition-all duration-300 hover:border-primary/60 hover:bg-primary/15 sm:gap-2.5 sm:px-6 sm:py-3.5"
+                                    aria-label="Open the AI assistant pre-seeded with a question"
+                                >
+                                    <Sparkles size={15} aria-hidden="true" className="transition-transform group-hover:rotate-12" />
+                                    {content.secondaryCtaText}
+                                </motion.button>
+                            )}
                             <motion.a
                                 href={content.cvLink}
                                 target="_blank"

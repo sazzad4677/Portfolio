@@ -113,6 +113,37 @@ export interface Service {
     modalDetails: string[];
 }
 
+export interface ProjectImpact {
+    /** Quantified result to surface as a big number. */
+    value: string;
+    /** Short label, e.g. "test coverage", "licensing cost cut". */
+    label: string;
+}
+
+export interface CaseStudySection {
+    /** Heading shown on the case-study page (e.g. "Problem", "Architecture"). */
+    title: string;
+    /** Plain-text or simple-Markdown body. Kept as string for portability. */
+    body: string;
+    /** Optional bullet list, e.g. trade-offs or sub-points. */
+    bullets?: string[];
+}
+
+export interface CaseStudy {
+    /** Why the project existed — the user pain or business need. */
+    problem: string;
+    /** What Sazzad owned (engineering, infra, integration, etc). */
+    role: string;
+    /** Year / quarter in plain language. */
+    timeline: string;
+    /** Optional team composition. */
+    team?: string;
+    /** Sections in the order they should render: Problem, Approach, Architecture, etc. */
+    sections: CaseStudySection[];
+    /** Plain-text lessons-learned, mapped 1:1 to bullets. */
+    lessons?: string[];
+}
+
 export interface Project {
     id: number;
     /** Stable slug used by the AI chat to scope a question to a single project. */
@@ -125,6 +156,12 @@ export interface Project {
     sampleQuestions?: string[];
     description: string;
     descriptionList?: string[];
+    /** Up to 3 quantified outcomes shown as large stats on the project card. */
+    impact?: ProjectImpact[];
+    /** Bullet-style social proof / outcome, e.g. "Replaced Vonage, $X saved / year". */
+    outcomeLine?: string;
+    /** Long-form case study for `/work/[slug]` pages. Omit for non-featured work. */
+    caseStudy?: CaseStudy;
     technologies: string[];
     links: {
         github?: string;
@@ -176,6 +213,10 @@ export interface ContactContent {
     description: string;
     email: string;
     ctaText: string;
+    /** Optional Calendly / Cal.com URL. When set, a "Book a call" CTA is rendered. */
+    calendarLink?: string;
+    /** Optional label override for the calendar CTA. */
+    calendarLabel?: string;
 }
 
 export interface SeoContent {
@@ -192,6 +233,23 @@ export interface Award {
     organization: string;
     dates: string;
     description?: string;
+}
+
+export interface Testimonial {
+    /** Quote text shown on the card. */
+    quote: string;
+    /** Person's full name. */
+    name: string;
+    /** Job title, e.g. "Engineering Manager". */
+    role: string;
+    /** Company name, e.g. "MyMedicalHub International". */
+    company?: string;
+    /** Optional avatar URL. Falls back to initials if missing. */
+    avatarUrl?: string;
+    /** Optional LinkedIn URL to link the name to. */
+    linkedinUrl?: string;
+    /** When the testimonial was given or last confirmed. */
+    year?: string;
 }
 
 export interface ProfessionalDevelopment {
@@ -213,6 +271,7 @@ export interface PortfolioContent {
     experience: Experience[];
     education: Education[];
     certifications: Certification[];
+    testimonials?: Testimonial[];
     awards?: Award[];
     professionalDevelopment?: ProfessionalDevelopment[];
     contact: ContactContent;

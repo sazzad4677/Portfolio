@@ -34,10 +34,12 @@ const MAX_OUTPUT_TOKENS = 320; // concise answers, faster first token
 const TEMPERATURE = 0.3;
 const MAX_CONTENT_LENGTH = 4000;
 const MAX_MESSAGES = 50;
-// Free models regularly take 5-10s on cold start; aborting after 4s lets the
+// Free models regularly take 5-10s on cold start; aborting early lets the
 // route fall through to the next candidate instead of making the user wait.
-// Once the first token lands, the stream continues uninterrupted.
-const FIRST_TOKEN_TIMEOUT_MS = 4_000;
+// Once the first token lands, the stream continues uninterrupted. 8s is the
+// practical floor: shorter and a healthy first candidate gets unfairly
+// killed; longer and a genuinely broken provider makes the user stare.
+const FIRST_TOKEN_TIMEOUT_MS = 8_000;
 
 const MID_STREAM_ERROR = "The response was interrupted — please try again.";
 

@@ -3,6 +3,11 @@
 import React, { useEffect } from "react";
 import Lenis from "lenis";
 
+/**
+ * Page-level smooth scroll powered by Lenis. Disabled on mobile
+ * (<768px) where native scroll already feels right and adding Lenis
+ * can interfere with pull-to-refresh.
+ */
 export const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     useEffect(() => {
         if (window.innerWidth < 768) return;
@@ -10,8 +15,8 @@ export const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({ children
         const lenis = new Lenis({
             duration: 0.8,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            orientation: 'vertical',
-            gestureOrientation: 'vertical',
+            orientation: "vertical",
+            gestureOrientation: "vertical",
             smoothWheel: true,
             wheelMultiplier: 1.8,
             touchMultiplier: 2,

@@ -2,9 +2,10 @@
 
 import React, { useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, Variants, useMotionValue } from "framer-motion";
 import { Element } from "react-scroll";
-import { ExternalLink, Building2, Video, Activity, Palette, Lock, Cpu, Sparkles } from "lucide-react";
+import { ExternalLink, Building2, Video, Activity, Palette, Lock, Cpu, Sparkles, ArrowRight } from "lucide-react";
 import { GitHubIcon } from "@/components/ui/brand-icons";
 import contentManager from "@/lib/contentManager";
 import { openAIChat } from "@/lib/aiChatEvents";
@@ -38,7 +39,11 @@ const Works: React.FC = () => {
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-8 xl:gap-10">
                         {projects?.map((project: Project, index: number) => (
-                            <ProjectCard key={project.id || index} project={project} index={index} />
+                            <ProjectCard
+                                key={project.id || index}
+                                project={project}
+                                index={index}
+                            />
                         ))}
                     </div>
                 </div>
@@ -47,7 +52,10 @@ const Works: React.FC = () => {
     );
 };
 
-const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, index }) => {
+const ProjectCard: React.FC<{
+    project: Project;
+    index: number;
+}> = ({ project, index }) => {
     const projectNum = (index + 1).toString().padStart(2, "0");
     const rectRef = useRef<DOMRect | null>(null);
     const mouseX = useMotionValue(0);
@@ -168,6 +176,25 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
                                     })}
                                 </ul>
                             )}
+
+                            {/* Quantified impact stats */}
+                            {project.impact && project.impact.length > 0 && (
+                                <div className="mt-5 grid grid-cols-3 gap-2 sm:gap-3 border-t border-border/20 pt-4">
+                                    {project.impact.map((stat, i) => (
+                                        <div
+                                            key={i}
+                                            className="flex flex-col items-start gap-0.5 rounded-lg border border-primary/10 bg-primary/[0.04] px-2 py-2 sm:px-3 sm:py-2.5"
+                                        >
+                                            <span className="font-sans text-base font-bold leading-none text-primary sm:text-lg">
+                                                {stat.value}
+                                            </span>
+                                            <span className="font-mono text-[9px] uppercase tracking-wider text-secondary-foreground/60 sm:text-[10px]">
+                                                {stat.label}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
 
@@ -183,6 +210,21 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
                                 </li>
                             ))}
                         </ul>
+
+                        {/* Case study deep link — opens full page in a new tab so
+                            visitors don't lose their scroll position on the home page. */}
+                        {project.slug && (
+                            <Link
+                                href={`/work/${project.slug}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group/link inline-flex items-center gap-1.5 text-xs font-mono text-primary/90 transition-colors hover:text-primary"
+                                aria-label={`Read the full case study for ${project.title} (opens in a new tab)`}
+                            >
+                                <span className="border-b border-primary/30 group-hover/link:border-primary">Read case study</span>
+                                <ArrowRight size={12} className="transition-transform group-hover/link:translate-x-0.5" aria-hidden="true" />
+                            </Link>
+                        )}
 
                         {/* Footer chips: stacked on xs, inline from sm+ */}
                         <div className="flex flex-col items-stretch gap-2 pt-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-2 lg:gap-3 border-t border-border/20">

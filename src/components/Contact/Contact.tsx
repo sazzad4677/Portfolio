@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { Element } from "react-scroll";
-import { Mail, User, MessageSquare, Send, Copy, Check } from "lucide-react";
+import { Mail, User, MessageSquare, Send, Copy, Check, Calendar } from "lucide-react";
 import contentManager from "@/lib/contentManager";
 
 const Contact: React.FC = () => {
@@ -245,6 +245,18 @@ const Contact: React.FC = () => {
                                     >
                                         Open Mail Client
                                     </a>
+
+                                    {content.calendarLink && (
+                                        <a
+                                            href={content.calendarLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="mt-3 flex items-center justify-center gap-2 rounded-xl border border-primary/30 bg-primary/[0.06] px-5 py-3 font-mono text-xs font-bold text-primary transition-all hover:border-primary/60 hover:bg-primary/[0.12]"
+                                        >
+                                            <Calendar size={13} aria-hidden="true" />
+                                            {content.calendarLabel || "Book a call"}
+                                        </a>
+                                    )}
                                 </div>
 
                                 <div className="flex items-center gap-3 px-1">

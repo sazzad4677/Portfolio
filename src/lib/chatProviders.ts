@@ -79,6 +79,16 @@ const OPENROUTER_STATIC: string[] = dedupe([
   // "mistralai/mistral-small-3.1-24b-instruct:free", // CONFIRMED PAID-ONLY 2026
 ].filter(Boolean));
 
+/** Model IDs that are upstream-blocked for this use case (agentic-only
+ *  harnesses, image-gen, beta access, etc). Stripped from the merged list
+ *  before the route tries them — they are guaranteed to fail. */
+const SKIPPED_OPENROUTER_MODELS = new Set<string>([
+  "thinkingmachines/inkling:free",        // restricted to agentic harnesses
+  "thinkingmachines/inkling-small:free",  // restricted to agentic harnesses
+  "google/lyria-3-pro-preview",           // image gen, not chat
+  "google/lyria-3-clip-preview",          // image gen, not chat
+]);
+
 // ─── Provider descriptors (apiKey resolved at module load) ────────────────────
 
 const GATEWAY: Provider = {
@@ -224,7 +234,17 @@ async function probeFreeModels(provider: Provider): Promise<string[]> {
       );
       return provider.candidateModels;
     }
-    return free;
+    // Strip models we know are upstream-blocked for this use case.
+    const filtered = provider.name === "openrouter"
+      ? free.filter((id) => !SKIPPED_OPENROUTER_MODELS.has(id))
+      : free;
+    if (filtered.length === 0) {
+      console.warn(
+        `[chatProviders] ${provider.name} probe models were all in the skip list — keeping static list.`
+      );
+      return provider.candidateModels;
+    }
+    return filtered;
   } catch (err) {
     console.warn(
       `[chatProviders] ${provider.name} probe failed: ${err instanceof Error ? err.message : String(err)} — keeping static list.`
@@ -258,8 +278,10 @@ function getProviderFreeModels(provider: Provider): Promise<string[]> {
     .then((free) => {
       // Probe-first merge: live-verified-free models first, then the static
       // list (so any operator-pinned model still wins even if it isn't in
-      // the probe response). Dedupe preserves first occurrence.
-      const merged = dedupePreserveOrder([...free, ...provider.candidateModels]);
+      // the probe response). Dedupe preserves first occurrence. Skip any
+      // model that the upstream blocks for this use case.
+      const merged = dedupePreserveOrder([...free, ...provider.candidateModels])
+        .filter((id) => !SKIPPED_OPENROUTER_MODELS.has(id));
       const slot = probeCache[provider.name];
       if (slot) {
         slot.ts = Date.now();

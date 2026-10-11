@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import JsonLd from './json-ld';
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { InteractiveBackground } from "@/components/Background/InteractiveBackground";
+import AIChatBubble from "@/components/AI/AIChatBubble";
 
 const inter = Inter({
     subsets: ['latin'],
@@ -81,8 +82,8 @@ export default function RootLayout({
                 `}</style>
             </head>
             <body className={`${inter.className} antialiased`} suppressHydrationWarning>
-                <a 
-                    href="#main-content" 
+                <a
+                    href="#main-content"
                     className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-lg focus:font-bold"
                 >
                     Skip to main content
@@ -100,6 +101,10 @@ export default function RootLayout({
                             {children}
                         </SmoothScroll>
                     </main>
+                    {/* Global AI chat — mounted in the root layout so entry
+                        points on every route (e.g. case-study "Ask the AI"
+                        buttons under /work/[slug]) can open it. */}
+                    <AIChatBubble />
                 </ThemeProvider>
             </body>
         </html>

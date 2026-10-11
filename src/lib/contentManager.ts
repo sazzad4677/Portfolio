@@ -1,5 +1,5 @@
 import { defaultContent } from './defaultContent';
-import { PortfolioContent, HeroContent, AboutContent, Skill, DetailedSkill, Service, Certification, Project, ArchiveProject, Experience, Education, ContactContent, SeoContent, Award, ProfessionalDevelopment } from './types';
+import { PortfolioContent, HeroContent, AboutContent, Skill, DetailedSkill, Service, Certification, Project, ArchiveProject, Experience, Education, ContactContent, SeoContent, Award, ProfessionalDevelopment, Testimonial } from './types';
 
 type Listener = (content: PortfolioContent) => void;
 
@@ -76,6 +76,11 @@ class ContentManager {
     // Awards
     getAwards(): Award[] {
         return this.getAllContent().awards || [];
+    }
+
+    // Testimonials
+    getTestimonials(): Testimonial[] {
+        return this.getAllContent().testimonials || [];
     }
 
     // Professional Development

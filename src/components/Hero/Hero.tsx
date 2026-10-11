@@ -51,19 +51,34 @@ const Hero: React.FC = () => {
                 <div className="grid w-full grid-cols-1 items-center gap-6 sm:gap-8 lg:grid-cols-[1fr_0.65fr] lg:gap-12 lg:px-4 xl:gap-16 xl:px-8">
                     {/* LEFT — Text Content */}
                     <motion.div variants={item} className="flex flex-col items-center text-center lg:items-start lg:text-left">
-                        {/* Availability badge */}
-                        <motion.div
-                            variants={item}
-                            className="mb-5 inline-flex items-center gap-2 rounded-full border border-border/40 bg-surface/30 px-3 py-1.5 backdrop-blur-md sm:mb-7 sm:gap-2.5 sm:px-4 sm:py-2"
-                        >
-                            <span className="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5">
-                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                                <span className="relative inline-flex h-full w-full rounded-full bg-emerald-400" />
-                            </span>
-                            <span className="font-mono text-[9px] font-semibold uppercase tracking-[0.12em] text-emerald-600 dark:text-emerald-300 sm:text-[11px] sm:tracking-[0.15em]">
-                                {content.badgeText}
-                            </span>
-                        </motion.div>
+                        {/* Availability badge — clicks through to book a call when configured */}
+                        {(() => {
+                            const contact = contentManager.getContact();
+                            const Badge = motion.a;
+                            const badgeProps = contact.calendarLink
+                                ? {
+                                      href: contact.calendarLink,
+                                      target: "_blank",
+                                      rel: "noopener noreferrer",
+                                      "aria-label": `${content.badgeText} — open booking page`,
+                                  }
+                                : { "aria-label": content.badgeText };
+                            return (
+                                <Badge
+                                    {...badgeProps}
+                                    variants={item}
+                                    className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/[0.08] px-3 py-1.5 backdrop-blur-md transition-all hover:border-emerald-500/60 hover:bg-emerald-500/15 sm:mb-7 sm:gap-2.5 sm:px-4 sm:py-2"
+                                >
+                                    <span className="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5">
+                                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                                        <span className="relative inline-flex h-full w-full rounded-full bg-emerald-400" />
+                                    </span>
+                                    <span className="font-mono text-[9px] font-semibold uppercase tracking-[0.12em] text-emerald-600 dark:text-emerald-300 sm:text-[11px] sm:tracking-[0.15em]">
+                                        {content.badgeText}
+                                    </span>
+                                </Badge>
+                            );
+                        })()}
 
                         {/* Headline */}
                         <motion.h1

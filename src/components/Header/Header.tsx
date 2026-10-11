@@ -6,6 +6,7 @@ import { Link } from "react-scroll";
 import { useMediaQuery } from "react-responsive";
 import useScrollPosition from "../../hooks/useScrollPosition";
 import { ThemeSwitcher } from "@/components/theme-switcher";
+import contentManager from "@/lib/contentManager";
 import { cn } from "@/lib/utils";
 
 const NAV_SCROLL_OFFSET = -108;
@@ -21,6 +22,7 @@ const Header: React.FC = () => {
     const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
     const [isOpen, setIsOpen] = useState(false);
     const [mounted, setMounted] = useState(false);
+    const cvLink = contentManager.getHero().cvLink || "#";
 
     useEffect(() => {
         setMounted(true);
@@ -111,7 +113,7 @@ const Header: React.FC = () => {
                 </motion.div>
                 <div className="flex items-center gap-2 sm:gap-4 lg:hidden z-50">
                     <a
-                        href="https://drive.google.com/file/d/1ffycRhonZegQk2VJjfsa_g_AZAOj_5Xw/view"
+                        href={cvLink}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center justify-center rounded-lg border border-primary/40 px-2.5 h-11 font-mono text-[10px] font-bold text-primary transition-all hover:bg-primary/10 active:scale-95 whitespace-nowrap bg-primary/5 sm:px-3.5"
@@ -194,7 +196,7 @@ const Header: React.FC = () => {
                                     className="hidden lg:flex flex-row items-center justify-end gap-3 xl:gap-4 lg:ml-4 xl:ml-6"
                                 >
                                     <a
-                                        href="https://drive.google.com/file/d/1Yj3LGwTHXSul0GbOS-XTQwKI-XsNumcT/view?usp=sharing"
+                                        href={cvLink}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="rounded-xl border border-primary px-4 xl:px-5 py-2 font-mono text-xs text-primary transition-all hover:bg-primary/10 whitespace-nowrap"

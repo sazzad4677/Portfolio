@@ -7,7 +7,7 @@ import Loader from "../Loader/Loader";
 import ShimmerLoader from "../Loader/ShimmerLoader";
 
 const HASH_SCROLL_TARGETS = new Set([
-    "home", "about", "skills", "services", "jobs", "projects", "archive", "education", "certifications", "contact",
+    "home", "about", "skills", "services", "jobs", "projects", "archive", "education", "certifications", "testimonials", "contact",
 ]);
 
 const HASH_SCROLL_OFFSET = -108;

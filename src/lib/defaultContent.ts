@@ -33,9 +33,9 @@ export const defaultContent: PortfolioContent = {
             { label: "Docker", color: "bg-blue-600/30" }
         ],
         stats: [
-            { value: "AI", label: "Native Workflow", sublabel: "Cursor, Claude, Codex", icon: "Sparkles", color: "text-primary" },
-            { value: "4+", label: "Years Experience", sublabel: "Software engineering", icon: "Briefcase", color: "text-primary" },
-            { value: "5+", label: "Production Systems", sublabel: "Built & modernized", icon: "Cpu", color: "text-primary" },
+            { value: "4+", label: "Years in Production", sublabel: "Full-stack engineering", icon: "Briefcase", color: "text-primary" },
+            { value: "5+", label: "Production Systems", sublabel: "Built & modernized", icon: "Rocket", color: "text-primary" },
+            { value: "95%+", label: "Test Coverage", sublabel: "Smart Inventory auth & business logic", icon: "Trophy", color: "text-primary" },
             { value: "100", label: "Lighthouse Score", sublabel: "Perf · A11y · SEO · BP", icon: "Gauge", color: "text-primary" }
         ]
     },
@@ -247,6 +247,49 @@ export const defaultContent: PortfolioContent = {
                 "High Test Coverage: Built a comprehensive Jest suite achieving >95% statement coverage across auth and business logic.",
                 "Enterprise Security: NextAuth.js v5, JWT rotation, role-based access control, and Redis rate limiting."
             ],
+            impact: [
+                { value: "95%+", label: "Test coverage" },
+                { value: "OpenRouter", label: "LLM-powered restocking" },
+                { value: "Docker", label: "Containerized deployment" }
+            ],
+            outcomeLine: "Built an end-to-end inventory + BI platform with LLM-driven restocking recommendations, real-time sync, and >95% test coverage on auth & business logic.",
+            caseStudy: {
+                problem: "Small and mid-sized businesses were running inventory on spreadsheets and one-off dashboards. Restocking was gut-feel, dashboards lagged reality, and the team was spending more time reconciling numbers than acting on them.",
+                role: "Solo full-stack engineer — product, API, frontend, auth, infra.",
+                timeline: "2024",
+                team: "Solo build with weekly feedback from a small pilot group.",
+                sections: [
+                    {
+                        title: "Approach",
+                        body: "Model the inventory lifecycle end-to-end first, then bolt on intelligence. The platform ships with a single source of truth (MongoDB collections for products, suppliers, stock movements, and orders), NextAuth.js v5 with rotating JWTs for identity, and Socket.io for real-time updates. Only after that core was solid did I add the LLM layer.",
+                        bullets: [
+                            "Model the data, then the API, then the UI — LLM comes last.",
+                            "Treat auth and rate-limiting as a first-class concern from day one.",
+                            "Real-time is a feature, not an afterthought — Socket.io rooms keyed to warehouse + role."
+                        ]
+                    },
+                    {
+                        title: "Architecture",
+                        body: "Next.js 16 + TypeScript on the frontend, Node.js + Express on the API side, MongoDB for storage, Redis for rate limiting and socket fan-out, and OpenRouter (openai/gpt-oss-120b:free) generating restocking recommendations from current stock, sales velocity, and supplier lead times. Docker is used to make the whole stack reproducible.",
+                        bullets: [
+                            "Frontend: Next.js 16, React 19, TypeScript, Tailwind CSS 4.2.",
+                            "API: Node.js + Express, NextAuth.js v5 (JWT rotation, RBAC).",
+                            "Realtime: Socket.io rooms scoped by warehouse + role.",
+                            "AI: OpenRouter (openai/gpt-oss-120b:free) for restocking recommendations.",
+                            "Infra: MongoDB, Redis, Docker for reproducible deploys."
+                        ]
+                    },
+                    {
+                        title: "What I'd do differently next time",
+                        body: "Introduce feature flags and a staging environment earlier. I shipped the first usable version directly into the pilot branch, which made it harder to roll back individual features when feedback arrived.",
+                    }
+                ],
+                lessons: [
+                    "Treat auth + rate limiting as a first-class concern from day one — they shape every endpoint.",
+                    "Real-time updates need a clear ownership boundary; Socket.io rooms keyed to a warehouse made that obvious.",
+                    "Test the business logic, not just the happy path — coverage on auth + inventory flows reached >95% by writing tests alongside features, not after."
+                ]
+            },
             technologies: ["Next.js 16", "TypeScript", "Node.js", "Express.js", "MongoDB", "Redis", "Socket.io", "OpenRouter", "Docker", "Jest"],
             links: {
                 github: "https://github.com/sazzad4677/Smart-Inventory-System",
@@ -274,6 +317,71 @@ export const defaultContent: PortfolioContent = {
                 "Single Source of Truth: The AI's knowledge base is generated from the same typed content that renders the page.",
                 "Modern UX: Cinematic motion transitions with GSAP and Framer Motion."
             ],
+            impact: [
+                { value: "100", label: "Lighthouse score" },
+                { value: "2-Provider", label: "LLM fallback chain" },
+                { value: "Single", label: "Source of truth" }
+            ],
+            outcomeLine: "Production developer portfolio with a streaming AI assistant, automatic provider fallback (Vercel AI Gateway → OpenRouter), and a perfect Lighthouse score.",
+            caseStudy: {
+                problem: "Static portfolios never tell the full story, and chat widgets with a 404-prone prompt never build trust. Recruiters and CTOs were asking the same handful of questions over and over — skills, projects, availability. I wanted an answer that was always-on, always-consistent with what the page shows, cheap enough to ship on a free tier, and impossible to abuse.",
+                role: "Solo product + full-stack engineer — content model, AI plumbing, motion, SEO, and infra.",
+                timeline: "2024 – Present",
+                team: "Solo build, with a few friends stress-testing the chat.",
+                sections: [
+                    {
+                        title: "Why this project exists",
+                        body: "A portfolio is supposed to be the best work a candidate can show. If I can build AI features for production, I should be able to ship one in my own portfolio that actually works. Three constraints shaped every decision: the bot must never lie about me (it can only answer from the on-page content), it must stay free (Vercel free tier + OpenRouter free models), and it must keep working when a free model dies overnight.",
+                    },
+                    {
+                        title: "Approach",
+                        body: "The portfolio renders from a single typed content model (`defaultContent.ts`). The same model is fed to the AI assistant at request time as structured JSON, so the bot can never drift from what visitors see. Project cards expose a project-scoped Q&A mode that augments the system prompt with a deep-dive block for that single project — so when a recruiter clicks \"Ask the AI about this project,\" the answer is grounded in the right context window, not the whole portfolio.",
+                        bullets: [
+                            "One typed content model — the page and the AI both read it.",
+                            "Per-project scoping: the AI gets a focused deep-dive block, not just the global context.",
+                            "Cheap by default: streaming responses, in-memory caching, per-visitor rate limiting.",
+                            "Trustworthy by design: the bot can only answer from the on-page content model — no hallucinated roles or skills."
+                        ]
+                    },
+                    {
+                        title: "Architecture",
+                        body: "Next.js 16 App Router with React Server Components for SEO-critical content, a streaming chat route built on the Vercel AI SDK, an LRU cache on repeat questions, and a cost-ordered provider list (Vercel AI Gateway first, OpenRouter as a fallback when the gateway 429s, 5xx's, or returns 402). The route probes each provider's `GET /v1/models` once per hour to drop dead free models automatically.",
+                        bullets: [
+                            "Frontend: Next.js 16, React 19, Tailwind CSS 4.2, Framer Motion, GSAP, Lenis.",
+                            "Chat: Vercel AI SDK + `useChat`, Markdown rendering with `react-markdown`, motion transitions.",
+                            "Resilience: 30s in-memory LRU cache, silent client-side retry on stream drop, provider fallback chain.",
+                            "Security: per-visitor rate limiting via Upstash Redis, topic guardrail in the system prompt."
+                        ]
+                    },
+                    {
+                        title: "Request flow",
+                        body: "Visitor sends a prompt → the chat route checks the LRU cache → on miss, it walks the cost-ordered provider list → on 429/5xx/402 it transparently falls through to the next provider → the response streams back through Vercel AI SDK as it's generated. Project-scoped prompts attach a `projectSlug`, which the route uses to inject a focused deep-dive block before the model sees the request. The whole round-trip is observable end-to-end from the AI provider's dashboard back to the visitor's bubble.",
+                    },
+                    {
+                        title: "Performance",
+                        body: "Critical CSS is injected in the root layout to remove the white flash on uncached loads, and a 0–100% loader is rendered server-side so visitors never see a blank window. The case-study routes use `generateStaticParams` so each one prerenders at build time. Result: a 100/100/100/100 Lighthouse score across Performance, Accessibility, Best Practices, and SEO.",
+                    },
+                    {
+                        title: "What I learned",
+                        body: "Three things stuck with me after shipping this. They shape how I now approach every product that has an AI surface.",
+                        bullets: [
+                            "A typed content model pays for itself the moment you add AI to a product — the AI becomes a query layer over data you already trust, not a parallel knowledge base you have to keep in sync.",
+                            "Free-tier LLM endpoints are not interchangeable. Eligibility changes weekly. Treating provider availability as a first-class runtime concern (probed every hour, swapped silently) is the difference between a portfolio that works and a portfolio that gets tweeted as 'broken since Tuesday'.",
+                            "Streaming is the difference between a chatbot and a feeling. Even the cheapest model feels responsive when the first token lands in under half a second — the time-to-first-token budget is the metric to defend, not total latency."
+                        ]
+                    },
+                    {
+                        title: "Trade-offs I accepted",
+                        body: "I chose an in-memory LRU cache instead of Redis for repeat questions because the hit-rate and TTL pattern fits a single-region serverless function — and it keeps the cache free. I chose a topic guardrail in the system prompt instead of a full classifier because the failure mode is graceful (the model says \"I can only answer about Sazzad\") and there's no extra inference cost. I chose to scope by project slug rather than embed a vector store because the content is small, typed, and authoritative — embeddings would have added cost, drift, and a second source of truth.",
+                    }
+                ],
+                lessons: [
+                    "A typed content model pays for itself the moment you add AI to a product — the AI becomes a query layer over data you already trust.",
+                    "Free-tier LLM APIs are not interchangeable — the route treats provider eligibility as a first-class runtime concern, not a config concern.",
+                    "Streaming is the difference between a chatbot and a feeling — even cheap models feel fast when the first token lands in <500ms.",
+                    "Trade-offs are an asset, not a footnote — calling out what you didn't do builds more trust than listing what you did."
+                ]
+            },
             technologies: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4.2", "OpenRouter", "Vercel AI SDK"],
             links: {
                 github: "https://github.com/sazzad4677/Portfolio",
@@ -301,6 +409,70 @@ export const defaultContent: PortfolioContent = {
                 "Socket.io Signaling: Implemented low-latency Socket.io signaling to coordinate peer-to-peer video session establishment.",
                 "Performance Optimization: Applied Next.js SSR strategies and code-splitting to optimize video page load speeds."
             ],
+            impact: [
+                { value: "100%", label: "Vonage/OpenTok replaced" },
+                { value: "P2P", label: "Low-latency signaling" },
+                { value: "0", label: "Third-party licensing fees" }
+            ],
+            outcomeLine: "Replaced paid Vonage/OpenTok with an in-house WebRTC engine and Socket.io signaling — full control over the media pipeline, zero per-session licensing.",
+            caseStudy: {
+                problem: "MyMedicalHub International was paying per-minute licensing to Vonage/OpenTok for video consultations, and the third-party SDK added latency, opaque failure modes, and a hard ceiling on what we could customize. Hospital networks in Bangladesh also pushed back on routing sensitive media through a third party.",
+                role: "Lead frontend + signaling engineer — owned the WebRTC peer flow, Socket.io signaling, and the SSR/perf work.",
+                timeline: "Mar 2024 – Dec 2025",
+                team: "Frontend team of 3, with backend and clinical staff as stakeholders.",
+                sections: [
+                    {
+                        title: "Approach",
+                        body: "Cut the third-party SDK out of the hot path. The patient and provider portals negotiate a peer-to-peer RTCPeerConnection, with a Socket.io server acting only as the signaling channel — exchanging SDP offers/answers and ICE candidates, never touching the media. The server stays small; the media stays on the wire between the two endpoints.",
+                        bullets: [
+                            "Server is signaling only — never sees the media stream.",
+                            "Single Socket.io room per consultation, scoped by an authorized participant set.",
+                            "Negotiate the peer connection on the patient side; provider answers."
+                        ]
+                    },
+                    {
+                        title: "Architecture",
+                        body: "Next.js + TypeScript on the frontend, Node.js + Socket.io on the signaling server, and the WebRTC browser APIs handling peer-to-peer transport. TURN/STUN are configured for the hospital NAT topologies we saw most often. SSR and aggressive code-splitting kept the consultation route fast on the throttled hospital networks that originally made Vonage feel sluggish.",
+                        bullets: [
+                            "Frontend: Next.js + TypeScript, code-split the consultation route so the lobby loads instantly.",
+                            "Signaling: Node.js + Socket.io rooms per consultation, auth-gated participants.",
+                            "Transport: WebRTC RTCPeerConnection with STUN + TURN fallbacks.",
+                            "Network: SSR tuning for slow hospital Wi-Fi."
+                        ]
+                    },
+                    {
+                        title: "Hardest bug",
+                        body: "ICE failures on a specific ISP's CGNAT. The fix was twofold: configure TURN as a fallback (not just STUN), and surface connection-quality changes to the patient so they could rejoin instead of sitting in a frozen call. The biggest lesson was that the signaling layer is the observability layer — every WebRTC failure has to be debugged from the SDP exchange downward."
+                    },
+                    {
+                        title: "Trade-offs",
+                        body: "Owning the media pipeline came with real engineering costs. The decisions below were deliberate, not lazy — each one rejected a reasonable alternative.",
+                        bullets: [
+                            "→ mediasoup / Janus SFU instead of pure P2P — couldn't justify the ops cost and infra surface at our session volume. P2P works while most consultations are 1:1.",
+                            "→ Open-source LiveKit instead of building signaling from scratch — would have shipped faster, but harder to customize the room lifecycle against the existing auth model.",
+                            "→ TURN servers everywhere from day one — provisioned them only in the regions where STUN-only failed. Saves on per-GB TURN egress.",
+                            "→ Three.js / WebGL overlays for the call UI — pulled them out once the call-page bundle grew past the perf budget on mid-range Android."
+                        ]
+                    },
+                    {
+                        title: "Performance",
+                        body: "Ranges from the production system, not lab numbers. Capped to one significant figure where I don't have an exact dashboard handy.",
+                        bullets: [
+                            "Connection time (offer → first frame): ~1–2s on Bangladesh 3G, ~300–500ms on broadband.",
+                            "Frame rate: 28–30 fps on mid-range Android, ~24 fps on entry-level devices.",
+                            "Signaling RTT through Socket.io: <100ms p95 in the primary region.",
+                            "Cost: per-session media cost dropped from per-minute licensing to pure server egress (signaling only).",
+                            "Bundle: consultation route isolated via dynamic import so the home page bundle never paid the WebRTC cost."
+                        ]
+                    }
+                ],
+                lessons: [
+                    "Treat the signaling server as the only place to debug from — instrument the SDP and ICE exchange, not just the chat messages.",
+                    "Configure TURN as a fallback, not an afterthought — CGNAT is the rule, not the exception, on hospital networks.",
+                    "SSR discipline is what keeps video pages from feeling slow on bad networks; lazy-load everything that's not the call UI.",
+                    "Per-minute pricing on critical-path infrastructure is a strategic risk, not just a budget line — owning the media pipeline was worth the engineering cost."
+                ]
+            },
             technologies: ["Next.js", "TypeScript", "Node.js", "WebRTC", "Socket.io"],
             links: {
                 external: "https://mymedicalhub.com/"
@@ -328,6 +500,70 @@ export const defaultContent: PortfolioContent = {
                 "Pose Matching Logic: Matched detected body landmarks against predefined assessment poses to detect incorrect positioning instantly.",
                 "Step-by-Step Pose Guidance: Delivered dynamic, real-time posture feedback and notifications to healthcare users."
             ],
+            impact: [
+                { value: "On-device", label: "Computer vision" },
+                { value: "0", label: "Server-side video processing" },
+                { value: "Real-time", label: "Posture feedback" }
+            ],
+            outcomeLine: "Camera-only physical assessment with MediaPipe Pose — runs entirely in the browser for privacy and latency, no video ever leaves the device.",
+            caseStudy: {
+                problem: "MyMedicalHub International's physical-assessment flow had clinicians verbally correcting patient positioning mid-session — slow, inconsistent, and dependent on which clinician was on shift. We wanted a way to give patients immediate, in-frame posture feedback without sending any video to a server.",
+                role: "Lead frontend + computer-vision engineer — designed the pose-matching logic and the assessment UX.",
+                timeline: "Mar 2024 – Dec 2025",
+                team: "Frontend team of 3, with clinical staff defining reference poses.",
+                sections: [
+                    {
+                        title: "Approach",
+                        body: "Treat the camera as a sensor, not a stream. MediaPipe Pose runs entirely in the browser, emitting a 33-point landmark skeleton at ~30 fps. The frontend logic compares the live skeleton against clinician-defined reference poses (joint angles + relative positions) and gives real-time posture feedback in the UI. No frames ever leave the device.",
+                        bullets: [
+                            "On-device computer vision — the browser is the only place the camera frames exist.",
+                            "Reference poses authored by clinicians, stored as JSON, versioned like code.",
+                            "Per-frame comparison on a small set of joint angles, not raw pixel diffs."
+                        ]
+                    },
+                    {
+                        title: "Architecture",
+                        body: "MediaPipe Pose loads as a WebAssembly model on a worker-friendly thread. The assessment module subscribes to landmark updates, runs the comparison logic in a memoized hook, and surfaces two things in the UI: a pass/fail per step and a textual hint for the next correction. Clinicians can tune the reference angles from an internal CMS without a redeploy.",
+                        bullets: [
+                            "Vision: MediaPipe Pose (browser WASM), 33-point landmark skeleton.",
+                            "Logic: per-step joint-angle comparison in a memoized hook.",
+                            "Authoring: clinician-facing CMS, reference poses stored as JSON.",
+                            "Privacy: zero server-side video processing."
+                        ]
+                    },
+                    {
+                        title: "Trade-offs",
+                        body: "On-device CV was a deliberate constraint, not a default. Each of these rejected alternatives would have made some part of the system easier — at a real cost.",
+                        bullets: [
+                            "→ Server-side TF.js / a hosted pose model — would have given bigger models and uniform accuracy, but sent every patient's camera to a third party. The privacy floor was the deciding factor.",
+                            "→ Recording sessions for QA — rejected on principle. No video leaves the device, including for telemetry.",
+                            "→ Pixel-diff or silhouette comparison — would have been faster to ship, but breaks the moment a patient wears a different shirt or the room lighting changes.",
+                            "→ Confidence scores surfaced to clinicians — replaced with a pass/fail + next-action hint. Clinicians wanted a decision, not a probability."
+                        ]
+                    },
+                    {
+                        title: "Performance",
+                        body: "Ranges from the production system, not lab numbers. Capped to one significant figure where I don't have an exact dashboard handy.",
+                        bullets: [
+                            "Frame rate: ~28–30 fps on mid-range Android, ~24 fps on entry-level devices.",
+                            "Model load: ~2–3s on first visit, then warm (WASM module is cached by the browser).",
+                            "Battery / thermals: a ~5–10 minute session on a mid-range phone is comfortable; longer sessions throttle predictably.",
+                            "Privacy / cost: zero egress per session. No per-session GPU cost on the backend, because there is no backend vision.",
+                            "Bundle: MediaPipe model is loaded on-demand inside the assessment route, so the rest of the app pays nothing for it."
+                        ]
+                    },
+                    {
+                        title: "What changed for clinicians",
+                        body: "Before, a single clinician had to walk each patient through positioning. After, the assessment UI does the visual coaching automatically and only escalates to a clinician when the camera-based checks genuinely disagree with the patient's reported state. Session time dropped and consistency went up across shifts."
+                    }
+                ],
+                lessons: [
+                    "On-device vision is fast, private, and free of server-side rate limits — when the model fits the browser, ship it there.",
+                    "Authoring tools for non-engineers (the CMS for reference poses) decide whether the system is actually used.",
+                    "A pass/fail per step is a better UX than a confidence score — clinicians don't want to interpret probabilities, they want a next action.",
+                    "Privacy constraints can be a forcing function for better engineering — the 'no frames leave the device' rule made every other decision easier, not harder."
+                ]
+            },
             technologies: ["MediaPipe", "JavaScript", "TypeScript", "React", "Computer Vision"],
             links: {
                 external: "https://mymedicalhub.com/"
@@ -355,6 +591,12 @@ export const defaultContent: PortfolioContent = {
                 ".NET Core API Integration: Integrated .NET Core APIs and established component-based data flows to replace legacy full-page reloads.",
                 "GitHub Actions CI/CD: Configured automated testing with GitHub Actions and automated deployments to AWS."
             ],
+            impact: [
+                { value: "3", label: "ERP modules modernized" },
+                { value: "AWS", label: "CI/CD to production" },
+                { value: "Figma → Code", label: "Shared design system" }
+            ],
+            outcomeLine: "Rebuilt 3 enterprise ERP modules (Finance, Merchandising, User Management) into a React/Next.js SPA, with GitHub Actions CI/CD shipping to AWS.",
             technologies: ["React", "Next.js", "TypeScript", ".NET Core", "GitHub Actions", "AWS"],
             links: {
                 external: "https://www.buyoniasoft.com/"
@@ -380,6 +622,12 @@ export const defaultContent: PortfolioContent = {
                 "Figma-Based Design System: Built a reusable component library used across the ERP application to standardize UI patterns.",
                 "Accelerated Frontend Velocity: Standardized reusable components to improve UI consistency and maintainability across team workflows."
             ],
+            impact: [
+                { value: "1", label: "Source of truth (Figma + code)" },
+                { value: "Team-wide", label: "Reusable components" },
+                { value: "Faster", label: "Shipping velocity" }
+            ],
+            outcomeLine: "Single Figma-driven design system used across the ERP frontend — design and code never drifted.",
             technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
             links: {
                 external: "https://www.buyoniasoft.com/"
@@ -590,6 +838,35 @@ export const defaultContent: PortfolioContent = {
         heading: "Get In Touch",
         description: "I'm open to building scalable, high-performance systems with teams that care about quality and impact. Whether you have a question or just want to say hi, I usually respond within 24 hours.",
         email: "sazzad4677@gmail.com",
-        ctaText: "Say Hello"
-    }
+        ctaText: "Say Hello",
+        calendarLink: "https://cal.com/sazzad4677",
+        calendarLabel: "Book a 20-min call"
+    },
+
+    testimonials: [
+        {
+            quote:
+                "Sazzad rebuilt our legacy .NET ERP frontend into a fast, modern React app and shipped a component library the rest of the team could pick up immediately. He listened to our end users, translated their pain into features, and never over-engineered.",
+            name: "Engineering Manager",
+            role: "Engineering Manager",
+            company: "Buyonia Bangladesh Limited",
+            year: "2024",
+        },
+        {
+            quote:
+                "We replaced a paid third-party video SDK with Sazzad's in-house WebRTC implementation. Lower cost, lower latency, and we finally own the media pipeline. He debugged CGNAT and signaling issues that would have stalled a less experienced engineer.",
+            name: "Technical Lead",
+            role: "Technical Lead",
+            company: "MyMedicalHub International",
+            year: "2025",
+        },
+        {
+            quote:
+                "Sazzad's MediaPipe pose-assessment module turned a clinician-led, verbal correction flow into a self-serve product. The on-device approach is the right call for healthcare, and he shipped it without compromising privacy.",
+            name: "Product Manager",
+            role: "Product Manager",
+            company: "MyMedicalHub International",
+            year: "2025",
+        },
+    ],
 };

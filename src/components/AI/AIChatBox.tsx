@@ -2,14 +2,36 @@ import React, { useRef, useEffect, useCallback, useState, useMemo } from "react"
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, Sparkles, User, AlertCircle, RotateCw, Square, Copy, Check } from "lucide-react";
+import {
+    X,
+    Send,
+    Sparkles,
+    User,
+    AlertCircle,
+    RotateCw,
+    Square,
+    Copy,
+    Check,
+} from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { cn } from "@/lib/utils";
 import type { OpenChatDetail } from "@/lib/aiChatEvents";
 
 /** Concatenated text parts of a UI message. */
 function messageText(m: UIMessage): string {
     return m.parts.map((p) => (p.type === "text" ? p.text : "")).join("");
+}
+
+/**
+ * During streaming, an unclosed `**` near the tail would render as a literal
+ * asterisk pair in the user view. Replace any trailing odd-count `**` run
+ * with a zero-width placeholder so the visible text never flashes raw
+ * markdown mid-stream. Once the matching `**` arrives, the mask evaporates
+ * and the proper bold render takes over.
+ */
+function maskIncompleteMarkdown(text: string): string {
+    return text.replace(/(\*{1,3}|_{1,3})$/g, (m) => "\u200b".repeat(m.length));
 }
 
 interface AIChatBoxProps {
@@ -169,13 +191,43 @@ function MarkdownLink({
     );
 }
 
-function CopyButton({ text }: { text: string }) {
+/** Styled fenced code block with a language label and a copy button. */
+function CodeBlock({ children }: { children?: React.ReactNode }) {
+    // react-markdown passes <code className="language-x">…</code> as the child.
+    const codeEl = React.Children.toArray(children).find(
+        (c): c is React.ReactElement<{ className?: string; children?: React.ReactNode }> =>
+            React.isValidElement(c) && (c.type === "code" || (c.props as { className?: string })?.className !== undefined)
+    );
+    const className = (codeEl?.props.className as string | undefined) ?? "";
+    const lang = className.replace(/^language-/, "").trim() || "code";
+    const raw = (codeEl?.props.children ?? "") as React.ReactNode;
+
+    // Flatten nested children to a single string for the clipboard payload.
+    const codeString = React.Children.toArray(raw)
+        .map((c) => (typeof c === "string" ? c : ""))
+        .join("");
+
+    return (
+        <div className="my-2.5 group relative overflow-hidden rounded-md border border-border/40 bg-background/80">
+            <div className="flex items-center justify-between border-b border-border/40 bg-muted/30 px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                <span>{lang}</span>
+                <CopyButton text={codeString} small label="Copy code" />
+            </div>
+            <pre className="overflow-x-auto p-3 text-[12px] leading-relaxed text-foreground/95">
+                <code className={className || "font-mono"}>{raw}</code>
+            </pre>
+        </div>
+    );
+}
+
+function CopyButton({ text, small, label }: { text: string; small?: boolean; label?: string }) {
     const [copied, setCopied] = useState(false);
+    const baseLabel = label ?? "Copy response";
     return (
         <button
             type="button"
-            aria-label="Copy response"
-            title="Copy response"
+            aria-label={baseLabel}
+            title={baseLabel}
             onClick={async () => {
                 try {
                     await navigator.clipboard.writeText(text);
@@ -185,10 +237,13 @@ function CopyButton({ text }: { text: string }) {
                     /* no-op */
                 }
             }}
-            className="opacity-60 hover:opacity-100 transition-opacity inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-widest text-muted-foreground"
+            className={cn(
+                "opacity-60 hover:opacity-100 transition-opacity inline-flex items-center gap-1 font-mono uppercase tracking-widest text-muted-foreground",
+                small ? "text-[10px]" : "text-[10px]"
+            )}
         >
             {copied ? <Check size={11} /> : <Copy size={11} />}
-            {copied ? "Copied" : "Copy"}
+            {copied ? "Copied" : small ? "Copy" : baseLabel.replace(/^Copy\s*/, "")}
         </button>
     );
 }
@@ -451,38 +506,142 @@ export default function AIChatBox({
                                     >
                                         {m.role === "assistant" ? (
                                             <ReactMarkdown
+                                                remarkPlugins={[remarkGfm]}
                                                 components={{
                                                     p: ({ children }) => (
-                                                        <p className="mb-2 last:mb-0">{children}</p>
+                                                        <p className="mb-2.5 last:mb-0 leading-relaxed">
+                                                            {children}
+                                                        </p>
                                                     ),
                                                     strong: ({ children }) => (
                                                         <strong className="font-semibold text-foreground">
                                                             {children}
                                                         </strong>
                                                     ),
-                                                    code: ({ children }) => (
-                                                        <code className="px-1 py-0.5 rounded bg-background/60 font-mono text-xs text-primary border border-border/40">
+                                                    em: ({ children }) => (
+                                                        <em className="italic text-foreground/90">
                                                             {children}
-                                                        </code>
+                                                        </em>
+                                                    ),
+                                                    del: ({ children }) => (
+                                                        <del className="text-muted-foreground line-through">
+                                                            {children}
+                                                        </del>
+                                                    ),
+                                                    code: ({ className, children }) => {
+                                                        // Block code (inside a <pre>) gets styled by the pre
+                                                        // override below. Inline `code` only here.
+                                                        const isBlock =
+                                                            typeof className === "string" &&
+                                                            className.startsWith("language-");
+                                                        if (isBlock) {
+                                                            return (
+                                                                <code className={className}>
+                                                                    {children}
+                                                                </code>
+                                                            );
+                                                        }
+                                                        return (
+                                                            <code className="px-1.5 py-0.5 rounded bg-background/70 font-mono text-[0.82em] text-primary border border-border/40">
+                                                                {children}
+                                                            </code>
+                                                        );
+                                                    },
+                                                    pre: ({ children }) => (
+                                                        <CodeBlock>{children}</CodeBlock>
                                                     ),
                                                     ul: ({ children }) => (
-                                                        <ul className="list-disc list-inside space-y-0.5 mb-2 last:mb-0">
+                                                        <ul className="list-disc list-outside pl-5 space-y-1 mb-2.5 last:mb-0 marker:text-primary/70">
                                                             {children}
                                                         </ul>
                                                     ),
                                                     ol: ({ children }) => (
-                                                        <ol className="list-decimal list-inside space-y-0.5 mb-2 last:mb-0">
+                                                        <ol className="list-decimal list-outside pl-5 space-y-1 mb-2.5 last:mb-0 marker:text-primary/70 marker:font-mono">
                                                             {children}
                                                         </ol>
                                                     ),
+                                                    li: ({ children }) => (
+                                                        <li className="leading-relaxed">
+                                                            {children}
+                                                        </li>
+                                                    ),
+                                                    // GFM task list: <input type="checkbox" disabled>
+                                                    input: ({ type, checked, disabled }) => {
+                                                        if (type !== "checkbox") return null;
+                                                        return (
+                                                            <input
+                                                                type="checkbox"
+                                                                checked={!!checked}
+                                                                disabled={disabled}
+                                                                readOnly
+                                                                className="mr-2 h-3.5 w-3.5 accent-primary align-middle"
+                                                            />
+                                                        );
+                                                    },
                                                     a: ({ href, children }) => (
                                                         <MarkdownLink href={href}>
                                                             {children}
                                                         </MarkdownLink>
                                                     ),
+                                                    h1: ({ children }) => (
+                                                        <h1 className="text-base font-semibold text-foreground mt-2 mb-1.5">
+                                                            {children}
+                                                        </h1>
+                                                    ),
+                                                    h2: ({ children }) => (
+                                                        <h2 className="text-sm font-semibold text-foreground mt-2 mb-1.5">
+                                                            {children}
+                                                        </h2>
+                                                    ),
+                                                    h3: ({ children }) => (
+                                                        <h3 className="text-sm font-semibold text-foreground/90 mt-1.5 mb-1">
+                                                            {children}
+                                                        </h3>
+                                                    ),
+                                                    h4: ({ children }) => (
+                                                        <h4 className="text-sm font-semibold text-foreground/90 mt-1.5 mb-1">
+                                                            {children}
+                                                        </h4>
+                                                    ),
+                                                    blockquote: ({ children }) => (
+                                                        <blockquote className="my-2 border-l-2 border-primary/60 pl-3 text-foreground/85 italic">
+                                                            {children}
+                                                        </blockquote>
+                                                    ),
+                                                    hr: () => (
+                                                        <hr className="my-3 border-border/40" />
+                                                    ),
+                                                    table: ({ children }) => (
+                                                        <div className="my-2 overflow-x-auto rounded-md border border-border/40">
+                                                            <table className="w-full text-xs">
+                                                                {children}
+                                                            </table>
+                                                        </div>
+                                                    ),
+                                                    thead: ({ children }) => (
+                                                        <thead className="bg-muted/40 border-b border-border/40">
+                                                            {children}
+                                                        </thead>
+                                                    ),
+                                                    tbody: ({ children }) => <tbody>{children}</tbody>,
+                                                    tr: ({ children }) => (
+                                                        <tr className="border-b border-border/30 last:border-0">
+                                                            {children}
+                                                        </tr>
+                                                    ),
+                                                    th: ({ children }) => (
+                                                        <th className="px-2.5 py-1.5 text-left font-semibold text-foreground">
+                                                            {children}
+                                                        </th>
+                                                    ),
+                                                    td: ({ children }) => (
+                                                        <td className="px-2.5 py-1.5 align-top text-foreground/90">
+                                                            {children}
+                                                        </td>
+                                                    ),
                                                 }}
                                             >
-                                                {text}
+                                                {maskIncompleteMarkdown(text)}
                                             </ReactMarkdown>
                                         ) : (
                                             text
